@@ -1,2 +1,4 @@
-package dev.team4.portfoliotracker.controllers;public class TransactionController {
+package dev.team4.portfoliotracker.controllers;
+
+public class TransactionController {
 }
