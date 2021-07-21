@@ -15,18 +15,27 @@ public class Transaction {
     @Column(name = "transaction_id")
     private int transactionId;
 
+    // maybe we don't need this
+    @Column(name = "user_Id")
+    private int userId;
+
     @Column(name = "share_amount")
     private double shareAmount;
 
     @Column(name = "share_price")
     private double sharePrice;
 
+    @Column(name = "note")
+    private String note;
+
     public Transaction() {
     }
 
-    public Transaction(double shareAmount, double sharePrice) {
+    public Transaction(int userId, double shareAmount, double sharePrice, String note) {
+        this.userId = userId;
         this.shareAmount = shareAmount;
         this.sharePrice = sharePrice;
+        this.note = note;
     }
 
     public int getTransactionId() {
@@ -35,6 +44,14 @@ public class Transaction {
 
     public void setTransactionId(int transactionId) {
         this.transactionId = transactionId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public double getShareAmount() {
@@ -53,25 +70,35 @@ public class Transaction {
         this.sharePrice = sharePrice;
     }
 
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transaction that = (Transaction) o;
-        return transactionId == that.transactionId && Double.compare(that.shareAmount, shareAmount) == 0 && Double.compare(that.sharePrice, sharePrice) == 0;
+        return transactionId == that.transactionId && userId == that.userId && Double.compare(that.shareAmount, shareAmount) == 0 && Double.compare(that.sharePrice, sharePrice) == 0 && Objects.equals(note, that.note);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(transactionId, shareAmount, sharePrice);
+        return Objects.hash(transactionId, userId, shareAmount, sharePrice, note);
     }
 
     @Override
     public String toString() {
         return "Transaction{" +
                 "transactionId=" + transactionId +
+                ", userId=" + userId +
                 ", shareAmount=" + shareAmount +
                 ", sharePrice=" + sharePrice +
+                ", note=" + note +
                 '}';
     }
 }
