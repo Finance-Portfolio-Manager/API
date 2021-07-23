@@ -9,4 +9,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "user-stock")
 public class Stock {
+
+
+
 }
