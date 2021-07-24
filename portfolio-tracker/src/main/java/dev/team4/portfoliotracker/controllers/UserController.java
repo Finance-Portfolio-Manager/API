@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private UserServiceImpl userService;
 
-    @PostMapping("/register")
+    @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")
     public ResponseEntity<User> createNewUser(@RequestBody User user){
         return new ResponseEntity<User>(userService.createUser(user), HttpStatus.CREATED);
     }
@@ -31,6 +32,7 @@ public class UserController {
 
     @DeleteMapping(consumes = "application/json")
     public ResponseEntity<String> deleteUser(@RequestBody User user){
-        return ResponseEntity.ok("User deleted");
+        userService.removeUser(user);
+        return new ResponseEntity<>("User Deleted", HttpStatus.OK);
     }
 }

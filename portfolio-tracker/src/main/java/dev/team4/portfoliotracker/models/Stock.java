@@ -9,21 +9,23 @@ import org.springframework.stereotype.Component;
 @Table(name = "user_stocks")
 public class Stock {
 	
-	@Id
-	@Column
+	@Column(name = "user_id")
 	private int userId;
-	
+
 	@Id
-	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "stock_id")
 	private int stockId;
 	
-	@Column
-	private int stockQuantity;
+	@Column(name = "stock_quantity")
+	private double stockQuantity;
 
-	public Stock(int userId, int stockId, int stockQuantity) {
+	public Stock() {
+	}
+
+	public Stock(int userId, double stockQuantity) {
 		super();
 		this.userId = userId;
-		this.stockId = stockId;
 		this.stockQuantity = stockQuantity;
 	}
 
@@ -43,11 +45,11 @@ public class Stock {
 		this.stockId = stockId;
 	}
 
-	public int getStockQuantity() {
+	public double getStockQuantity() {
 		return stockQuantity;
 	}
 
-	public void setStockQuantity(int stockQuantity) {
+	public void setStockQuantity(double stockQuantity) {
 		this.stockQuantity = stockQuantity;
 	}
 

@@ -22,11 +22,9 @@ public class StockController {
 	StockService stockServ;
 	
 	@PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Stock> addStock(@RequestParam(value = "userId")int userId,
-    										@RequestParam(value = "stockId")int stockId,
-    										@RequestParam(value = "stockQuantity")int stockQuantity) {
-		
-		return new ResponseEntity<Stock>(stockServ.addStock(userId, stockId, stockQuantity), HttpStatus.OK);
+    public ResponseEntity<Stock> addStock(@RequestBody Stock stock) {
+		stockServ.addStock(stock);
+		return new ResponseEntity<>(stock, HttpStatus.OK);
     }
 	
 	@DeleteMapping(consumes = "application/json")
@@ -43,7 +41,7 @@ public class StockController {
 		return new ResponseEntity<>(HttpStatus.OK);
     }
 	
-	@GetMapping(produces = "application/json")
+	@GetMapping(value = "/{stockId}", produces = "application/json")
     public ResponseEntity<Stock> getStock(@PathVariable("userId")int userId, @PathVariable("stockId")int stockId) {
 		
 		return new ResponseEntity<Stock>(stockServ.getStock(userId, stockId), HttpStatus.OK);

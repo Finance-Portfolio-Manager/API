@@ -18,20 +18,25 @@ public class StockServiceImpl implements StockService{
 	StockRepository stockRepo;
 
 	@Override
-	public Stock addStock(int userId, int stockId, int stockQuantity) {
-		Stock s = new Stock(userId, stockId, stockQuantity);
+	public Stock addStock(Stock stock) {
+		return stockRepo.save(stock);
+	}
+
+	@Override
+	public Stock addStock(int userId, double stockQuantity) {
+		Stock s = new Stock(userId, stockQuantity);
 		return stockRepo.save(s);
 	}
 
 	@Override
 	public void deleteStock(int userId, int stockId) {
-		Stock s = stockRepo.findStockById(userId, stockId);
+		Stock s = stockRepo.findStockByUserIdAndStockId(userId, stockId);
 		stockRepo.delete(s);
 	}
 
 	@Override
 	public void updateStockQuantity(int userId, int stockId, int stockQuantity) {
-		Stock s = stockRepo.findStockById(userId, stockId);
+		Stock s = stockRepo.findStockByUserIdAndStockId(userId, stockId);
 		s.setUserId(userId);
 		s.setStockId(stockId);
 		s.setStockQuantity(stockQuantity);
@@ -40,11 +45,11 @@ public class StockServiceImpl implements StockService{
 
 	@Override
 	public Stock getStock(int userId, int stockId) {
-		return stockRepo.findStockById(userId, stockId);
+		return stockRepo.findStockByUserIdAndStockId(userId, stockId);
 	}
 
 	@Override
 	public List<Stock> getAllStocks(int userId) {
-		return stockRepo.findAllUserStocks(userId);
+		return stockRepo.findAllStocksByUserId(userId);
 	}
 }

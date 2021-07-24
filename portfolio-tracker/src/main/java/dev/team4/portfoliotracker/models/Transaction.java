@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Component
 @Entity
-@Table(name = "stock-transaction")
+@Table(name = "transaction")
 public class Transaction {
 
     @Id
