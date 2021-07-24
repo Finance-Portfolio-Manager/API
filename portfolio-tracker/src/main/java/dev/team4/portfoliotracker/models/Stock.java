@@ -6,14 +6,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-@Table(name = "user-stocks")
+@Table(name = "user_stocks")
 public class Stock {
-<<<<<<< HEAD
-
-
-
-}
-=======
 	
 	@Id
 	@Column
@@ -74,4 +68,3 @@ public class Stock {
 	}
 
 }
->>>>>>> origin/stocks
