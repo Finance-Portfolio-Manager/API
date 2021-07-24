@@ -15,9 +15,16 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     TransactionRepository txnRepo;
 
+
+
     @Override
-    public List<Transaction> getAllTransactions(int userId) {
+    public List<Transaction> getAllTransactionsByUserId(int userId) {
         return txnRepo.findAllTransactionsByUserId(userId);
+    }
+
+    @Override
+    public List<Transaction> getAllTransactions() {
+        return txnRepo.findAll();
     }
 
     @Override
@@ -26,8 +33,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public Transaction addTransaction(int userId, double shareAmount, double sharePrice, String note) {
-        Transaction txn = new Transaction(userId, shareAmount, sharePrice, note);
+    public Transaction addTransaction(Transaction txn) {
         return txnRepo.save(txn);
     }
 
@@ -40,7 +46,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public void deleteTransaction(int transactionId, int userId) {
+    public void deleteTransaction(int transactionId) {
         txnRepo.deleteById(transactionId);
     }
 }

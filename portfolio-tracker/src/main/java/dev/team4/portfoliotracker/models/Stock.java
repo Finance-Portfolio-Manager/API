@@ -4,6 +4,8 @@ import javax.persistence.*;
 
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 @Component
 @Entity
 @Table(name = "user_stocks")
@@ -54,11 +56,16 @@ public class Stock {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		Stock s = (Stock) obj;
-		return (userId == s.userId  && 
-				stockId == s.stockId && 
-				stockQuantity == s.stockQuantity);
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Stock stock = (Stock) o;
+		return userId == stock.userId && stockId == stock.stockId && Double.compare(stock.stockQuantity, stockQuantity) == 0;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(userId, stockId, stockQuantity);
 	}
 
 	@Override

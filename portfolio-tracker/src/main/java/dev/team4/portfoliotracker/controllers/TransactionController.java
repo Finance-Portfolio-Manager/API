@@ -18,30 +18,26 @@ import java.util.Map;
 public class TransactionController {
 
     @Autowired
-    TransactionService transactionService;
+    TransactionService txnService;
 
-    @GetMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<List<Transaction>> getAllTransactions(HttpServletRequest request, @PathVariable("userId") int userId) {
-
-        List<Transaction> transactions = new ArrayList<>();
-
-        return new ResponseEntity<>(transactions, HttpStatus.OK);
+    @GetMapping(produces = "application/json")
+    public ResponseEntity<List<Transaction>> getAllTransactions(@RequestParam(value = "userId", required = false) Integer userId) {
+        if (userId!=null) {
+            return new ResponseEntity<>(txnService.getAllTransactionsByUserId(userId), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(txnService.getAllTransactions(), HttpStatus.OK);
+        }
     }
 
-    @GetMapping(value = "/{transactionId}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Transaction> getTransactionById(HttpServletRequest request, @PathVariable("userId") int userId) {
-
-        Transaction transaction = new Transaction();
-
-        return new ResponseEntity<>(transaction, HttpStatus.OK);
+    @GetMapping(value = "/{transactionId}", produces = "application/json")
+    public ResponseEntity<Transaction> getTransactionById(HttpServletRequest request, @PathVariable("transactionId") int transactionId) {
+//        int userId = request.getAttribute("userId");
+        return new ResponseEntity<>(txnService.getTransactionById(transactionId), HttpStatus.OK);
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Transaction> addTransaction(HttpServletRequest request, @PathVariable("userId") int userId) {
-
-        Transaction transaction = new Transaction();
-
-        return new ResponseEntity<>(transaction, HttpStatus.CREATED);
+    public ResponseEntity<Transaction> addTransaction(HttpServletRequest request, @RequestBody Transaction txn) {
+        return new ResponseEntity<>(txnService.addTransaction(txn), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{transactionId}", consumes = "application/json")
@@ -52,9 +48,10 @@ public class TransactionController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/{transactionId}", consumes = "application/json")
-    public ResponseEntity<Map<String, Boolean>> deleteTransaction(HttpServletRequest request, @PathVariable("userId") int userId, @PathVariable("transactionId") int transactionId) {
-
+    @DeleteMapping(value = "/{transactionId}")
+    public ResponseEntity<Map<String, Boolean>> deleteTransaction(HttpServletRequest request, @PathVariable("transactionId") int transactionId) {
+//        int userId = request.getAttribute("userId");
+        txnService.deleteTransaction(transactionId);
         Map<String, Boolean> map = new HashMap<>();
         map.put("success", true);
         return new ResponseEntity<>(map, HttpStatus.OK);
