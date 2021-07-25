@@ -40,7 +40,6 @@ public class StockServiceImpl implements StockService{
 		s.setUserId(userId);
 		s.setStockId(stockId);
 		s.setStockQuantity(stockQuantity);
-		stockRepo.save(s);
 	}
 
 	@Override
