@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 8080
 
 management:
   endpoints:
@@ -9,9 +9,9 @@ management:
 
 spring:
   datasource:
-    url: jdbc:postgresql://training-db.cqnsz9u6mm7d.us-east-2.rds.amazonaws.com:5432/postgres?currentSchema=project-2
-    username: ${DB_USER}
-    password: ${DB_PASS}
+    url: jdbc:postgresql://database-1.cs1tymkociae.us-east-2.rds.amazonaws.com:5432/postgres
+    username: postgres
+    password: anderson
   jpa:
     show-sql: true
     generate-ddl: true

@@ -23,7 +23,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "password hidden for security";
+        return password;
     }
 
     @Override
