@@ -1,0 +1,43 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+
+
+    <div class="fadeIn first">
+      <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+    </div>
+    <form class="form-signin" id="login-form">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <label for="inputUsername" class="sr-only">Username</label>
+        <input
+          type="text"
+          id="inputUsername"
+          name="username"
+          class="form-control"
+          placeholder="Username"
+        />
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input
+          type="text"
+          id="inputPassword"
+          name="password"
+          class="form-control"
+          placeholder="Password"
+        />
+        <button type="button" class="btn btn-primary btn-lg" type="submit">
+          Sign in
+        </button>
+        <div hidden id="error-credentials" class="text-danger">Invalid username or password, please try again.</div>
+        <div hidden id="error-network" class="text-danger">Uh oh, it seems we're having some issues. Please try again later.</div>
+      </form>
+    <div id="formFooter">
+      <a class="underlineHover" href="#">New user? Click here to register!</a>
+    </div>
+
+  </div>
+</div>
+  <script src="login.component.js"></script>
