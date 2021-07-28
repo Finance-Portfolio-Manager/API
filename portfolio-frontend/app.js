@@ -6,8 +6,8 @@ window.addEventListener("hashchange", route);
 // when #/all -> fetch "components/directory-component/directory.component.html"
 const routes = [
     {path: "", componentFileName: "home"},
-    {path: "#/all", componentFileName: "directory"},
-    {path: "#/new", componentFileName: "new-track"},
+    {path: "#/all", componentFileName: "portfolio"},
+    {path: "#/new", componentFileName: "new-txn"},
     {path: "#/login", componentFileName: "login"},
     {path: "#/register", componentFileName: "register"}
 ]
