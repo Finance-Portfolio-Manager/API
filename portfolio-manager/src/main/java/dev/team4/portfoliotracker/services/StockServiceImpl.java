@@ -23,28 +23,27 @@ public class StockServiceImpl implements StockService{
 	}
 
 	@Override
-	public Stock addStock(int userId, double stockQuantity) {
-		Stock s = new Stock(userId, stockQuantity);
+	public Stock addStock(int userId, String stockSymbol, double stockQuantity) {
+		Stock s = new Stock(userId, stockSymbol, stockQuantity);
 		return stockRepo.save(s);
 	}
 
 	@Override
-	public void deleteStock(int userId, int stockId) {
-		Stock s = stockRepo.findStockByUserIdAndStockId(userId, stockId);
+	public void deleteStock(int stockId) {
+		Stock s = stockRepo.findStockByStockId(stockId);
 		stockRepo.delete(s);
 	}
 
 	@Override
-	public void updateStockQuantity(int userId, int stockId, int stockQuantity) {
-		Stock s = stockRepo.findStockByUserIdAndStockId(userId, stockId);
-		s.setUserId(userId);
+	public void updateStockQuantity(int stockId, int stockQuantity) {
+		Stock s = stockRepo.findStockByStockId(stockId);
 		s.setStockId(stockId);
 		s.setStockQuantity(stockQuantity);
 	}
 
 	@Override
-	public Stock getStock(int userId, int stockId) {
-		return stockRepo.findStockByUserIdAndStockId(userId, stockId);
+	public Stock getStock(int stockId) {
+		return stockRepo.findStockByStockId(stockId);
 	}
 
 	@Override

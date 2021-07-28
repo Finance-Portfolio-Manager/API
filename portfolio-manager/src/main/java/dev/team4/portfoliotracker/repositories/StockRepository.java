@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import dev.team4.portfoliotracker.models.Stock;
 
 public interface StockRepository extends JpaRepository<Stock, Integer> {
-	Stock findStockByUserIdAndStockId(int userId, int stockId);
+	Stock findStockByStockId(int stockId);
 	List<Stock> findAllStocksByUserId(int userId);
 }

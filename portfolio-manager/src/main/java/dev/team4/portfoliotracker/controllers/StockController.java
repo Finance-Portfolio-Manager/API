@@ -15,39 +15,39 @@ import dev.team4.portfoliotracker.services.StockService;
 import dev.team4.portfoliotracker.models.*;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/stocks")
 public class StockController {
 	
 	@Autowired
 	StockService stockServ;
 	
-	@PostMapping(consumes = "application/json", produces = "application/json")
+	@PostMapping(value = "/add", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Stock> addStock(@RequestBody Stock stock) {
 		stockServ.addStock(stock);
 		return new ResponseEntity<>(stock, HttpStatus.OK);
     }
 	
-	@DeleteMapping(consumes = "application/json")
-	public ResponseEntity<Stock> deleteStock(@PathVariable("userId")int userId, @PathVariable("stockId")int stockId){
-		stockServ.deleteStock(userId, stockId);
+	@DeleteMapping(value = "/delete", consumes = "application/json")
+	public ResponseEntity<Stock> deleteStock(@RequestBody int stockId){
+		stockServ.deleteStock(stockId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@PutMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Stock> updateStockQuantity(@RequestParam(value = "userId")int userId,
-														@RequestParam(value = "stockId")int stockId,
+    public ResponseEntity<Stock> updateStockQuantity(@RequestParam(value = "stockId")int stockId,
 														@RequestParam(value = "stockQuantity")int stockQuantity) {
-		stockServ.updateStockQuantity(userId, stockId, stockQuantity);
+		stockServ.updateStockQuantity(stockId, stockQuantity);
 		return new ResponseEntity<>(HttpStatus.OK);
     }
 	
 	@GetMapping(value = "/{stockId}", produces = "application/json")
-    public ResponseEntity<Stock> getStock(@PathVariable("userId")int userId, @PathVariable("stockId")int stockId) {
+    public ResponseEntity<Stock> getStock(@PathVariable("stockId")int stockId) {
 		
-		return new ResponseEntity<Stock>(stockServ.getStock(userId, stockId), HttpStatus.OK);
+		return new ResponseEntity<Stock>(stockServ.getStock(stockId), HttpStatus.OK);
     }
 	
-	@GetMapping(produces = "application/json")
+	@GetMapping(value = "/{userId}", produces = "application/json")
     public ResponseEntity<List<Stock>> getAllStocks(@PathVariable("userId")int userId) {
 		
 		return new ResponseEntity<List<Stock>>(stockServ.getAllStocks(userId), HttpStatus.OK);

@@ -1,0 +1,25 @@
+server:
+  port: 8082
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+spring:
+  datasource:
+    url: jdbc:postgresql://database-1.cs1tymkociae.us-east-2.rds.amazonaws.com:5432/postgres
+    username: postgres
+    password: anderson
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    jackson:
+      serialization:
+        fail-on-empty-beans: false
