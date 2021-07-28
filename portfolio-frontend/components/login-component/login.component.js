@@ -2,8 +2,6 @@
 document.getElementById("login-form").addEventListener("submit", function(login){
     login.preventDefault();
 
-    const username = document.getElementById("inputUsername").value;
-    const password = document.getElementById("inputPassword").value;
     const credentials = {
     username:document.getElementById("inputUsername").value,
     password:document.getElementById("inputPassword").value
@@ -20,15 +18,16 @@ document.getElementById("login-form").addEventListener("submit", function(login)
     }).then((data) => {
         sessionStorage.setItem("Authorization", data.jwt)
         if(data.jwt==undefined){
-            const errorDiv = document.getElementById("error-credentials");
-            errorDiv.hidden = false;
+            const userError = document.getElementById("error-credentials");
+            userError.hidden = false;
         } else if (data.jwt != null && data.jwt != undefined){
             window.location.href = "./#/home";
-        } else {
-            const errorDiv = document.getElementById("error-network");
-            errorDiv.hidden = false;
-        }  
+         }  
     }).catch((error) => {
-        console.error(error);
+        if(TypeError){
+            const networkError = document.getElementById("error-network");
+            networkError.hidden = false;
+        }
+        
     })
 });

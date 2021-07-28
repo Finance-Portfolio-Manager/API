@@ -37,6 +37,10 @@ html {
     min-height: 100%;
     padding: 20px;
   }
+
+  .link-register {
+    color:#1d8fc9;
+  }
   
   #formContent {
     -webkit-border-radius: 10px 10px 10px 10px;
@@ -61,7 +65,11 @@ html {
     border-radius: 0 0 10px 10px;
   }
   
-  
+  #sign-in-button {
+    padding-left: 40px;
+    padding-right: 40px;
+    margin: 10px;
+  }
   
   /* TABS */
   
@@ -112,7 +120,7 @@ html {
     transform: scale(0.95);
   }
   
-  input[type=text] {
+  input[class=text] {
     background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;
@@ -124,21 +132,21 @@ html {
     margin: 5px;
     width: 85%;
     border: 2px solid #f6f6f6;
-    -webkit-transition: all 0.5s ease-in-out;
+    /* -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
     -ms-transition: all 0.5s ease-in-out;
     -o-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out; */
     -webkit-border-radius: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
   }
   
-  input[type=text]:focus {
+  input[class=text]:focus {
     background-color: #fff;
     border-bottom: 2px solid #5fbae9;
   }
   
-  input[type=text]:placeholder {
+  input[class=text]:placeholder {
     color: #cccccc;
   }
   
