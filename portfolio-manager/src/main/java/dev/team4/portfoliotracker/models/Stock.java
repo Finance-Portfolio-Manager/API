@@ -19,15 +19,19 @@ public class Stock {
 	@Column(name = "stock_id")
 	private int stockId;
 	
+	@Column(name = "stock_symbol")
+	private String stockSymbol;
+	
 	@Column(name = "stock_quantity")
 	private double stockQuantity;
 
 	public Stock() {
 	}
 
-	public Stock(int userId, double stockQuantity) {
+	public Stock(int userId, String stockSymbol, double stockQuantity) {
 		super();
 		this.userId = userId;
+		this.stockSymbol = stockSymbol;
 		this.stockQuantity = stockQuantity;
 	}
 
@@ -37,6 +41,14 @@ public class Stock {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public String getStockSymbol() {
+		return stockSymbol;
+	}
+
+	public void setStockSymbol(String stockSymbol) {
+		this.stockSymbol = stockSymbol;
 	}
 
 	public int getStockId() {
@@ -60,7 +72,9 @@ public class Stock {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Stock stock = (Stock) o;
-		return userId == stock.userId && stockId == stock.stockId && Double.compare(stock.stockQuantity, stockQuantity) == 0;
+		return userId == stock.userId && stockId == stock.stockId && 
+				stockSymbol.equalsIgnoreCase(stock.stockSymbol) && 
+				Double.compare(stock.stockQuantity, stockQuantity) == 0;
 	}
 
 	@Override
@@ -73,6 +87,7 @@ public class Stock {
 		return "\nStock: \n" +
 				"userId: " + userId + "\n" +
 				"stockId: " + stockId + "\n" +
+				"stockSymbol: " + stockSymbol + "\n" +
 				"stockQuantity: " + stockQuantity;
 	}
 

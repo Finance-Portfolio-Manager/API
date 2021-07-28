@@ -6,9 +6,9 @@ import dev.team4.portfoliotracker.models.Stock;
 
 public interface StockService {
 	Stock addStock(Stock stock);
-	Stock addStock(int userId, double stockQuantity);
-	void deleteStock(int userId, int stockId);
-	void updateStockQuantity(int userId, int stockId, int stockQuantity);
-	Stock getStock(int userId, int stockId);
+	Stock addStock(int userId, String stockSymbol, double stockQuantity);
+	void deleteStock(int stockId);
+	void updateStockQuantity(int stockId, int stockQuantity);
+	Stock getStock(int stockId);
 	List<Stock> getAllStocks(int userId);
 }
