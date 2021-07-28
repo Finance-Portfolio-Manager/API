@@ -9,6 +9,7 @@ const routes = [
     {path: "#/all", componentFileName: "directory"},
     {path: "#/new", componentFileName: "new-track"},
     {path: "#/login", componentFileName: "login"},
+    {path: "#/register", componentFileName: "register"}
 ]
 
 
