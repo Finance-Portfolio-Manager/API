@@ -30,28 +30,37 @@
     <title>Portfolio Manager</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="collapse navbar-collapse"></div>
+    <nav style="float:none; text-align: center;" class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mx-auto">
           <li class="nav-item active">
-            <a style="margin-left: 20px; margin-right: 20px;" class="nav-link" href="/">Home</a>
+            <a style="margin-left: 20px; margin-right: 20px;" class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a hidden id="nav-port" style="margin-left: 20px; margin-right: 20px;" class="nav-link" href="#/all">Portfolio</a>
+            <a style="margin-left: 20px; margin-right: 20px;" class="nav-link" href="#/portfolio">Portfolio</a>
           </li>
           <li class="nav-item">
-            <a hidden id="nav-txn" class="nav-link" href="#/new">Add Transaction</a>
+            <a id="nav-port" style="margin-left: 20px; margin-right: 20px;" class="nav-link" href="#/new">Stock Transaction</a>
           </li>
           <li class="nav-item">
             <a hidden id="toggle-nav-1" style="margin-left: 20px; margin-right: 20px;" class="nav-link" href="#/login">Log In</a>
           </li>
-          <li id="nav-toggle" class="nav-item">
-            <!-- <a hidden style="margin-left: 20px; margin-right: 20px;" href="#/login">Account</a> -->
+          <li class="nav-item">
+            <a hidden id="toggle-nav-2" style="margin-left: 20px; margin-right: 20px;" class="nav-link" href="#/register">Register</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a style="margin-left: 20px; margin-right: 20px;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Log out</a>
+              <a class="dropdown-item" href="#">Delete my account</a>
+            </div>
           </li>
         </ul>
       </div>
     </nav>
+  
     <div id="app-root" class="container">
     </div>
     <script src="app.js"></script>

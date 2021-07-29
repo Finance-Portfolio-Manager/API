@@ -23,9 +23,9 @@ document.getElementById("login-form").addEventListener("submit", function(login)
         if(data.jwt==undefined){
             userError.hidden = false;
         } else if (data.jwt != null && data.jwt != undefined){
-            document.getElementById("nav-port").hidden = false;
-            document.getElementById("nav-txn").hidden = false;
-            document.getElementById("toggle-nav-1").hidden = true;
+            // document.getElementById("nav-port").hidden = false;
+            // document.getElementById("nav-txn").hidden = false;
+            // document.getElementById("toggle-nav-1").hidden = true;
             window.location.href = "#/overview";
          }  
     }).catch((error) => {

@@ -7,8 +7,12 @@ window.addEventListener("hashchange", navToggle);
 function navToggle(){
     if(sessionStorage.getItem("Authorization")){
         document.getElementById("toggle-nav-1").hidden = true;
+        document.getElementById("toggle-nav-2").hidden = true;
+        document.getElementById("navbarDropdown").hidden = false;
     } else {
         document.getElementById("toggle-nav-1").hidden = false;
+        document.getElementById("toggle-nav-2").hidden = false;
+        document.getElementById("navbarDropdown").hidden = true;
     }
 }
 
@@ -57,5 +61,3 @@ function loadScript(scriptName){
     localScript.type = "module";
     document.body.appendChild(localScript);
 }
-
-
