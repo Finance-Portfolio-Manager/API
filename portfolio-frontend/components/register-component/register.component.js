@@ -61,11 +61,6 @@ function validateInput(firstName, lastName, email, username, password, secondPas
         return false;
     }
     
-    // if(!usernameCheck(username)){
-    //     usernameError.hidden = false;
-    //     return false;
-    // }
-    
     var passCheck = /[\s~`!@#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?()\._]/g;
     if(!passCheck.test(password) || password.length<8){
         passwordError.hidden = false;
@@ -77,11 +72,4 @@ function validateInput(firstName, lastName, email, username, password, secondPas
         return false;
     }
     return true;
-}
-
-function usernameCheck(username){
-    fetch(`http://localhost:8082/register/${username}`, {
-        mode: 'no-cors'
-        }).then(response => console.log(response.json))
-        // .then(data => console.log(data.username))
 }
