@@ -19,6 +19,9 @@ public class Transaction {
     @Column(name = "user_Id")
     private int userId;
 
+    @Column(name = "ticker")
+    private String ticker;
+
     @Column(name = "share_amount")
     private double shareAmount;
 
@@ -31,8 +34,8 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(int userId, double shareAmount, double sharePrice, String note) {
-        this.userId = userId;
+    public Transaction(String ticker, double shareAmount, double sharePrice, String note) {
+        this.ticker = ticker;
         this.shareAmount = shareAmount;
         this.sharePrice = sharePrice;
         this.note = note;
@@ -52,6 +55,14 @@ public class Transaction {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getTicker() {
+        return ticker;
+    }
+
+    public void setTicker(String ticker) {
+        this.ticker = ticker;
     }
 
     public double getShareAmount() {
@@ -83,12 +94,12 @@ public class Transaction {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transaction that = (Transaction) o;
-        return transactionId == that.transactionId && userId == that.userId && Double.compare(that.shareAmount, shareAmount) == 0 && Double.compare(that.sharePrice, sharePrice) == 0 && Objects.equals(note, that.note);
+        return transactionId == that.transactionId && userId == that.userId && Double.compare(that.shareAmount, shareAmount) == 0 && Double.compare(that.sharePrice, sharePrice) == 0 && Objects.equals(ticker, that.ticker) && Objects.equals(note, that.note);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(transactionId, userId, shareAmount, sharePrice, note);
+        return Objects.hash(transactionId, userId, ticker, shareAmount, sharePrice, note);
     }
 
     @Override
@@ -96,9 +107,10 @@ public class Transaction {
         return "Transaction{" +
                 "transactionId=" + transactionId +
                 ", userId=" + userId +
+                ", ticker='" + ticker + '\'' +
                 ", shareAmount=" + shareAmount +
                 ", sharePrice=" + sharePrice +
-                ", note=" + note +
+                ", note='" + note + '\'' +
                 '}';
     }
 }

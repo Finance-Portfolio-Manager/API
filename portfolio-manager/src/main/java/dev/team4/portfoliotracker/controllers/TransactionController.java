@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/transactions")
 public class TransactionController {
 
@@ -35,7 +36,7 @@ public class TransactionController {
         return new ResponseEntity<>(txnService.getTransactionById(transactionId), HttpStatus.OK);
     }
 
-    @PostMapping(consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/new", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Transaction> addTransaction(HttpServletRequest request, @RequestBody Transaction txn) {
         return new ResponseEntity<>(txnService.addTransaction(txn), HttpStatus.CREATED);
     }
