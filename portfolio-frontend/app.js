@@ -4,6 +4,8 @@ window.addEventListener("hashchange", route);
 window.addEventListener("load", navToggle);
 window.addEventListener("hashchange", navToggle);
 
+
+
 function navToggle(){
     if(sessionStorage.getItem("Authorization")){
         document.getElementById("toggle-nav-1").hidden = true;
@@ -57,5 +59,4 @@ function loadScript(scriptName){
     localScript.type = "module";
     document.body.appendChild(localScript);
 }
-
 
