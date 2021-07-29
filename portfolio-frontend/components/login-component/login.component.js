@@ -1,10 +1,6 @@
 
 document.getElementById("login-form").addEventListener("submit", function(login){
     login.preventDefault();
-    const userError = document.getElementById("error-credentials");
-    const networkError = document.getElementById("error-network");
-    userError.hidden = true;
-    networkError.hidden = true;
 
     const credentials = {
     username:document.getElementById("inputUsername").value,
@@ -22,14 +18,14 @@ document.getElementById("login-form").addEventListener("submit", function(login)
     }).then((data) => {
         sessionStorage.setItem("Authorization", data.jwt)
         if(data.jwt==undefined){
-            // const userError = document.getElementById("error-credentials");
+            const userError = document.getElementById("error-credentials");
             userError.hidden = false;
         } else if (data.jwt != null && data.jwt != undefined){
             window.location.href = "./#/home";
          }  
     }).catch((error) => {
         if(TypeError){
-            // const networkError = document.getElementById("error-network");
+            const networkError = document.getElementById("error-network");
             networkError.hidden = false;
         }
         
