@@ -28,6 +28,11 @@ public class UserController {
     @Autowired
     private JwtUtility jwtUtility;
 
+    @GetMapping(value = "register/{username}")
+    public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
+        return new ResponseEntity<>(userDetailsService.getUserByUsername(username), HttpStatus.OK);
+    }
+
     @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")
     public ResponseEntity<User> createNewUser(@RequestBody User user){
         return new ResponseEntity<User>(userDetailsService.createUser(user), HttpStatus.CREATED);

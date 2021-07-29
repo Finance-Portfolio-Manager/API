@@ -1,13 +1,30 @@
 const root = document.getElementById("app-root");
 window.addEventListener("load", route);
 window.addEventListener("hashchange", route);
+window.addEventListener("load", navToggle);
+window.addEventListener("hashchange", navToggle);
+
+function navToggle(){
+    if(sessionStorage.getItem("Authorization")){
+        document.getElementById("toggle-nav-1").hidden = true;
+    } else {
+        document.getElementById("toggle-nav-1").hidden = false;
+    }
+}
 
 
-// when #/all -> fetch "components/directory-component/directory.component.html"
+function hasToken(){
+    if(sessionStorage.getItem("Authorization")){
+        return "overview";
+    } else {
+        return "login";
+    }
+}
+
 const routes = [
-    {path: "", componentFileName: "home"},
-    {path: "#/all", componentFileName: "portfolio"},
-    {path: "#/new", componentFileName: "new-txn"},
+    {path: "", componentFileName: hasToken()},
+    {path: "#/overview", componentFileName: "overview"},
+    {path: "#/new", componentFileName: "new-transaction"},
     {path: "#/login", componentFileName: "login"},
     {path: "#/register", componentFileName: "register"}
 ]
@@ -16,13 +33,6 @@ const routes = [
 function route(){
     const hashPath = location.hash;
     const currentRoute = routes.find(r=>r.path===hashPath);
-    // for(let r of routes){
-    //     if(r.path===hashPath){
-    //         return r;
-    //     }
-    // }
-    // return undefined;
-    
     const viewName = currentRoute?currentRoute.componentFileName:"home";
     renderView(viewName);
 }
@@ -47,3 +57,5 @@ function loadScript(scriptName){
     localScript.type = "module";
     document.body.appendChild(localScript);
 }
+
+
