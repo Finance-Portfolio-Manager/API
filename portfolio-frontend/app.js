@@ -26,6 +26,7 @@ const routes = [
     {path: "#/overview", componentFileName: "overview"},
     {path: "#/new", componentFileName: "new-transaction"},
     {path: "#/login", componentFileName: "login"},
+    {path: "#/register", componentFileName: "register"}
 ]
 
 
