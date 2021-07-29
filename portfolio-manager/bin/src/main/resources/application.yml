@@ -9,9 +9,9 @@ management:
 
 spring:
   datasource:
-    url: jdbc:postgresql://database-1.cs1tymkociae.us-east-2.rds.amazonaws.com:5432/postgres
+    url: jdbc:postgresql://training-db.cqnsz9u6mm7d.us-east-2.rds.amazonaws.com:5432/postgres?currentSchema=project-2
     username: postgres
-    password: anderson
+    password: pa55word
   jpa:
     show-sql: true
     generate-ddl: true

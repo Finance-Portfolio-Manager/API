@@ -28,9 +28,11 @@ public class UserController {
     @Autowired
     private JwtUtility jwtUtility;
 
-    @GetMapping(value = "register/{username}")
+    @GetMapping(value = "/register/{username}")
     public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
-        return new ResponseEntity<>(userDetailsService.getUserByUsername(username), HttpStatus.OK);
+        ResponseEntity<User> re = new ResponseEntity<>(userDetailsService.getUserByUsername(username), HttpStatus.OK);
+        System.out.println(re);
+        return re;
     }
 
     @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")

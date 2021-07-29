@@ -19,7 +19,7 @@ function navToggle(){
 
 function hasToken(){
     if(sessionStorage.getItem("Authorization")){
-        return "overview";
+        return "";
     } else {
         return "login";
     }
@@ -27,8 +27,8 @@ function hasToken(){
 
 const routes = [
     {path: "", componentFileName: hasToken()},
-    {path: "#/overview", componentFileName: "overview"},
     {path: "#/new", componentFileName: "new-transaction"},
+    {path: "#/portfolio", componentFileName: "portfolio"},
     {path: "#/login", componentFileName: "login"},
     {path: "#/register", componentFileName: "register"}
 ]
