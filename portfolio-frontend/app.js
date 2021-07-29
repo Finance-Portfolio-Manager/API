@@ -61,3 +61,9 @@ function loadScript(scriptName){
     localScript.type = "module";
     document.body.appendChild(localScript);
 }
+
+document.getElementById("log-out").addEventListener("click", function(logout){
+    logout.preventDefault();
+    sessionStorage.removeItem("Authorization");
+    window.location.href = "#/login";
+});
