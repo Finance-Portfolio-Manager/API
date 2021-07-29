@@ -24,6 +24,7 @@ public class UserDetailsService implements org.springframework.security.core.use
     }
 
     public User getUserByUsername(String username){
+        System.out.println(username);
         return userRepository.findByUsername(username);
     }
 

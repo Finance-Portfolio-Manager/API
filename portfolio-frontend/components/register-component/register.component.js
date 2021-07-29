@@ -1,5 +1,8 @@
 document.getElementById("registration-form").addEventListener("submit", function(register){
     register.preventDefault(); 
+    
+    var usernameError = document.getElementById("username-error");
+    usernameError.hidden = true;
 
     var firstName = document.getElementById("first-name").value;
     var lastName = document.getElementById("last-name").value;
@@ -25,7 +28,12 @@ document.getElementById("registration-form").addEventListener("submit", function
                 }),
                 body: JSON.stringify(credentials)
             }).then(response => response.json())
-                .then(data => console.log(data))
+                .then(data => {
+                    console.log(data);
+                    if(data.status<200 || data.status>299){
+                        usernameError.hidden = false;
+                    }
+                })
                 .catch(error => console.error(error));
     } 
 });
@@ -35,8 +43,6 @@ function validateInput(firstName, lastName, email, username, password, secondPas
     nameError.hidden = true;
     var emailError = document.getElementById("email-error");
     emailError.hidden = true;
-    var usernameError = document.getElementById("username-error");
-    usernameError.hidden = true;
     var passwordError = document.getElementById("password-error");
     passwordError.hidden = true;
     var retypePasswordError = document.getElementById("retype-password-error");
@@ -55,10 +61,10 @@ function validateInput(firstName, lastName, email, username, password, secondPas
         return false;
     }
     
-    if(!usernameCheck(username)){
-        usernameError.hidden = false;
-        return false;
-    }
+    // if(!usernameCheck(username)){
+    //     usernameError.hidden = false;
+    //     return false;
+    // }
     
     var passCheck = /[\s~`!@#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?()\._]/g;
     if(!passCheck.test(password) || password.length<8){
@@ -76,6 +82,6 @@ function validateInput(firstName, lastName, email, username, password, secondPas
 function usernameCheck(username){
     fetch(`http://localhost:8082/register/${username}`, {
         mode: 'no-cors'
-        }).then(response => response.json)
-        .then(data => console.log(data.username))
+        }).then(response => console.log(response.json))
+        // .then(data => console.log(data.username))
 }
