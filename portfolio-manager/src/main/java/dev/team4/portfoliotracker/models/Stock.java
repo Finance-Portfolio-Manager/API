@@ -15,7 +15,7 @@ public class Stock {
 	private int userId;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "stock_id")
 	private int stockId;
 	
@@ -28,9 +28,10 @@ public class Stock {
 	public Stock() {
 	}
 
-	public Stock(int userId, String stockSymbol, double stockQuantity) {
+	public Stock(int userId, int stockId, String stockSymbol, double stockQuantity) {
 		super();
 		this.userId = userId;
+		this.stockId = stockId;
 		this.stockSymbol = stockSymbol;
 		this.stockQuantity = stockQuantity;
 	}
