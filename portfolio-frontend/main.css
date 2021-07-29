@@ -157,3 +157,7 @@ html {
   #icon {
     width:60%;
   }
+
+  label[class="left"] {
+    align-content: left;
+  }
