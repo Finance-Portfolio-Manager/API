@@ -23,8 +23,8 @@ public class StockServiceImpl implements StockService{
 	}
 
 	@Override
-	public Stock addStock(int userId, String stockSymbol, double stockQuantity) {
-		Stock s = new Stock(userId, stockSymbol, stockQuantity);
+	public Stock addStock(int userId, int stockId, String stockSymbol, double stockQuantity) {
+		Stock s = new Stock(userId, stockId, stockSymbol, stockQuantity);
 		return stockRepo.save(s);
 	}
 
@@ -35,10 +35,10 @@ public class StockServiceImpl implements StockService{
 	}
 
 	@Override
-	public void updateStockQuantity(int stockId, int stockQuantity) {
+	public void updateStockQuantity(int stockId, double stockQuantity) {
 		Stock s = stockRepo.findStockByStockId(stockId);
-		s.setStockId(stockId);
 		s.setStockQuantity(stockQuantity);
+		stockRepo.save(s);
 	}
 
 	@Override
