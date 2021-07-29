@@ -1,4 +1,4 @@
-var userId = 1; //need to get userId from somewhere
+var userId = 1; //(getUserNameFromToken); //need to get userId from somewhere
 var stocksNames = "";
 var portfolioValue;
 var portfolioChange; //need total money from transactions
