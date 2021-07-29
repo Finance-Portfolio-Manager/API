@@ -1,17 +1,27 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<link href="/portfolio-frontend.main.css" rel="stylesheet" id="bootstrap-css">
+<link href="/main.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<link rel = "stylesheet" href="portfolio-styles.css">
+<link rel = "stylesheet" href="/css/portfolio-styles.css">
 
-<table>
-    <tr>
-        <th>Stock</th>
-        <th>Quantity</th>
-        <th>Initial Buy</th>
-        <th>Gain/Loss</th>
-    </tr>
-</table>
+<h2>Porfolio View Whoo</h2>
+<div class="wrapper fadeInDown">
+    <div id="portfolio-summary">
+        <h1>Portfolio <span>Overall Profit</span></h1>
+        <h2 id = "portfolio-values"></h2>
+    </div>
 
-<script src="portfolio.component.html"></script>
+    <table id="stocks-view">
+        <tr>
+            <th>Stock</th>
+            <th>Quantity</th>
+            <th>Average Buy Price</th>
+            <th>Current Price</th>
+            <th>Gain/Loss</th>
+        </tr>
+        <body id="stocks-body">
+        </body>
+    </table>
+</div>
+<script src="portfolio.component.js"></script>
