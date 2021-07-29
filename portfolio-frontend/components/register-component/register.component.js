@@ -49,7 +49,7 @@ function submitListener(register){
     // while(!isValidInput){
     //     isValidInput = validateInput(firstName, lastName, email, username, password, secondPassword);
     // }
-    if (isValidInput != false){
+    if (isValidInput){
         submit();
     } else {
         form.addEventListener("submit", submitListener);
@@ -57,7 +57,6 @@ function submitListener(register){
 }
 
 function submit(){
-    console.log("submit");
     const credentials = {
         firstName:document.getElementById("first-name").value,
         lastName:document.getElementById("last-name").value,
