@@ -11,18 +11,18 @@
       <div>
         <img src="/pmlogo.jpg" id="icon" alt="User Icon" />
       </div>
-        <form id="registration-form" class="form-signin">
+        <form id="new-txn-form" class="form-signin">
             <h1 class="h3 mb-3 font-weight-normal">Add Transaction</h1>
             <label for="ticker" class="sr-only">Ticker</label>
             <input type="text" id="ticker" class="text" placeholder="Ticker Symbol" required>
 
             <label for="share-amount" class="sr-only">Shares</label>
-            <input type="number" id= "share-amount" class="text" step="0.001" placeholder="Number of shares" required>
+            <input type="number" id= "share-amount" class="text" step="0.001" placeholder="Number of Shares" required>
                         
             <div id="share-amount-error"></div>
 
             <label for="share-price" class="sr-only">Price</label>
-            <input type="number" id= "share-price" class="text" step="0.001" placeholder="1.0" required>
+            <input type="number" id= "share-price" class="text" step="0.001" placeholder="Price per Share" required>
                         
             <div id="share-price-error"></div>
 
@@ -34,7 +34,7 @@
             <div class="text-center">
                 <button type="submit" class="btn btn-primary btn-lg">Add</button>
             </div>
-            <div id="create-msg" hidden></div>
+            <div id="create-msg" hidden></div><br>
         </form>
     </div>
 </div>
