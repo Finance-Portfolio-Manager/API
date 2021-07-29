@@ -14,22 +14,24 @@
         <form id="new-txn-form" class="form-signin">
             <h1 class="h3 mb-3 font-weight-normal">Add Transaction</h1>
             <label for="ticker" class="sr-only">Ticker</label>
-            <input type="text" id="ticker" class="text" placeholder="Ticker Symbol" required>
+            <input type="text" id="ticker" class="text" placeholder="Ticker Symbol" oninput="validateTicker()" required>
+
+            <div hidden id="ticker-error"><small style="color:Red">Please enter a valid ticker symbol</small></div>
 
             <label for="share-amount" class="sr-only">Shares</label>
             <input type="number" id= "share-amount" class="text" step="0.001" placeholder="Number of Shares" required>
                         
-            <div id="share-amount-error"></div>
+            <div hidden id="share-amount-error"></div>
 
             <label for="share-price" class="sr-only">Price</label>
             <input type="number" id= "share-price" class="text" step="0.001" placeholder="Price per Share" required>
                         
-            <div id="share-price-error"></div>
+            <div hidden id="share-price-error"></div>
 
             <label for="note" class="sr-only">Note</label>
-            <input type="textarea" id="note" class="text" placeholder="Add a note..." required>
+            <input type="textarea" id="note" class="text" placeholder="Add a note..." required><br>
                         
-            <div id="note-error"></div>
+            <div hidden id="note-error"></div>
 
             <div class="text-center">
                 <button type="submit" class="btn btn-primary btn-lg">Add</button>
