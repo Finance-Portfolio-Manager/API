@@ -166,3 +166,9 @@ input[class=text]:placeholder {
 #icon {
   width:60%;
 }
+
+input[type=button], [class=buy-sell-btn] {
+  width: 40.5%;
+  padding: 7px 0px;
+  margin: 7px 6px 5px 5px;
+}

@@ -5,7 +5,6 @@ const tickerList = getTickers();
 var tick = document.getElementById("ticker");
 var tickerError = document.getElementById("ticker-error");
 
-
 tick.addEventListener('change', function(){
     tickerError.hidden = true;
     if(!tickerList.includes(tick.value.toUpperCase())){
@@ -13,7 +12,17 @@ tick.addEventListener('change', function(){
     }
 })
 
+var buy = document.getElementById("buy-btn");
+var sell = document.getElementById("sell-btn");
+var isABuy = true;
 
+buy.addEventListener('click', function(){
+    isABuy = true;
+})
+
+sell.addEventListener('click', function(){
+    isABuy = false;
+})
 
 document.getElementById("new-txn-form").addEventListener("submit", function(t){
     t.preventDefault();
@@ -28,7 +37,8 @@ document.getElementById("new-txn-form").addEventListener("submit", function(t){
         shareAmount:shareAmount,
         sharePrice:sharePrice,
         note:note,
-        token:sessionStorage.getItem('Authorization')
+        token:sessionStorage.getItem('Authorization'),
+        isBuy:isABuy
     };
     fetch("http://localhost:8082/transactions/new", {
         method: 'post',

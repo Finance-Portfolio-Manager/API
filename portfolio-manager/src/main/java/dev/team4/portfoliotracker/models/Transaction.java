@@ -34,22 +34,29 @@ public class Transaction {
     @Transient
     private String token;
 
+    @Transient
+    private boolean isBuy;
+
     public Transaction() {
     }
 
-    public Transaction(String ticker, double shareAmount, double sharePrice, String note) {
-        this.ticker = ticker;
-        this.shareAmount = shareAmount;
-        this.sharePrice = sharePrice;
-        this.note = note;
-    }
-
-    public Transaction(int userId, String ticker, double shareAmount, double sharePrice, String note) {
+    public Transaction(int userId, String ticker, double shareAmount, double sharePrice, String note, boolean isBuy) {
         this.userId = userId;
         this.ticker = ticker;
         this.shareAmount = shareAmount;
         this.sharePrice = sharePrice;
         this.note = note;
+        this.isBuy = isBuy;
+    }
+
+    public Transaction(int userId, String ticker, double shareAmount, double sharePrice, String note, String token, boolean isBuy) {
+        this.userId = userId;
+        this.ticker = ticker;
+        this.shareAmount = shareAmount;
+        this.sharePrice = sharePrice;
+        this.note = note;
+        this.token = token;
+        this.isBuy = isBuy;
     }
 
     public int getTransactionId() {
@@ -104,6 +111,14 @@ public class Transaction {
         return token;
     }
 
+    public boolean isBuy() {
+        return isBuy;
+    }
+
+    public void setBuy(boolean buy) {
+        isBuy = buy;
+    }
+
     public void setToken(String token) {
         this.token = token;
     }
@@ -113,12 +128,12 @@ public class Transaction {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transaction that = (Transaction) o;
-        return transactionId == that.transactionId && userId == that.userId && Double.compare(that.shareAmount, shareAmount) == 0 && Double.compare(that.sharePrice, sharePrice) == 0 && Objects.equals(ticker, that.ticker) && Objects.equals(note, that.note);
+        return transactionId == that.transactionId && userId == that.userId && Double.compare(that.shareAmount, shareAmount) == 0 && Double.compare(that.sharePrice, sharePrice) == 0 && isBuy == that.isBuy && Objects.equals(ticker, that.ticker) && Objects.equals(note, that.note) && Objects.equals(token, that.token);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(transactionId, userId, ticker, shareAmount, sharePrice, note);
+        return Objects.hash(transactionId, userId, ticker, shareAmount, sharePrice, note, token, isBuy);
     }
 
     @Override
@@ -130,6 +145,8 @@ public class Transaction {
                 ", shareAmount=" + shareAmount +
                 ", sharePrice=" + sharePrice +
                 ", note='" + note + '\'' +
+                ", token='" + token + '\'' +
+                ", isBuy=" + isBuy +
                 '}';
     }
 }
