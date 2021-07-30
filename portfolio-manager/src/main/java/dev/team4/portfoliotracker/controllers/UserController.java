@@ -40,9 +40,15 @@ public class UserController {
         return new ResponseEntity<User>(userDetailsService.createUser(user), HttpStatus.CREATED);
     }
 
-    @DeleteMapping(consumes = "application/json")
-    public HttpStatus deleteUser(@RequestBody User user){
-        return HttpStatus.OK;
+    @DeleteMapping(value = "/delete", consumes = "application/json")
+    public ResponseEntity<?> deleteUser(@RequestBody User user){
+        User toDelete = userDetailsService.getUserByUsername(jwtUtility.getUsernameFromToken(user.getUsername()));
+        if(toDelete.getPassword().equals(user.getPassword())){
+            userDetailsService.removeUser(toDelete);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value ="/login", method = RequestMethod.POST)
