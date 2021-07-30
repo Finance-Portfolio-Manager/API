@@ -24,14 +24,13 @@ public class ApiController {
 	@GetMapping(produces = "application/json")
 	public ResponseEntity<String> getStock(@RequestParam(value = "symbol") String stockSymbol) {
 		HttpResponse<String> response = null;
-		String uri = "https://alpha-vantage.p.rapidapi.com/query?interval=5min&function=TIME_SERIES_DAILY_ADJUSTED&symbol=" + stockSymbol + "&datatype=json&output_size=compact";
+		String uri = "https://alpha-vantage.p.rapidapi.com/query?function=GLOBAL_QUOTE&symbol=" + stockSymbol + "&datatype=json";
 		try {
 			response = Unirest.get(uri)
 				.header("x-rapidapi-key", "2026ae733amsh2b3a3e7ba055725p1025d0jsn28ad9fad2454")
 				.header("x-rapidapi-host", "alpha-vantage.p.rapidapi.com")
 				.asString();
 		} catch (UnirestException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return new ResponseEntity<String>(response.getBody(), HttpStatus.OK);
@@ -51,7 +50,6 @@ public class ApiController {
 				.header("x-rapidapi-host", "apidojo-yahoo-finance-v1.p.rapidapi.com")
 				.asString();
 		} catch (UnirestException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return new ResponseEntity<String>(response.getBody(), HttpStatus.OK);
