@@ -31,10 +31,21 @@ public class Transaction {
     @Column(name = "note")
     private String note;
 
+    @Transient
+    private String token;
+
     public Transaction() {
     }
 
     public Transaction(String ticker, double shareAmount, double sharePrice, String note) {
+        this.ticker = ticker;
+        this.shareAmount = shareAmount;
+        this.sharePrice = sharePrice;
+        this.note = note;
+    }
+
+    public Transaction(int userId, String ticker, double shareAmount, double sharePrice, String note) {
+        this.userId = userId;
         this.ticker = ticker;
         this.shareAmount = shareAmount;
         this.sharePrice = sharePrice;
@@ -87,6 +98,14 @@ public class Transaction {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override

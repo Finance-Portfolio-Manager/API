@@ -1,7 +1,10 @@
 package dev.team4.portfoliotracker.controllers;
 
 import dev.team4.portfoliotracker.models.Transaction;
+import dev.team4.portfoliotracker.models.User;
+import dev.team4.portfoliotracker.security.JwtUtility;
 import dev.team4.portfoliotracker.services.TransactionService;
+import dev.team4.portfoliotracker.services.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,12 @@ public class TransactionController {
     @Autowired
     TransactionService txnService;
 
+    @Autowired
+    JwtUtility jwtUtility;
+
+    @Autowired
+    UserDetailsService userDetailsService;
+
     @GetMapping(produces = "application/json")
     public ResponseEntity<List<Transaction>> getAllTransactions(@RequestParam(value = "userId", required = false) Integer userId) {
         if (userId!=null) {
@@ -38,7 +47,9 @@ public class TransactionController {
 
     @PostMapping(value = "/new", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Transaction> addTransaction(HttpServletRequest request, @RequestBody Transaction txn) {
-        return new ResponseEntity<>(txnService.addTransaction(txn), HttpStatus.CREATED);
+        User user = userDetailsService.getUserByUsername(jwtUtility.getUsernameFromToken(txn.getToken()));
+        Transaction t = new Transaction(user.getUserId(), txn.getTicker(), txn.getShareAmount(), txn.getSharePrice(), txn.getNote());
+        return new ResponseEntity<>(txnService.addTransaction(t), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{transactionId}", consumes = "application/json")

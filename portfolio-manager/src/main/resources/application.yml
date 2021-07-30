@@ -9,9 +9,9 @@ management:
 
 spring:
   datasource:
-    url: jdbc:postgresql://training-db.cqnsz9u6mm7d.us-east-2.rds.amazonaws.com:5432/postgres
-    username: postgres
-    password: pa55word
+    url: {{SPRING_DATASOURCE_URL}}
+    username: ${{SPRING_DATASOURCE_USERNAME}}
+    password: ${{SPRING_DATASOURCE_PASSWORD}}
   jpa:
     show-sql: true
     generate-ddl: true

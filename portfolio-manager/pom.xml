@@ -11,10 +11,10 @@
 	</parent>
 
 	<groupId>dev.team-4</groupId>
-	<artifactId>portfolio-tracker</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>portfolio-manager</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
 
-	<name>portfolio-tracker</name>
+	<name>portfolio-manager</name>
 	<description>REST API for tracking stock portfolios</description>
 
 	<properties>

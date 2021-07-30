@@ -18,25 +18,17 @@ tick.addEventListener('change', function(){
 document.getElementById("new-txn-form").addEventListener("submit", function(t){
     t.preventDefault();
 
-    
-
-    
-
     var tickerSymobol = document.getElementById("ticker").value;
     var shareAmount = document.getElementById("share-amount").value;
     var sharePrice = document.getElementById("share-price").value;
     var note = document.getElementById("note").value;
 
-    
-
-    // var isValidTicker = validateTicker(tickerSymobol);
-
-    // if(isValidTicker) {
     var newTransaction = {
         ticker:tickerSymobol,
         shareAmount:shareAmount,
         sharePrice:sharePrice,
-        note:note
+        note:note,
+        token:sessionStorage.getItem('Authorization')
     };
     fetch("http://localhost:8082/transactions/new", {
         method: 'post',
