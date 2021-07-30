@@ -67,3 +67,45 @@ document.getElementById("log-out").addEventListener("click", function(logout){
     sessionStorage.removeItem("Authorization");
     window.location.href = "#/login";
 });
+
+document.getElementById("deleteButton").addEventListener("click", function(removeAccount){
+    removeAccount.preventDefault();
+    const passError = document.getElementById("error-modal");
+    passError.hidden = true;
+    const password = document.getElementById("modalPassword").value
+    console.log(password);
+    if(password==null || password == undefined){
+        passError.hidden = false;
+    } else {
+        removeUser(password);
+    }
+});
+
+function removeUser(password){  
+    const credentials = {
+        username:sessionStorage.getItem('Authorization'),
+        password:password
+    }
+    fetch("http://localhost:8082/delete", {
+        method: 'DELETE',
+        headers: new Headers({
+            'Content-Type':'application/json',
+        }),
+        body: JSON.stringify(credentials)
+    }).then((response) => {
+        console.log(response);
+        // return response.json();
+    // }).then((data) => {
+    //     sessionStorage.setItem("Authorization", data.jwt)
+    //     if(data.jwt==undefined){
+    //         userError.hidden = false;
+    //     } else if (data.jwt != null && data.jwt != undefined){
+    //         document.getElementById("toggle-nav-1").hidden = true;
+    //         document.getElementById("toggle-nav-2").hidden = true;
+    //         window.location.href = "#/overview";
+    //      }  
+    }).catch((error) => {
+            // networkError.hidden = false;
+            console.error(error);
+    })
+};
