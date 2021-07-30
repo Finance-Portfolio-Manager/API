@@ -1,14 +1,33 @@
+import getTickers from "./tickers.js";
+
+const tickerList = getTickers();
+    
+var tick = document.getElementById("ticker");
+var tickerError = document.getElementById("ticker-error");
+
+
+tick.addEventListener('change', function(){
+    tickerError.hidden = true;
+    if(!tickerList.includes(tick.value.toUpperCase())){
+        tickerError.hidden = false;
+    }
+})
+
+
 
 document.getElementById("new-txn-form").addEventListener("submit", function(t){
     t.preventDefault();
 
-    var tickerError = document.getElementById("ticker-error");
-    tickerError.hidden = true;
+    
+
+    
 
     var tickerSymobol = document.getElementById("ticker").value;
     var shareAmount = document.getElementById("share-amount").value;
     var sharePrice = document.getElementById("share-price").value;
     var note = document.getElementById("note").value;
+
+    
 
     // var isValidTicker = validateTicker(tickerSymobol);
 
