@@ -1,4 +1,4 @@
-function fetchStock(symbol){
+/*function fetchStock(symbol){
     fetch("http://localhost:8082/api?symbol=" + symbol, {
         method: 'get',
         headers: new Headers({
@@ -60,14 +60,12 @@ function getUserFromUsername(username){
             networkError.hidden = false;
     });
 }
-/*
 Stock{
     int userId
     int stockId
     String stockSymbol
     double stockQuantity
 }
-*/
 //all of the crud operations, i havent tested them here
 function addStock(stock){
     fetch("http://localhost:8082/stocks", {
@@ -138,3 +136,4 @@ function getAllStocks(userId){
             networkError.hidden = false;
     });
 }
+*/
