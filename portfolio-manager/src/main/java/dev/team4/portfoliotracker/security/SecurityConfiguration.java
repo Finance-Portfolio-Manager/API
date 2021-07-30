@@ -30,7 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .authorizeRequests().antMatchers("/*", "/stocks/*", "/stocks/all/*", "/*.html", "/register/*").permitAll().anyRequest().authenticated()
+                .authorizeRequests().antMatchers("/*", "/api/*", "/stocks/*", "/stocks/all/*", "/*.html", "/register/*", "/transactions/*").permitAll().anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(requestFilter, UsernamePasswordAuthenticationFilter.class);
     }
