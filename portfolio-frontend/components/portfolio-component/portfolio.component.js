@@ -1,6 +1,6 @@
 /*Production Line:
 if (!userId){
-    JWT => username(stored/deleted) => userId(stored)
+    JWT => usern(stoamered/deleted) => userId(stored)
 }
 getAllTransactions(userId) => stocksList{symbol, quantity, averagePrice}(stored)(tabled) => symbolsList
 fetchAllStocks(symbolsList) => currentPrices(maybe stored)(tabled) => priceChanges(tabled)
@@ -19,13 +19,12 @@ id also need a current portfolio to access from the portfolio component
 both of which will take me days
 STORE DATA IN SESSION STORAGE, FUCK BAD PRACTICE, I CAN'T NEST ASYNC
 */
-if (!sessionStorage.getItem('userId')){
-    getUserNameFromToken(sessionStorage.getItem('Authorization')).then(data => sessionStorage.setItem("username", data))
-    getUserFromUsername(sessionStorage.getItem('username')).then(data => {
-        sessionStorage.setItem("userId", data.userId)
-    })
-    sessionStorage.removeItem('username');
-}
+/*
+getUserFromToken(sessionStorage.getItem('Authorization')).then(data => sessionStorage.setItem("userId", data.userId))
+*/
+getUserFromToken(sessionStorage.getItem('Authorization')).then(data => {
+    sessionStorage.setItem("userId", data.userId)
+})
 var userId = sessionStorage.getItem('userId');
 var stocksNames = [];
 var portfolioValue;
@@ -124,27 +123,12 @@ function fetchAllStocks(symbols){
     });
 }
 
-function getUserNameFromToken(token){
+function getUserFromToken(token){
     return fetch("http://localhost:8082/username?token=" + token, {
         method: 'get',
         headers: new Headers({
             'Content-Type':'application/json'
         }),
-    }).then((response) => { 
-        return response.text().then((data) => {
-            return data;
-        }).catch((error) => {
-            console.log(error);
-        }) 
-    });
-}
-
-function getUserFromUsername(username){
-    return fetch("http://localhost:8082/register/" + username, {
-        method: 'get',
-        headers: new Headers({
-            'Content-Type':'application/json'
-        })
     }).then((response) => { 
         return response.json().then((data) => {
             return data;

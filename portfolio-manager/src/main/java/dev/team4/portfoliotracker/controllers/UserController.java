@@ -29,8 +29,8 @@ public class UserController {
     private JwtUtility jwtUtility;
     
     @GetMapping(value = "/username", produces = "application/json")
-    public ResponseEntity<String> getUserByToken(@RequestParam(value = "token") String token) {
-        return new ResponseEntity<>(jwtUtility.getUsernameFromToken(token), HttpStatus.OK);
+    public ResponseEntity<User> getUserByToken(@RequestParam(value = "token") String token) {
+        return new ResponseEntity<>(userDetailsService.getUserByUsername(jwtUtility.getUsernameFromToken(token)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/register/{username}")
