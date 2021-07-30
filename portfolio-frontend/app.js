@@ -7,6 +7,8 @@ window.addEventListener("hashchange", navToggle);
 
 
 function navToggle(){
+    document.getElementById("wrong-password").hidden = true;
+    document.getElementById("no-password").hidden = true;
     if(sessionStorage.getItem("Authorization")){
         document.getElementById("toggle-nav-1").hidden = true;
         document.getElementById("toggle-nav-2").hidden = true;
@@ -32,7 +34,8 @@ const routes = [
     {path: "#/new", componentFileName: "new-transaction"},
     {path: "#/portfolio", componentFileName: "portfolio"},
     {path: "#/login", componentFileName: "login"},
-    {path: "#/register", componentFileName: "register"}
+    {path: "#/register", componentFileName: "register"},
+    {path: "#/overview", componentFileName: "overview"}
 ]
 
 
@@ -72,9 +75,11 @@ document.getElementById("log-out").addEventListener("click", function(logout){
 
 document.getElementById("deleteButton").addEventListener("click", function(removeAccount){
     removeAccount.preventDefault();
-    const passError = document.getElementById("error-modal");
-    passError.hidden = true;
+    const passErrorWrong = document.getElementById("wrong-password");
+    const passError = document.getElementById("no-password");
     const password = document.getElementById("modalPassword").value
+    passErrorWrong.hidden = true;
+    passError.hidden = true;
     console.log(password);
     if(password==null || password == undefined){
         passError.hidden = false;
@@ -84,6 +89,7 @@ document.getElementById("deleteButton").addEventListener("click", function(remov
 });
 
 function removeUser(password){  
+    const passError = document.getElementById("wrong-password");
     const credentials = {
         username:sessionStorage.getItem('Authorization'),
         password:password
@@ -95,19 +101,14 @@ function removeUser(password){
         }),
         body: JSON.stringify(credentials)
     }).then((response) => {
-        console.log(response);
-        // return response.json();
-    // }).then((data) => {
-    //     sessionStorage.setItem("Authorization", data.jwt)
-    //     if(data.jwt==undefined){
-    //         userError.hidden = false;
-    //     } else if (data.jwt != null && data.jwt != undefined){
-    //         document.getElementById("toggle-nav-1").hidden = true;
-    //         document.getElementById("toggle-nav-2").hidden = true;
-    //         window.location.href = "#/overview";
-    //      }  
+        if(response.status>=200 && response.status<=299){
+            sessionStorage.removeItem("Authorization");
+            $('#exampleModal').modal('hide');
+            window.location.href = "#/login";
+        } else {
+            passError.hidden = false;
+        }
     }).catch((error) => {
-            // networkError.hidden = false;
-            console.error(error);
+        passError.hidden = false;
     })
 };

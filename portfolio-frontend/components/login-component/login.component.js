@@ -26,6 +26,7 @@ document.getElementById("login-form").addEventListener("submit", function(login)
             document.getElementById("toggle-nav-1").hidden = true;
             document.getElementById("toggle-nav-2").hidden = true;
             window.location.href = "#/overview";
+            location.reload();
          }  
     }).catch((error) => {
             networkError.hidden = false;
