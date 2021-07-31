@@ -86,20 +86,6 @@ getUserFromToken(sessionStorage.getItem('Authorization')).then(data => {
                     if (hasStock == true){
                         if (data[match].stockQuantity + stock.stockQuantity == 0){
                             deleteStock(stock);
-                            var transactionsList = [];
-                            /*
-                            getAllTransactions(userId).then(data => {
-                                for(var i = 0; i < data.length; i++){
-                                    if (stock.stockSymbol == data[i].ticker){
-                                        transactionsList.push(data[i]);
-                                    }
-                                }
-                                console.log(transactionsList);
-                                for(var i = 0; i < transactionsList.length; i++){
-                                    deleteTransaction(transactionsList[i].transactionId);
-                                }
-                            });
-                            */
                         }
                         else{
                             stock.stockQuantity += data[i].stockQuantity;

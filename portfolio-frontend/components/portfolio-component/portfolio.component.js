@@ -10,17 +10,19 @@ getUserFromToken(sessionStorage.getItem('Authorization')).then(data => {
                 price: data[i].sharePrice
             }
             if (stocksList.find(s => s.symbol == stock.symbol)){
+                //into 0: new + old = 0(NaN)
+                //out of 0: price = new price
                 let sIndex = stocksList.findIndex(s => s.symbol == stock.symbol);
-                stocksList[sIndex].quantity += stock.quantity;
-                if(stocksList[sIndex].quantity == 0){
-                    stocksList[sIndex.price] = stock.price;
-                }
-                else if(stock.price < 0){
-                    //nothing
+                if ((stocksList[sIndex].quantity + stock.quantity) != 0){
+                    stocksList[sIndex].price *= 1+((stock.price - stocksList[sIndex].price)/(stocksList[sIndex].quantity + stock.quantity));
                 }
                 else{
-                    stocksList[sIndex].price += 10*(stock.price - stocksList[sIndex].price)/(stocksList[sIndex].quantity + stock.quantity);
+                    stocksList[sIndex].price = 0;
                 }
+                if(stocksList[sIndex].quantity == 0){
+                    stocksList[sIndex].price = stock.price;
+                }
+                stocksList[sIndex].quantity += stock.quantity;
             }
             else{
                 stocksList.push(stock);
