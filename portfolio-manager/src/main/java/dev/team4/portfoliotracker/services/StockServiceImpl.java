@@ -35,10 +35,10 @@ public class StockServiceImpl implements StockService{
 	}
 
 	@Override
-	public void updateStockQuantity(int stockId, double stockQuantity) {
+	public Stock updateStockQuantity(int stockId, double stockQuantity) {
 		Stock s = stockRepo.findStockByStockId(stockId);
 		s.setStockQuantity(stockQuantity);
-		stockRepo.save(s);
+		return stockRepo.save(s);
 	}
 
 	@Override
