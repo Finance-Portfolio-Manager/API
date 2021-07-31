@@ -91,7 +91,7 @@ h2.active {
 
 /* FORM TYPOGRAPHY*/
 
-input[type=button], input[type=submit], input[type=reset]  {
+input[type=button], input[type=submit], input[type=reset] {
   background-color: #56baed;
   border: none;
   color: white;
@@ -168,6 +168,14 @@ input[class=text]:placeholder {
 }
 
 input[type=button], [class=buy-sell-btn] {
+  background-color: #56baed;
+  width: 40.5%;
+  padding: 7px 0px;
+  margin: 7px 6px 5px 5px;
+} 
+
+ input[class=was-clicked] {
+  background-color: #295970;
   width: 40.5%;
   padding: 7px 0px;
   margin: 7px 6px 5px 5px;

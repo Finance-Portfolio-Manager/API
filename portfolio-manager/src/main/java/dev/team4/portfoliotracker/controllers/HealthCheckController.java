@@ -1,5 +1,6 @@
 package dev.team4.portfoliotracker.controllers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +17,8 @@ import java.io.PrintWriter;
 public class HealthCheckController {
 
     @GetMapping
-    public void healthCheck(HttpServletResponse response) throws IOException {
-        try (PrintWriter pw = response.getWriter()){
-            pw.write("{\"status\" : \"UP\" }");
-        }
+    public ResponseEntity<String> healthCheck(HttpServletResponse response) throws IOException {
+        String string = "{\"status\" : \"UP\" }";
+        return new ResponseEntity<>(string, HttpStatus.OK);
     }
 }

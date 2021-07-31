@@ -14,14 +14,19 @@ tick.addEventListener('change', function(){
 
 var buy = document.getElementById("buy-btn");
 var sell = document.getElementById("sell-btn");
+
 var isABuy = true;
 
 buy.addEventListener('click', function(){
     isABuy = true;
+    buy.classList.add("was-clicked");
+    sell.classList.remove("was-clicked");
 })
 
 sell.addEventListener('click', function(){
     isABuy = false;
+    sell.classList.add("was-clicked");
+    buy.classList.remove("was-clicked");
 })
 
 document.getElementById("new-txn-form").addEventListener("submit", function(t){

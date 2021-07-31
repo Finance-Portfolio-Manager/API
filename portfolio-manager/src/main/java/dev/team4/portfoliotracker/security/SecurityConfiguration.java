@@ -31,16 +31,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .authorizeRequests().antMatchers("/*", "/api/*", "/stocks/*", "/stocks/all/*", "/*.html", "/register/*", "/transactions/new").permitAll().anyRequest().authenticated()
+                .authorizeRequests().antMatchers("/*", "/api/*", "/stocks/*", "/stocks/all/*", "/*.html", "/register/*", "/transactions/new", "/v2/*", "/swagger-ui.html", "/", "/health").permitAll().anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(requestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web
-                .ignoring()
-                .antMatchers("/");
+        web.ignoring().antMatchers("/");
+        web.ignoring().antMatchers("/health");
+        web.ignoring().antMatchers("/v2/api-docs/**");
+        web.ignoring().antMatchers("/swagger.json");
+        web.ignoring().antMatchers("/swagger-ui.html");
+        web.ignoring().antMatchers("/swagger-resources/**");
+        web.ignoring().antMatchers("/webjars/**");
     }
 
     @Override
