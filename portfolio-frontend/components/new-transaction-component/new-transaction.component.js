@@ -88,7 +88,7 @@ getUserFromToken(sessionStorage.getItem('Authorization')).then(data => {
                             deleteStock(stock);
                         }
                         else{
-                            stock.stockQuantity += data[i].stockQuantity;
+                            stock.stockQuantity += data[match].stockQuantity;
                             updateStock(stock);
                         }
                     }
