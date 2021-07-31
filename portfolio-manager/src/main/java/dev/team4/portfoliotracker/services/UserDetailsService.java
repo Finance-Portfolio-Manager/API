@@ -15,7 +15,7 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Autowired
     private UserRepository userRepository;
 
-    public dev.team4.portfoliotracker.models.User createUser(dev.team4.portfoliotracker.models.User user){
+    public User createUser(dev.team4.portfoliotracker.models.User user){
         return userRepository.save(user);
     }
 

@@ -37,7 +37,7 @@ public class ApiController {
 	}
 	
 	@GetMapping(value = "/all", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<String> getStock(@RequestBody List<String> stockSymbols) {
+	public ResponseEntity<String> getStock(@RequestParam(value = "symbol") List<String> stockSymbols) {
 		HttpResponse<String> response = null;
 		StringBuilder uri = new StringBuilder("https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes?region=US&symbols=");
 		for (String stockSymbol : stockSymbols) {
