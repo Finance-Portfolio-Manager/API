@@ -1,125 +1,113 @@
-/*Production Line:
-if (!userId){
-    JWT => usern(stoamered/deleted) => userId(stored)
-}
-getAllTransactions(userId) => stocksList{symbol, quantity, averagePrice}(stored)(tabled) => symbolsList
-fetchAllStocks(symbolsList) => currentPrices(maybe stored)(tabled) => priceChanges(tabled)
-
-maybe make a list of objects with the table variables for ease of use
-then delete all sessionStorage except for userId
-
-Table: Symbol, Quantity, CurrentPrices, ChangedPrices
-Use Current Prices * Quantity for Portfolio Total
-Use ChangedPrices for Portfolio Change
-
-Rant before i figured it out:
-
-id need an add/delete portfolio component
-id also need a current portfolio to access from the portfolio component
-both of which will take me days
-STORE DATA IN SESSION STORAGE, FUCK BAD PRACTICE, I CAN'T NEST ASYNC
-*/
-/*
-getUserFromToken(sessionStorage.getItem('Authorization')).then(data => sessionStorage.setItem("userId", data.userId))
-*/
 getUserFromToken(sessionStorage.getItem('Authorization')).then(data => {
     sessionStorage.setItem("userId", data.userId)
 })
 var userId = sessionStorage.getItem('userId');
-var stocksNames = [];
-var portfolioValue;
-var portfolioChange; //need total money from transactions
-                        //(if users had a total balance, it would simply be available balance against total balance)
 
 console.log(sessionStorage.getItem('Authorization'));
 console.log(sessionStorage.getItem('userId'));
 getAllTransactions(sessionStorage.getItem('userId')).then(data => {
-    console.log(data);
     var stocksList = [];
-    if (data != [])
-    {
-        for(var i = 0; i < data.length; i++){
-            var stock = {
-                symbol: data[i].ticker,
-                quantity: data[i].shareAmount,
-                price: data[i].sharePrice
+
+    for(var i = 0; i < data.length; i++){
+        var stock = {
+            symbol: data[i].ticker,
+            quantity: data[i].shareAmount,
+            price: data[i].sharePrice
+        }
+        if (stocksList.find(s => s.symbol == stock.symbol)){
+            let sIndex = stocksList.findIndex(s => s.symbol == stock.symbol);
+            stocksList[sIndex].quantity += stock.quantity;
+            if(stocksList[sIndex].quantity == 0){
+                stocksList[sIndex.price] = stock.price;
             }
-            if (stocksList.find(s => s.symbol == stock.symbol)){
-                let stockIndex = stocksList.findIndex(s => s.symbol == stock.symbol);
-                stocksList[stockIndex].quantity += stock.quantity;
-                stocksList[stockIndex].price += stock.price;
+            else if(stock.price < 0){
+                //nothing
             }
             else{
-                stocksList.push(stock);
+                stocksList[sIndex].price += (stock.price - stocksList[sIndex].price)/stocksList[sIndex].quantity;
             }
         }
-        //
-        console.log(stocksList);
-        if (stocksList.find(s => s.quantity == 0)){
-            stocksList = stocksList.filter(s => s.quantity != 0);
+        else{
+            stocksList.push(stock);
         }
-        //
-        console.log(stocksList);
-        //sessionStorage.setItem("stocksList", stocksList);
     }
+
+    if (stocksList.find(s => s.quantity == 0)){
+        stocksList = stocksList.filter(s => s.quantity != 0);
+    }
+
+    sessionStorage.setItem("stocksList", JSON.stringify(stocksList));
 })
-
-
-
-/*
-var raw = getAllStocks(user.userId);
-
-for (var i = 0; i < raw.length; i++){
-    stocksNames.push(raw[i].stockSymbol);
+var stocksList = JSON.parse(sessionStorage.getItem('stocksList'));
+var symbolsList = [];
+var portfolioValue = 0;
+for(var i = 0; i < stocksList.length; i++){
+    symbolsList.push(stocksList[i].symbol);
+    portfolioValue += stocksList[i].price * stocksList[i].quantity;
 }
 
-var stocks = JSON.parse(fetchAllStocks(stocksNames));
-//this needs some messing with for formatting
+fetchAllStocks(symbolsList).then(data =>{
+    var currentPrices = [];
+    for(var i = 0; i < data.quoteResponse.result.length; i++){
+        currentPrices.push(data.quoteResponse.result[i].regularMarketPrice);
+    }
+    sessionStorage.setItem("currentPrices", JSON.stringify(currentPrices));
+})
 
-document.getElementById("portfolio-view").innerHTML = portfolioValue;
-document.getElementById("portfolio-view").innerHTML = portfolioChange;
+var currentPrices = JSON.parse(sessionStorage.getItem('currentPrices'));
 
-const stockTableBody = document.getElementById("stocks-body");
-for(var i = 0; i < stocks.result.length; i++){
+var portfolioChange = 0;
+var portfolioAverage = 0;
+for(var i = 0; i <currentPrices.length; i++){
+    portfolioChange += currentPrices[i];
+    portfolioAverage += stocksList[i].price;
+}
+portfolioChange /= portfolioAverage * .01;
+
+portfolioValue = portfolioValue.toFixed(2);
+portfolioChange = portfolioChange.toFixed(2);
+
+document.getElementById("portfolio-total").innerHTML = "$" + portfolioValue;
+document.getElementById("portfolio-change").innerHTML = portfolioChange + "%";
+
+const stockTableBody = document.getElementById("stocks-view");
+for(var i = 0; i < stocksList.length; i++){
     let tableRow = document.createElement("tr");
     let stockName = document.createElement("td");
     let stockQuantity = document.createElement("td");
     let stockAveragePrice = document.createElement("td");
     let stockCurrentPrice = document.createElement("td");
     let stockChange = document.createElement("td");
-    //transactions inputs
-    stockName.innerText = raw[i].stock_symbol;
-    stockQuantity.innerText = raw[i].stock_quantity;
-    stockAveragePrice = null; //need averagePrice from transactions
+    stockName.innerText = stocksList[i].symbol;
+    stockQuantity.innerText = "$" + stocksList[i].quantity.toFixed(2);
+    stockAveragePrice.innerText = "$" + stocksList[i].price.toFixed(2);
+    stockCurrentPrice.innerText = "$" + currentPrices[i].toFixed(2);
+    stockChange.innerText = ((currentPrices[i] * 100) / stocksList[i].price).toFixed(2) + "%";
     tableRow.appendChild(stockName);
     tableRow.appendChild(stockQuantity);
     tableRow.appendChild(stockAveragePrice);
-    //current price needs to be stored in session storage for stockChange
-    stockCurrentPrice = stocks.result[i].targetPriceMean;
-    stockChange = null; //assumedly currentPrice/averagePrice
     tableRow.appendChild(stockCurrentPrice);
     tableRow.appendChild(stockChange);
     stockTableBody.appendChild(tableRow);
-    //make sure to actually put portfolioValue down after it gets finished up
-    portfolioValue += raw[i].stock_quantity * stocks.result[i].targetPriceMean;
 }
-*/
 
-//symbols should be something you obtain from getAllStocks
-//%2C to split symbols
+
 function fetchAllStocks(symbols){
-    fetch("http://localhost:8082/api", {
+    var link = "http://localhost:8082/api/all?symbol=";
+    for (var i = 0; i < symbols.length; i++){
+        link += symbols[i] + ",";
+    }
+    return fetch(link, {
         method: 'get',
         headers: new Headers({
             'Content-Type':'application/json'
         }),
-        body: JSON.stringify(symbols)
-    }).then((response) => {
-        return response.json();
-    }).then((data) => {
-        return data;
-    }).catch((error) => {
-            networkError.hidden = false;
+    }).then((response) => { 
+        return response.json().then((data) => {
+            return data;
+        }).catch((error) => {
+            console.log(error);
+        }) 
     });
 }
 
