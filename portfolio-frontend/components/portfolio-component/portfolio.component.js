@@ -13,11 +13,13 @@ getUserFromToken(sessionStorage.getItem('Authorization')).then(data => {
                 //into 0: new + old = 0(NaN)
                 //out of 0: price = new price
                 let sIndex = stocksList.findIndex(s => s.symbol == stock.symbol);
-                if ((stocksList[sIndex].quantity + stock.quantity) != 0){
-                    stocksList[sIndex].price *= 1+((stock.price - stocksList[sIndex].price)/(stocksList[sIndex].quantity + stock.quantity));
-                }
-                else{
-                    stocksList[sIndex].price = 0;
+                if (stock.quantity > 0){
+                    if ((stocksList[sIndex].quantity + stock.quantity) != 0){
+                        stocksList[sIndex].price += (((stock.price*stock.quantity) - (stocksList[sIndex].price*stocksList[sIndex].quantity))/(stocksList[sIndex].quantity + stock.quantity));
+                    }
+                    else{
+                        stocksList[sIndex].price = 0;
+                    }
                 }
                 if(stocksList[sIndex].quantity == 0){
                     stocksList[sIndex].price = stock.price;
@@ -37,13 +39,13 @@ getUserFromToken(sessionStorage.getItem('Authorization')).then(data => {
         var portfolioValue = 0;
         for(var i = 0; i < stocksList.length; i++){
             symbolsList.push(stocksList[i].symbol);
-            portfolioValue += stocksList[i].price * stocksList[i].quantity;
         }
     
         fetchAllStocks(symbolsList).then(data =>{
             var currentPrices = [];
             for(var i = 0; i < data.quoteResponse.result.length; i++){
                 currentPrices.push(data.quoteResponse.result[i].regularMarketPrice);
+                portfolioValue += data.quoteResponse.result[i].regularMarketPrice * stocksList[i].quantity;
             }
             
             var portfolioChange = 0;
@@ -52,7 +54,7 @@ getUserFromToken(sessionStorage.getItem('Authorization')).then(data => {
                 portfolioChange += currentPrices[i];
                 portfolioAverage += stocksList[i].price;
             }
-            portfolioChange /= portfolioAverage * .01;
+            portfolioChange = ((portfolioChange * 100) /portfolioAverage) - 100;
     
             portfolioValue = portfolioValue.toFixed(2);
             portfolioChange = portfolioChange.toFixed(2);
@@ -71,7 +73,7 @@ getUserFromToken(sessionStorage.getItem('Authorization')).then(data => {
                 stockQuantity.innerText = stocksList[i].quantity.toFixed(2);
                 stockAveragePrice.innerText = "$" + stocksList[i].price.toFixed(2);
                 stockCurrentPrice.innerText = "$" + currentPrices[i].toFixed(2);
-                stockChange.innerText = ((currentPrices[i] * 100) / stocksList[i].price).toFixed(2) + "%";
+                stockChange.innerText = (((currentPrices[i] * 100) / stocksList[i].price) - 100).toFixed(2) + "%";
                 tableRow.appendChild(stockName);
                 tableRow.appendChild(stockQuantity);
                 tableRow.appendChild(stockAveragePrice);

@@ -24,8 +24,8 @@ public class StockController {
 	
 	@PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<Stock> addStock(@RequestBody Stock stock) {
-		stockServ.addStock(stock);
-		return new ResponseEntity<>(stock, HttpStatus.OK);
+		
+		return new ResponseEntity<>(stockServ.addStock(stock), HttpStatus.OK);
     }
 	
 	@DeleteMapping(consumes = "application/json")
@@ -36,8 +36,8 @@ public class StockController {
 	
 	@PutMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<Stock> updateStockQuantity(@RequestBody Stock stock) {
-		stockServ.updateStockQuantity(stock.getStockId(), stock.getStockQuantity());
-		return new ResponseEntity<>(stock, HttpStatus.OK);
+		
+		return new ResponseEntity<>(stockServ.updateStockQuantity(stock.getStockId(), stock.getStockQuantity()), HttpStatus.OK);
     }
 	
 	@GetMapping(value = "/{stockId}", produces = "application/json")

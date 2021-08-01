@@ -6,7 +6,7 @@ import dev.team4.portfoliotracker.security.JwtUtility;
 import dev.team4.portfoliotracker.security.UserPrincipal;
 import dev.team4.portfoliotracker.services.StockService;
 import dev.team4.portfoliotracker.services.UserDetailsService;
-import javafx.application.Application;
+//import javafx.application.Application;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
