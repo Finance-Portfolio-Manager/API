@@ -1,8 +1,9 @@
 //testing pipeline
 
 const root = document.getElementById("app-root");
-window.addEventListener("load", onLoadandHashChange);
-window.addEventListener("hashchange", onLoadandHashChange);
+window.addEventListener("load", onLoadandHashChange, false);
+window.addEventListener("hashchange", onLoadandHashChange, false);
+// window.onhashchange = onLoadandHashChange;
 
 function onLoadandHashChange(){
     route();
@@ -44,15 +45,16 @@ const routes = [
     {path: "#/portfolio", componentFileName: "portfolio"},
     {path: "#/login", componentFileName: "login"},
     {path: "#/register", componentFileName: "register"},
-    {path: "#/overview", componentFileName: "overview"}
+    // {path: "#/overview", componentFileName: "overview"}
 ]
 
 
 function route(){
     const hashPath = location.hash;
     const currentRoute = routes.find(r=>r.path===hashPath);
-    const viewName = currentRoute?currentRoute.componentFileName:"home";
+    const viewName = currentRoute?currentRoute.componentFileName:"portfolio";
     renderView(viewName);
+    loadScript(viewName);
 }
 
 function renderView(view){
@@ -60,7 +62,7 @@ function renderView(view){
         .then(response=>response.text())
         .then(htmlBody=>{
             root.innerHTML = htmlBody;
-            loadScript(view);
+            // loadScript(view);
         });
 }
 
@@ -72,7 +74,7 @@ function loadScript(scriptName){
     localScript = document.createElement("script");
     localScript.id = "dynamic-js";
     localScript.src = `components/${scriptName}-component/${scriptName}.component.js`;
-    localScript.type = "module";
+    // localScript.type = "module";
     document.body.appendChild(localScript);
 }
 
