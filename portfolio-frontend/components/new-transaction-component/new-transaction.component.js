@@ -95,7 +95,7 @@ getUserFromToken(sessionStorage.getItem('Authorization')).then(data => {
                     else{
                         addStock(stock);
                     }
-                    fetch("http://portfoliomanager-env.eba-49pyjjuv.us-east-2.elasticbeanstalk.com/new", {
+                    fetch("http://portfoliomanager-env.eba-49pyjjuv.us-east-2.elasticbeanstalk.com/transactions/new", {
                         method: 'post',
                         headers: new Headers({
                             'Content-Type':'application/json',

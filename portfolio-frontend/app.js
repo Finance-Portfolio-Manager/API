@@ -1,3 +1,5 @@
+//testing pipeline
+
 const root = document.getElementById("app-root");
 window.addEventListener("load", onLoadandHashChange);
 window.addEventListener("hashchange", onLoadandHashChange);
