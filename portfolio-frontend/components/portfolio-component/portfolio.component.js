@@ -87,7 +87,7 @@ getUserFromToken(sessionStorage.getItem('Authorization')).then(data => {
 
 
 function fetchAllStocks(symbols){
-    var link = "http://localhost:8082/api/all?symbol=";
+    var link = "http://portfoliomanager-env.eba-49pyjjuv.us-east-2.elasticbeanstalk.com/api/all?symbol=";
     for (var i = 0; i < symbols.length; i++){
         link += symbols[i] + ",";
     }
@@ -106,7 +106,7 @@ function fetchAllStocks(symbols){
 }
 
 function getUserFromToken(token){
-    return fetch("http://localhost:8082/username?token=" + token, {
+    return fetch("http://portfoliomanager-env.eba-49pyjjuv.us-east-2.elasticbeanstalk.com/username?token=" + token, {
         method: 'get',
         headers: new Headers({
             'Content-Type':'application/json'
@@ -121,7 +121,7 @@ function getUserFromToken(token){
 }
 
 function getAllTransactions(userId){
-    return fetch("http://localhost:8082/transactions?userId=" + userId, {
+    return fetch("http://portfoliomanager-env.eba-49pyjjuv.us-east-2.elasticbeanstalk.com/transactions?userId=" + userId, {
         method: 'get',
         headers: new Headers({
             'Content-Type':'application/json'

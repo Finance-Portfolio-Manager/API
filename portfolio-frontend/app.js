@@ -101,7 +101,7 @@ function removeUser(password){
         username:sessionStorage.getItem('Authorization'),
         password:password
     }
-    fetch("http://localhost:8082/delete", {
+    fetch("http://portfoliomanager-env.eba-49pyjjuv.us-east-2.elasticbeanstalk.com/delete", {
         method: 'DELETE',
         headers: new Headers({
             'Content-Type':'application/json',

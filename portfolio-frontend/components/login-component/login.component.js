@@ -10,7 +10,7 @@ document.getElementById("login-form").addEventListener("submit", function(login)
     password:document.getElementById("inputPassword").value
 };
   
-    fetch("http://localhost:8082/login", {
+    fetch("http://portfoliomanager-env.eba-49pyjjuv.us-east-2.elasticbeanstalk.com/login", {
         method: 'post',
         headers: new Headers({
             'Content-Type':'application/json'

@@ -21,7 +21,7 @@ document.getElementById("registration-form").addEventListener("submit", function
             username:document.getElementById("username").value,
             password:document.getElementById("password").value
             };
-            fetch("http://localhost:8082/register", {
+            fetch("http://portfoliomanager-env.eba-49pyjjuv.us-east-2.elasticbeanstalk.com/register", {
                 method: 'post',
                 headers: new Headers({
                     'Content-Type':'application/json'

@@ -95,7 +95,7 @@ getUserFromToken(sessionStorage.getItem('Authorization')).then(data => {
                     else{
                         addStock(stock);
                     }
-                    fetch("http://localhost:8082/transactions/new", {
+                    fetch("http://portfoliomanager-env.eba-49pyjjuv.us-east-2.elasticbeanstalk.com/new", {
                         method: 'post',
                         headers: new Headers({
                             'Content-Type':'application/json',
@@ -143,7 +143,7 @@ var validateTicker = function(tickerSymobol) {
 }
 
 function getAllTransactions(userId){
-    return fetch("http://localhost:8082/transactions?userId=" + userId, {
+    return fetch("http://portfoliomanager-env.eba-49pyjjuv.us-east-2.elasticbeanstalk.com/transactions?userId=" + userId, {
         method: 'get',
         headers: new Headers({
             'Content-Type':'application/json'
@@ -158,7 +158,7 @@ function getAllTransactions(userId){
 }
 
 function getUserFromToken(token){
-    return fetch("http://localhost:8082/username?token=" + token, {
+    return fetch("http://portfoliomanager-env.eba-49pyjjuv.us-east-2.elasticbeanstalk.com/username?token=" + token, {
         method: 'get',
         headers: new Headers({
             'Content-Type':'application/json'
@@ -173,7 +173,7 @@ function getUserFromToken(token){
 }
 
 function addStock(stock){
-    fetch("http://localhost:8082/stocks", {
+    fetch("http://portfoliomanager-env.eba-49pyjjuv.us-east-2.elasticbeanstalk.com/stocks", {
         method: 'post',
         headers: new Headers({
             'Content-Type':'application/json'
@@ -189,7 +189,7 @@ function addStock(stock){
 }
 
 function deleteStock(stock){
-    fetch("http://localhost:8082/stocks", {
+    fetch("http://portfoliomanager-env.eba-49pyjjuv.us-east-2.elasticbeanstalk.com/stocks", {
         method: 'delete',
         headers: new Headers({
             'Content-Type':'application/json'
@@ -204,7 +204,7 @@ function deleteStock(stock){
 }
 
 function updateStock(stock){
-    fetch("http://localhost:8082/stocks", {
+    fetch("http://portfoliomanager-env.eba-49pyjjuv.us-east-2.elasticbeanstalk.com/stocks", {
         method: 'put',
         headers: new Headers({
             'Content-Type':'application/json'
@@ -220,7 +220,7 @@ function updateStock(stock){
 }
 
 function getAllStocks(userId){
-    return fetch("http://localhost:8082/stocks/all/" + userId, {
+    return fetch("http://portfoliomanager-env.eba-49pyjjuv.us-east-2.elasticbeanstalk.com/stocks/all/" + userId, {
         method: 'get',
         headers: new Headers({
             'Content-Type':'application/json'
@@ -235,7 +235,7 @@ function getAllStocks(userId){
 }
 
 function deleteTransaction(transactionId){
-    fetch("http://localhost:8082/transactions/" + transactionId, {
+    fetch("http://portfoliomanager-env.eba-49pyjjuv.us-east-2.elasticbeanstalk.com/transactions/" + transactionId, {
         method: 'delete',
         headers: new Headers({
             'Content-Type':'application/json'
