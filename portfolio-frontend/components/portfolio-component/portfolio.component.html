@@ -5,26 +5,33 @@
 
 <link rel = "stylesheet" href="/css/portfolio-styles.css">
 
-
-<div>
-    <h1>Your Portfolio</h1>
-    <div>
-        <h1>Portfolio Total</h1>
-        <h3 id = "portfolio-total"></h3>
-        <h3>Overall Profit/Loss</h3>
-        <h4 id = "portfolio-change"></h3>
+<div class="wrapper fadeInDown">
+    <div id="folioContent">
+        <!-- <div>
+            <img src="/pmlogo.jpg" id="icon" alt="User Icon" />
+        </div> -->
+        <div id="portfolio">
+            <div id="portfolio-values">
+                <h4 id = "portfolio-total"></h4>
+                <div id = "portfolio-change"></div>
+                <div id = "dollar-change"></div>
+            </div>
+            <div class="table-responsive">
+                <table id="stocks-view" class="table borderless table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Stock</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Average Buy Price</th>
+                            <th scope="col">Current Price</th>
+                            <th scope="col">P/L</th>
+                        </tr>
+                    </thead>
+                    <tbody id="stocks-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-
-    <table id="stocks-view">
-        <tr>
-            <th>Stock</th>
-            <th>Quantity</th>
-            <th>Average Buy Price</th>
-            <th>Current Price</th>
-            <th>Gain/Loss</th>
-        </tr>
-        <body id="stocks-body">
-        </body>
-    </table>
 </div>
 <script src="portfolio.component.js"></script>

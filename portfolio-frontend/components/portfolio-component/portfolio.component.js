@@ -50,30 +50,54 @@ getUserFromToken(sessionStorage.getItem('Authorization')).then(data => {
             
             var portfolioChange = 0;
             var portfolioAverage = 0;
+            var dollarChange = 0;
             for(var i = 0; i <currentPrices.length; i++){
                 portfolioChange += currentPrices[i];
                 portfolioAverage += stocksList[i].price;
             }
             portfolioChange = ((portfolioChange * 100) /portfolioAverage) - 100;
+            dollarChange = portfolioValue - portfolioAverage;
     
             portfolioValue = portfolioValue.toFixed(2);
             portfolioChange = portfolioChange.toFixed(2);
+            dollarChange = dollarChange.toFixed(2);
     
-            document.getElementById("portfolio-total").innerHTML = "$" + portfolioValue;
-            document.getElementById("portfolio-change").innerHTML = portfolioChange + "%";
-            const stockTableBody = document.getElementById("stocks-view");
+            document.getElementById("portfolio-total").innerHTML = "Portfolio Balance $" + portfolioValue;
+            let changeValue = document.getElementById("portfolio-change");
+            let changeAmount = document.getElementById("dollar-change");
+            changeValue.innerHTML = portfolioChange + "%";
+
+            if(portfolioChange>0){
+                changeAmount.innerHTML = "+ $" + dollarChange;
+                changeValue.style.color = "green";
+                changeAmount.style.color = "green";
+            } else if (portfolioChange<0){
+                changeAmount.innerHTML = "- $" + dollarChange;
+                changeValue.style.color = "red";
+                changeAmount.style.color = "red";
+            }
+            const stockTableBody = document.getElementById("stocks-body");
             for(var i = 0; i < stocksList.length; i++){
                 let tableRow = document.createElement("tr");
-                let stockName = document.createElement("td");
+                let stockName = document.createElement("th");
                 let stockQuantity = document.createElement("td");
                 let stockAveragePrice = document.createElement("td");
                 let stockCurrentPrice = document.createElement("td");
                 let stockChange = document.createElement("td");
+
+                stockName.setAttribute('scope', '"row"');
+                let profitAndLoss = (((currentPrices[i] * 100) / stocksList[i].price) - 100).toFixed(2);
+                if(profitAndLoss>0){
+                    stockChange.style.color = "green";
+                } else if(profitAndLoss<0){
+                    stockChange.style.color = "red";
+                }
+
                 stockName.innerText = stocksList[i].symbol;
                 stockQuantity.innerText = stocksList[i].quantity.toFixed(2);
                 stockAveragePrice.innerText = "$" + stocksList[i].price.toFixed(2);
                 stockCurrentPrice.innerText = "$" + currentPrices[i].toFixed(2);
-                stockChange.innerText = (((currentPrices[i] * 100) / stocksList[i].price) - 100).toFixed(2) + "%";
+                stockChange.innerText = profitAndLoss + "%";
                 tableRow.appendChild(stockName);
                 tableRow.appendChild(stockQuantity);
                 tableRow.appendChild(stockAveragePrice);
