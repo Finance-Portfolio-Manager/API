@@ -9,9 +9,12 @@ management:
 
 spring:
   datasource:
-    url: {{SPRING_DATASOURCE_URL}}
-    username: {{SPRING_DATASOURCE_USERNAME}}
-    password: {{SPRING_DATASOURCE_PASSWORD}}
+    url: jdbc:postgresql://database-1.cs1tymkociae.us-east-2.rds.amazonaws.com:5432/postgres
+    username: postgres
+    password: anderson
+#    url: {{SPRING_DATASOURCE_URL}}
+#    username: {{SPRING_DATASOURCE_USERNAME}}
+#    password: {{SPRING_DATASOURCE_PASSWORD}}
   jpa:
     show-sql: true
     generate-ddl: true
