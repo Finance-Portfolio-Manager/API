@@ -48,7 +48,7 @@ public class TransactionController {
     @PostMapping(value = "/new", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Transaction> addTransaction(HttpServletRequest request, @RequestBody Transaction txn) {
         User user = userDetailsService.getUserByUsername(jwtUtility.getUsernameFromToken(txn.getToken()));
-        Transaction t = new Transaction(user.getUserId(), txn.getTicker(), txn.getShareAmount(), txn.getSharePrice(), txn.getNote(), txn.isBuy());
+        Transaction t = new Transaction(user.getUserId(), txn.getTicker().toUpperCase(), txn.getShareAmount(), txn.getSharePrice(), txn.getNote(), txn.isBuy());
         return new ResponseEntity<>(txnService.addTransaction(t), HttpStatus.CREATED);
     }
 
