@@ -20,7 +20,11 @@ public class UserDetailsService implements org.springframework.security.core.use
     }
 
     public void removeUser(dev.team4.portfoliotracker.models.User user){
-        userRepository.delete(user);
+        if(user.getUsername() == null){
+            throw new UsernameNotFoundException(user.getUsername());
+        } else {
+            userRepository.delete(user);
+        }
     }
 
     public User getUserByUsername(String username){
