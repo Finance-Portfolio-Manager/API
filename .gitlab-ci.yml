@@ -4,4 +4,4 @@ upload to s3:
     entrypoint: [""]
   script:
     - aws configure set region us-east-2
-    - aws s3 cp ./portfolio-frontend s3://$S3_BUCKET/
+    - aws s3 cp ./portfolio-frontend s3://$S3_BUCKET/ --recursive
