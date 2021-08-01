@@ -25,7 +25,7 @@ document.getElementById("login-form").addEventListener("submit", function(login)
         } else if (data.jwt != null && data.jwt != undefined){
             document.getElementById("toggle-nav-1").hidden = true;
             document.getElementById("toggle-nav-2").hidden = true;
-            window.location.href = "#/overview";
+            window.location.href = "#/portfolio";
             location.reload();
          }  
     }).catch((error) => {

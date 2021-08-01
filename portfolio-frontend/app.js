@@ -1,29 +1,36 @@
 const root = document.getElementById("app-root");
-window.addEventListener("load", route);
-window.addEventListener("hashchange", route);
-window.addEventListener("load", navToggle);
-window.addEventListener("hashchange", navToggle);
+window.addEventListener("load", onLoadandHashChange);
+window.addEventListener("hashchange", onLoadandHashChange);
 
-
+function onLoadandHashChange(){
+    route();
+    navToggle();
+}
 
 function navToggle(){
-    document.getElementById("wrong-password").hidden = true;
-    document.getElementById("no-password").hidden = true;
+
     if(sessionStorage.getItem("Authorization")){
         document.getElementById("toggle-nav-1").hidden = true;
         document.getElementById("toggle-nav-2").hidden = true;
+        document.getElementById("toggle-nav-3").hidden = false;
+        document.getElementById("toggle-nav-4").hidden = false;
         document.getElementById("navbarDropdown").hidden = false;
     } else {
         document.getElementById("toggle-nav-1").hidden = false;
         document.getElementById("toggle-nav-2").hidden = false;
+        document.getElementById("toggle-nav-3").hidden = true;
+        document.getElementById("toggle-nav-4").hidden = true;
         document.getElementById("navbarDropdown").hidden = true;
     }
+
+    document.getElementById("wrong-password").hidden = true;
+    document.getElementById("no-password").hidden = true;
 }
 
 
 function hasToken(){
     if(sessionStorage.getItem("Authorization")){
-        return "";
+        return "portfolio";
     } else {
         return "login";
     }
