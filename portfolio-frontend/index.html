@@ -79,7 +79,8 @@
         <p style="font:bold; text-align:center;">All of your data will be lost if you delete your account.</p>
         <p style="text-align:center;">Please enter your password below for verification.</p>
         <input attribute="hidden" type="password" id="modalPassword" name="password" class="text" style="width: 50%; margin-left: 25%; margin-right: 25%;" placeholder="Password"/>
-        <div hidden id="error-modal" class="text-danger">Please enter your password to continue.</div>
+        <div hidden style="text-align: center; "id="no-password" class="text-danger w-100">Please enter your password to continue.</div>
+        <div hidden style="text-align: center; "id="wrong-password" class="text-danger w-100">Incorrect password. Please try again.</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">Cancel</button>
