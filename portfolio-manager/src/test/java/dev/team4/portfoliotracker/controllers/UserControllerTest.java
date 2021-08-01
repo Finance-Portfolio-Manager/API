@@ -1,7 +1,9 @@
 package dev.team4.portfoliotracker.controllers;
 
+import com.mashape.unirest.http.ObjectMapper;
 import dev.team4.portfoliotracker.models.User;
 import dev.team4.portfoliotracker.security.JwtUtility;
+import dev.team4.portfoliotracker.security.UserPrincipal;
 import dev.team4.portfoliotracker.services.StockService;
 import dev.team4.portfoliotracker.services.UserDetailsService;
 import javafx.application.Application;
@@ -42,8 +44,41 @@ public class UserControllerTest {
     JwtUtility jwtUtility;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         this.mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
+    }
+
+    @Test
+    public void successfulRegister(){
+
+        User user = new User();
+        user.setUserId(1);
+        user.setUsername("cody");
+        user.setPassword("password");
+        user.setEmail("c@c.com");
+        user.setFirstName("Cody");
+        user.setLastName("Anderson");
+
+//        this.mockMvc.perform(post("/register")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .characterEncoding("utf-8")
+//                .content());
+    }
+
+    @Test
+    public void successfulLogin() throws Exception {
+        User user = new User();
+        user.setUsername("cody");
+        user.setPassword("anderson");
+        UserPrincipal userP = new UserPrincipal(user);
+
+        doReturn(userP).when(userDetailsService).loadUserByUsername("cody");
+
+        this.mockMvc.perform(post("/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("utf-8")
+                .content("{ \"username\":\"cody\", \"password\": anderson }"))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -56,19 +91,18 @@ public class UserControllerTest {
         user.setEmail("c@c.com");
         user.setFirstName("Cody");
         user.setLastName("Anderson");
-        when(jwtUtility.getUsernameFromToken("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI3NzE3MjgwLCJpYXQiOjE2Mjc2ODEyODB9.jqauc00_9CoBiTp8XP_mb0uv8egyeQKoL8WIvRXZ_GAAgn6Km7QbUxa3avjutOieR2vNMmOuHhTbzw7aFnsqZA")).thenReturn("cody");
-        when(userDetailsService.getUserByUsername("cody")).thenReturn(user);
 
-//        userDetailsService.loadUserByUsername("")
-//        jwtUtility.generateToken()
+        doReturn("cody").when(jwtUtility).getUsernameFromToken("token");
+        doReturn(user).when(userDetailsService).getUserByUsername("cody");
 
         this.mockMvc.perform(get("/username")
-                    .content("{ \"token\":\"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI3NzE3MjgwLCJpYXQiOjE2Mjc2ODEyODB9.jqauc00_9CoBiTp8XP_mb0uv8egyeQKoL8WIvRXZ_GAAgn6Km7QbUxa3avjutOieR2vNMmOuHhTbzw7aFnsqZA"))
-                .andExpect(status().isOk())
+                    .param("String token")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .characterEncoding("utf-8")
+                    .content("{ \"token\":\"token }"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.password").value(hasItems("password")));
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(jsonPath("$.password").value("password"))
+                .andExpect(status().isOk());
     }
-
-
-
 }

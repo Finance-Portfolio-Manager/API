@@ -69,7 +69,7 @@ function loadScript(scriptName){
     }
     localScript = document.createElement("script");
     localScript.id = "dynamic-js";
-    localScript.src = `components/${scriptName}-component/${scriptName}.component.js`
+    localScript.src = `components/${scriptName}-component/${scriptName}.component.js`;
     localScript.type = "module";
     document.body.appendChild(localScript);
 }

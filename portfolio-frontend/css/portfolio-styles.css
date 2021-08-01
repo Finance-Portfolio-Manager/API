@@ -1,3 +1,9 @@
+div {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
 table {
     border-collapse:collapse;
     width:50%;
@@ -9,3 +15,7 @@ table {
 table th {
    border:1px solid #000;
 }
+
+ table td {
+    border:1px solid #000;
+ }
