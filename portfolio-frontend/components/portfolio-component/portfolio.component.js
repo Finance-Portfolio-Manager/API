@@ -64,13 +64,13 @@ getUserFromToken(sessionStorage.getItem('Authorization')).then(data => {
             portfolioChange = portfolioChange.toFixed(2);
             dollarChange = dollarChange.toFixed(2);
     
-            document.getElementById("portfolio-total").innerHTML = "Portfolio Balance $" + portfolioValue;
+            document.getElementById("portfolio-total").innerHTML = "<h3>Portfolio Balance </h3>$" + portfolioValue;
             let changeValue = document.getElementById("portfolio-change");
             let changeAmount = document.getElementById("dollar-change");
-            changeValue.innerHTML = portfolioChange + "%";
+            changeValue.innerHTML = portfolioChange + "%<br>";
 
             if(portfolioChange>0){
-                changeAmount.innerHTML = "+ $" + dollarChange;
+                changeAmount.innerHTML = "$" + dollarChange;
                 changeValue.style.color = "green";
                 changeAmount.style.color = "green";
             } else if (portfolioChange<0){
