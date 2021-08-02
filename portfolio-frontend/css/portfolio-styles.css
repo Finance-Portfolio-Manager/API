@@ -32,10 +32,11 @@ table th {
   }
 
   #portfolio-values {
-      text-align: right;
+    text-align: right;
     align-content: flex-end;
     float: right;
     right: 0px;
+    margin-bottom: 20px;
   }
 
   /* #portfolio-total {
