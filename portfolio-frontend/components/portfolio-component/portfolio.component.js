@@ -50,13 +50,15 @@ getUserFromToken(sessionStorage.getItem('Authorization')).then(data => {
             
             var portfolioChange = 0;
             var portfolioAverage = 0;
+            var investedAmount = 0;
             var dollarChange = 0;
             for(var i = 0; i <currentPrices.length; i++){
                 portfolioChange += currentPrices[i];
                 portfolioAverage += stocksList[i].price;
+                investedAmount += (stocksList[i].price*stocksList[i].quantity);
             }
             portfolioChange = ((portfolioChange * 100) /portfolioAverage) - 100;
-            dollarChange = portfolioValue - portfolioAverage;
+            dollarChange = portfolioValue - investedAmount;
     
             portfolioValue = portfolioValue.toFixed(2);
             portfolioChange = portfolioChange.toFixed(2);
@@ -72,7 +74,7 @@ getUserFromToken(sessionStorage.getItem('Authorization')).then(data => {
                 changeValue.style.color = "green";
                 changeAmount.style.color = "green";
             } else if (portfolioChange<0){
-                changeAmount.innerHTML = "- $" + dollarChange;
+                changeAmount.innerHTML = "$" + dollarChange;
                 changeValue.style.color = "red";
                 changeAmount.style.color = "red";
             }
