@@ -3,6 +3,7 @@ window.addEventListener("load", onLoadandHashChange);
 window.addEventListener("hashchange", onLoadandHashChange);
 
 function onLoadandHashChange(){
+    location.reload();
     route();
     navToggle();
 }
