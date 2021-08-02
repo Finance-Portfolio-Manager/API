@@ -15,8 +15,6 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     TransactionRepository txnRepo;
 
-
-
     @Override
     public List<Transaction> getAllTransactionsByUserId(int userId) {
         return txnRepo.findAllTransactionsByUserId(userId);

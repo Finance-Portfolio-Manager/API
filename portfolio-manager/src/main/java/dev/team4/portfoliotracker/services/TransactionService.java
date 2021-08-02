@@ -7,25 +7,30 @@ import java.util.List;
 public interface TransactionService {
 
     /**
-     * @return
+     * Gets all transactions in database
+     * @return all transactions
      */
     List<Transaction> getAllTransactions();
     /**
+     * Gets all transactions matching userId
      * @param userId
-     * @return
+     * @return List of transactions matching userId
      */
     List<Transaction> getAllTransactionsByUserId(int userId);
     /**
+     * Gets Transaction matching transactionId
      * @param transactionId
-     * @return
+     * @return Transaction matching transactionId
      */
     Transaction getTransactionById(int transactionId);
     /**
+     * Adds txn to database
      * @param txn
-     * @return
+     * @return added Transaction
      */
     Transaction addTransaction(Transaction txn);
     /**
+     * Updates Transaction matching transactionId
      * @param transactionId
      * @param userId
      * @param shareAmount
@@ -34,9 +39,15 @@ public interface TransactionService {
      */
     void updateTransaction(int transactionId, int userId, String ticker, double shareAmount, double sharePrice, String note);
 
+    /**
+     * Updates Transaction matching id with transactionId
+     * @param id
+     * @param txn
+     */
     void updateTransaction(int id, Transaction txn);
 
     /**
+     * Deletes Transaction matching transactionId
      * @param transactionId
      */
     void deleteTransaction(int transactionId);

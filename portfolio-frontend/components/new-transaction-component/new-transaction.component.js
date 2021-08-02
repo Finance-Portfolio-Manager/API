@@ -144,21 +144,6 @@ var validateTicker = function(tickerSymobol) {
 
 }
 
-function getAllTransactions(userId){
-    return fetch("http://portfoliomanager-env.eba-49pyjjuv.us-east-2.elasticbeanstalk.com/transactions?userId=" + userId, {
-        method: 'get',
-        headers: new Headers({
-            'Content-Type':'application/json'
-        })
-    }).then((response) => { 
-        return response.json().then((data) => {
-            return data;
-        }).catch((error) => {
-            console.log(error);
-        }) 
-    });
-}
-
 function getUserFromToken(token){
     return fetch("http://portfoliomanager-env.eba-49pyjjuv.us-east-2.elasticbeanstalk.com/username?token=" + token, {
         method: 'get',
@@ -231,20 +216,6 @@ function getAllStocks(userId){
         return response.json().then((data) => {
             return data;
         }).catch((error) => {
-            console.log(error);
-        }) 
-    });
-}
-
-function deleteTransaction(transactionId){
-    fetch("http://portfoliomanager-env.eba-49pyjjuv.us-east-2.elasticbeanstalk.com/transactions/" + transactionId, {
-        method: 'delete',
-        headers: new Headers({
-            'Content-Type':'application/json'
-        }),
-    }).then((response) => { 
-        return response.json()
-        .catch((error) => {
             console.log(error);
         }) 
     });

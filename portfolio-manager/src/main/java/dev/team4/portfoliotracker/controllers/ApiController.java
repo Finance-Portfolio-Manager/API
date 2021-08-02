@@ -21,6 +21,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 @CrossOrigin
 @RequestMapping("/api")
 public class ApiController {
+	/*
 	@GetMapping(produces = "application/json")
 	public ResponseEntity<String> getStock(@RequestParam(value = "symbol") String stockSymbol) {
 		HttpResponse<String> response = null;
@@ -35,7 +36,9 @@ public class ApiController {
 		}
 		return new ResponseEntity<String>(response.getBody(), HttpStatus.OK);
 	}
+	*/
 	
+	//doesn't use consumed json, but its too late to change it
 	@GetMapping(value = "/all", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> getStock(@RequestParam(value = "symbol") List<String> stockSymbols) {
 		HttpResponse<String> response = null;
