@@ -1,10 +1,14 @@
 const root = document.getElementById("app-root");
 window.addEventListener("load", onLoad);
-window.addEventListener("hashchange", onLoadandHashChange);
+window.addEventListener("hashchange", onHashChange);
 
 function onLoad(){
     route();
     navToggle();
+}
+
+function onHashChange(){
+    location.reload();
 }
 
 function navToggle(){
