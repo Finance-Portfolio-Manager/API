@@ -103,7 +103,10 @@ getUserFromToken(sessionStorage.getItem('Authorization')).then(data => {
                         }),
                         body: JSON.stringify(newTransaction)
                     }).then(response => response.json())
-                    .then(data => console.log(data))
+                    .then(data => {
+                        window.location.href = "#/portfolio";
+                        location.reload();
+                    })
                     .catch(error => console.error(error));
                 }
                 else{
