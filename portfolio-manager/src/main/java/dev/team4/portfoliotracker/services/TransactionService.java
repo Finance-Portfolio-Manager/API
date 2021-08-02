@@ -32,7 +32,10 @@ public interface TransactionService {
      * @param sharePrice
      * @param note
      */
-    void updateTransaction(int transactionId, int userId, double shareAmount, double sharePrice, String note);
+    void updateTransaction(int transactionId, int userId, String ticker, double shareAmount, double sharePrice, String note);
+
+    void updateTransaction(int id, Transaction txn);
+
     /**
      * @param transactionId
      */

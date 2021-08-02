@@ -53,8 +53,10 @@ public class TransactionController {
     }
 
     @PutMapping(value = "/{transactionId}", consumes = "application/json")
-    public ResponseEntity<Map<String, Boolean>> updateTransaction(HttpServletRequest request, @PathVariable("userId") int userId, @PathVariable("transactionId") int transactionId) {
-
+    public ResponseEntity<Map<String, Boolean>> updateTransaction(HttpServletRequest request, @PathVariable("transactionId") int transactionId, @RequestBody Transaction txn) {
+        User user = userDetailsService.getUserByUsername(jwtUtility.getUsernameFromToken(txn.getToken()));
+        Transaction t = new Transaction(user.getUserId(), txn.getTicker().toUpperCase(), txn.getShareAmount(), txn.getSharePrice(), txn.getNote(), txn.isBuy());
+        txnService.updateTransaction(transactionId, t);
         Map<String, Boolean> map = new HashMap<>();
         map.put("success", true);
         return new ResponseEntity<>(map, HttpStatus.OK);
