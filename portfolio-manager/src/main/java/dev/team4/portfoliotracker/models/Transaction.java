@@ -59,6 +59,27 @@ public class Transaction {
         this.isBuy = isBuy;
     }
 
+    public Transaction(int transactionId, int userId, String ticker, double shareAmount, double sharePrice, String note, boolean isBuy) {
+        this.transactionId = transactionId;
+        this.userId = userId;
+        this.ticker = ticker;
+        this.shareAmount = shareAmount;
+        this.sharePrice = sharePrice;
+        this.note = note;
+        this.isBuy = isBuy;
+    }
+
+    public Transaction(int transactionId, int userId, String ticker, double shareAmount, double sharePrice, String note, String token, boolean isBuy) {
+        this.transactionId = transactionId;
+        this.userId = userId;
+        this.ticker = ticker;
+        this.shareAmount = shareAmount;
+        this.sharePrice = sharePrice;
+        this.note = note;
+        this.token = token;
+        this.isBuy = isBuy;
+    }
+
     public int getTransactionId() {
         return transactionId;
     }

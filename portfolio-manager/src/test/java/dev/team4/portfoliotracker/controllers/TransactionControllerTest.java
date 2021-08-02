@@ -29,18 +29,6 @@ public class TransactionControllerTest {
         System.out.println(response2.getBody());
     }
 
-//    @Test
-//    void getAllTransactionsNotLoggedInShouldFail() {
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        ResponseEntity<Transaction> response = restTemplate.getForEntity(url, Transaction.class);
-//
-//        assertAll(
-//                () -> assertNotNull(response.getBody()),
-//                () -> assertEquals(403, response.getStatusCodeValue())
-//        );
-//    }
-
     @Test
     void getAllTransactions() {
         TestRestTemplate restTemplate = new TestRestTemplate();
@@ -80,34 +68,64 @@ public class TransactionControllerTest {
         );
     }
 
-//    @Test
-//    void addTransaction() {
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        headers.add("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ");
-//        HttpEntity<String> request = new HttpEntity<>("{\"userId\":1,\"ticker\":\"BRUH\",\"shareAmount\":2.0,\"sharePrice\":\"420,\"note\":\"blah ablah balh\",\"isBuy\":\"true\"}", headers);
-//        ResponseEntity<Transaction> response = restTemplate.postForEntity(url + "/new", request, Transaction.class);
-//        System.out.println(response.getBody());
-//
-//        assertAll(
-//                () -> assertNotNull(response.getBody()),
-//                () -> assertEquals(200, response.getStatusCodeValue())
-//        );
-//    }
+    @Test
+    void addTransaction() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.add("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ");
+        Transaction txn1 = new Transaction(201, "TSLA", 5.32, 690.32, "test1", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ", true);
+        HttpEntity<Transaction> request = new HttpEntity<>(txn1, headers);
+        ResponseEntity<Transaction> response = restTemplate.postForEntity(url + "/new", request, Transaction.class);
+        System.out.println(response.getBody());
+
+        assertAll(
+                () -> assertNotNull(response.getBody()),
+                () -> assertEquals(201, response.getStatusCodeValue())
+        );
+    }
 
     @Test
     void updateTransaction() {
-        Transaction txn1 = new Transaction(201, "TSLA", 5.32, 690.32, "test1", true);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> request = new HttpEntity<>(asJsonString(txn1), headers);
+        headers.add("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ");
+        Transaction txn1 = new Transaction(201, "TSLA", 5.32, 690.32, "test1", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ", true);
+        HttpEntity<Transaction> request = new HttpEntity<>(txn1, headers);
+        ResponseEntity<Transaction> response = restTemplate.postForEntity(url + "/new", request, Transaction.class);
+
+        HttpHeaders headers2 = new HttpHeaders();
+        headers2.setContentType(MediaType.APPLICATION_JSON);
+        headers2.add("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ");
+        Transaction txn2 = new Transaction(201, "MSFT", 53.32, 69.32, "test2", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ", true);
+        HttpEntity<String> request2 = new HttpEntity<>(asJsonString(txn2), headers2);
+        ResponseEntity<Transaction> response2 = restTemplate.exchange(url + "/2", HttpMethod.PUT, request2, Transaction.class);
+        System.out.println(response2.getBody());
+
+        assertAll(
+                () -> assertNotNull(response2.getBody()),
+                () -> assertEquals(200, response2.getStatusCodeValue())
+        );
     }
 
     @Test
     void deleteTransaction() {
-        Transaction txn1 = new Transaction(201, "TSLA", 5.32, 690.32, "test1", true);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> request = new HttpEntity<>(asJsonString(txn1), headers);
+        headers.add("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ");
+        Transaction txn1 = new Transaction(201, "TSLA", 5.32, 690.32, "test1", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ", true);
+        HttpEntity<Transaction> request = new HttpEntity<>(txn1, headers);
+        ResponseEntity<Transaction> response = restTemplate.postForEntity(url + "/new", request, Transaction.class);
+
+        HttpHeaders headers2 = new HttpHeaders();
+        headers2.setContentType(MediaType.APPLICATION_JSON);
+        headers2.add("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ");
+        HttpEntity<String> request2 = new HttpEntity<>(headers2);
+        ResponseEntity<Transaction> response2 = restTemplate.exchange(url + "/1", HttpMethod.DELETE, request2, Transaction.class);
+        System.out.println(response2.getBody());
+
+        assertAll(
+                () -> assertNotNull(response2.getBody()),
+                () -> assertEquals(200, response2.getStatusCodeValue())
+        );
     }
 }

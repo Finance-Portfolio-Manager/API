@@ -36,14 +36,6 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public void updateTransaction(int transactionId, int userId, String ticker, double shareAmount, double sharePrice, String note) {
-        Transaction txn = txnRepo.findByTransactionId(transactionId);
-        txn.setShareAmount(shareAmount);
-        txn.setSharePrice(sharePrice);
-        txn.setNote(note);
-    }
-
-    @Override
     public void updateTransaction(int id, Transaction transaction) {
         Transaction txn = txnRepo.findByTransactionId(id);
         txn.setTicker(transaction.getTicker());

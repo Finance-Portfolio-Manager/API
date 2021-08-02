@@ -29,15 +29,6 @@ public interface TransactionService {
      * @return added Transaction
      */
     Transaction addTransaction(Transaction txn);
-    /**
-     * Updates Transaction matching transactionId
-     * @param transactionId
-     * @param userId
-     * @param shareAmount
-     * @param sharePrice
-     * @param note
-     */
-    void updateTransaction(int transactionId, int userId, String ticker, double shareAmount, double sharePrice, String note);
 
     /**
      * Updates Transaction matching id with transactionId
