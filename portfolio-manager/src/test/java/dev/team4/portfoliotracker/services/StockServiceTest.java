@@ -47,6 +47,7 @@ public class StockServiceTest {
 		Stock stockCheck = stock;
 		stockCheck.setStockId(1);
 		stockCheck.setStockQuantity(20);
+		when(stockRepo.findStockByStockId(stock.getStockId())).thenReturn(stock);
 		when(stockRepo.save(stock)).thenReturn(stockCheck);
 		assertEquals(stockCheck, stockServ.updateStockQuantity(stock.getStockId(), 20));
 	}
