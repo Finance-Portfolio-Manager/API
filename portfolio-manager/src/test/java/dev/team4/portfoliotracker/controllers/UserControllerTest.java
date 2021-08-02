@@ -1,112 +1,160 @@
 package dev.team4.portfoliotracker.controllers;
 
-import com.mashape.unirest.http.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.team4.portfoliotracker.models.User;
+import dev.team4.portfoliotracker.repositories.UserRepository;
 import dev.team4.portfoliotracker.security.JwtUtility;
-import dev.team4.portfoliotracker.security.UserPrincipal;
-import dev.team4.portfoliotracker.services.StockService;
 import dev.team4.portfoliotracker.services.UserDetailsService;
-//import javafx.application.Application;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.*;
 
-import java.util.Arrays;
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.hamcrest.Matchers.hasItems;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-//@AutoConfigureMockMvc
-//@SpringBootTest
-@WebMvcTest(UserController.class)
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class UserControllerTest {
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @MockBean
-    UserDetailsService userDetailsService;
-
-    @MockBean
-    UserController userController;
-
-    @MockBean
-    JwtUtility jwtUtility;
 
     @BeforeEach
     public void setUp() {
-        this.mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
+        User user = new User("Cody", "Anderson", "c@c.com", "cody", "pass");
+        TestRestTemplate restTemplate = new TestRestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> request = new HttpEntity<>(asJsonString(user), headers);
+        ResponseEntity<User> response = restTemplate.postForEntity("http://localhost:8082/register", request, User.class);
+    }
+
+    User user = new User("Cody", "Anderson", "c@c.com", "cody", "pass");
+
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
-    public void successfulRegister(){
+    public void registerUserSuccess() {
+        user.setUsername("cody2");
+        TestRestTemplate restTemplate = new TestRestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> request = new HttpEntity<>(asJsonString(user), headers);
+        ResponseEntity<User> response = restTemplate.postForEntity("http://localhost:8082/register", request, User.class);
+        System.out.println(response.getBody());
 
-        User user = new User();
-        user.setUserId(1);
-        user.setUsername("cody");
-        user.setPassword("password");
-        user.setEmail("c@c.com");
-        user.setFirstName("Cody");
-        user.setLastName("Anderson");
-
-//        this.mockMvc.perform(post("/register")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .characterEncoding("utf-8")
-//                .content());
+        assertAll(
+                () -> assertNotNull(response.getBody()),
+                () -> assertEquals(201, response.getStatusCodeValue())
+        );
     }
 
     @Test
-    public void successfulLogin() throws Exception {
-        User user = new User();
-        user.setUsername("cody");
-        user.setPassword("anderson");
-        UserPrincipal userP = new UserPrincipal(user);
+    public void loginSuccess() {
+        TestRestTemplate restTemplate = new TestRestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> request = new HttpEntity<>(asJsonString(user), headers);
+        ResponseEntity<User> response = restTemplate.postForEntity("http://localhost:8082/login", request, User.class);
 
-        doReturn(userP).when(userDetailsService).loadUserByUsername("cody");
-
-        this.mockMvc.perform(post("/login")
-                .contentType(MediaType.APPLICATION_JSON)
-                .characterEncoding("utf-8")
-                .content("{ \"username\":\"cody\", \"password\": anderson }"))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().isOk());
+        assertAll(
+                () -> assertNotNull(response.getBody()),
+                () -> assertEquals(200, response.getStatusCodeValue())
+        );
     }
 
     @Test
-    public void returnUserFromToken() throws Exception {
+    public void loginFailure() {
+        User user2 = new User("Cody", "Anderson", "c@c.com", "user2", "pass");
+        TestRestTemplate restTemplate = new TestRestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> request = new HttpEntity<>(asJsonString(user2), headers);
+        ResponseEntity<User> response = restTemplate.postForEntity("http://localhost:8082/login", request, User.class);
 
-        User user = new User();
-        user.setUserId(1);
-        user.setUsername("cody");
-        user.setPassword("password");
-        user.setEmail("c@c.com");
-        user.setFirstName("Cody");
-        user.setLastName("Anderson");
+        assertAll(
+                () -> assertEquals(500, response.getStatusCodeValue())
+        );
+    }
 
-        doReturn("cody").when(jwtUtility).getUsernameFromToken("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI3ODI5ODIwLCJpYXQiOjE2Mjc3OTM4MjB9._hJ4xtb0UqgVPo2JUc4-Iegs4_QnWlk1PPsgUUN03RsiPL9p9s5jiqbh_ztDAYZ2YxBzhotZYnaLfi801hCGoA");
-        doReturn(user).when(userDetailsService).getUserByUsername("cody");
+    @Test
+    public void deleteFailure() {
+        User user2 = new User("Cody", "Anderson", "c@c.com", "cody", "pass2");
+        TestRestTemplate restTemplate = new TestRestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> request = new HttpEntity<>(asJsonString(user2), headers);
+        ResponseEntity<User> response = restTemplate.exchange("http://localhost:8082/delete", HttpMethod.DELETE, request, User.class);
 
-        this.mockMvc.perform(get("/username")
-                    .param("token", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI3ODI5ODIwLCJpYXQiOjE2Mjc3OTM4MjB9._hJ4xtb0UqgVPo2JUc4-Iegs4_QnWlk1PPsgUUN03RsiPL9p9s5jiqbh_ztDAYZ2YxBzhotZYnaLfi801hCGoA")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .characterEncoding("utf-8")
-                    )
-                .andDo(MockMvcResultHandlers.print())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("$.password").value("password"))
-                .andExpect(status().isOk());
+        assertAll(
+                () -> assertEquals(500, response.getStatusCodeValue())
+        );
+    }
 
+    @Test
+    public void getUserFromToken() {
+        TestRestTemplate restTemplate = new TestRestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> request = new HttpEntity<>(headers);
+        ResponseEntity<?> response = restTemplate.getForEntity("http://localhost:8082/username?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI3OTA5NzAyLCJpYXQiOjE2Mjc4NzM3MDJ9.kZQ9wiaQ0TUY7jM5BwwC3-y66z4wjXl-mGD6XmubLNYhuQqk3TtARYpXrYTYjt1g7mYjx6MUV3NyQlI9AZK6dA", User.class);
+        System.out.println(request.getBody());
+        System.out.println(response.getBody());
+
+        assertAll(
+                () -> assertNotNull(response.getBody()),
+                () -> assertEquals(200, response.getStatusCodeValue())
+        );
+    }
+
+    @Test
+    public void getUserFromTokenFail() {
+        TestRestTemplate restTemplate = new TestRestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> request = new HttpEntity<>(headers);
+        ResponseEntity<?> response = restTemplate.getForEntity("http://localhost:8082/username?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI3OTA50TUY7jM5BwwC3-y66z4wjXl-mGD6XmubLNYhuQqk3TtARYpXrYTYjt1g7mYjx6MUV3NyQlI9AZK6dA", User.class);
+        System.out.println(request.getBody());
+        System.out.println(response.getBody());
+
+        assertAll(
+                () -> assertEquals(500, response.getStatusCodeValue())
+        );
+    }
+
+    @Test
+    public void getUserFromUsername() {
+        TestRestTemplate restTemplate = new TestRestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> request = new HttpEntity<>(headers);
+        ResponseEntity<?> response = restTemplate.getForEntity("http://localhost:8082/register/cody", User.class);
+        System.out.println(request.getBody());
+        System.out.println(response.getBody());
+
+        assertAll(
+                () -> assertNotNull(response.getBody()),
+                () -> assertEquals(200, response.getStatusCodeValue())
+        );
+    }
+
+    @Test
+    public void deleteSuccess() {
+        User user2 = new User("Cody", "Anderson", "c@c.com", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI3OTA3NDAwLCJpYXQiOjE2Mjc4NzE0MDB9.4YkqBitpwR24fngB7OWwtWMAMj_HGMCx50xne6vEdRAL3CAvMdSpk0tmVxi6KmBRE0Yux4J_YyvWMz_dOhELWw", "pass");
+        TestRestTemplate restTemplate = new TestRestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> request = new HttpEntity<>(asJsonString(user2), headers);
+        ResponseEntity<User> response = restTemplate.exchange("http://localhost:8082/delete", HttpMethod.DELETE, request, User.class);
+
+        assertAll(
+                () -> assertEquals(200, response.getStatusCodeValue())
+        );
     }
 }

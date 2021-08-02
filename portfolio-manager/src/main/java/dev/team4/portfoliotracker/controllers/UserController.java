@@ -35,9 +35,7 @@ public class UserController {
 
     @GetMapping(value = "/register/{username}")
     public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
-        ResponseEntity<User> re = new ResponseEntity<>(userDetailsService.getUserByUsername(username), HttpStatus.OK);
-        System.out.println(re);
-        return re;
+        return new ResponseEntity<>(userDetailsService.getUserByUsername(username), HttpStatus.OK);
     }
 
     @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")
@@ -47,6 +45,7 @@ public class UserController {
 
     @DeleteMapping(value = "/delete", consumes = "application/json")
     public ResponseEntity<?> deleteUser(@RequestBody User user){
+        System.out.println(user);
         User toDelete = userDetailsService.getUserByUsername(jwtUtility.getUsernameFromToken(user.getUsername()));
         if(toDelete.getPassword().equals(user.getPassword())){
             userDetailsService.removeUser(toDelete);
