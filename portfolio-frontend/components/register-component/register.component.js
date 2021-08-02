@@ -32,7 +32,10 @@ document.getElementById("registration-form").addEventListener("submit", function
                     console.log(data);
                     if(data.status<200 || data.status>299){
                         usernameError.hidden = false;
+                    } else if(data.status>=200 || data.status<=299){
+                        window.location.href = "http://portfolio-manager-revature.s3-website.us-east-2.amazonaws.com/#/login";
                     }
+                    
                 })
                 .catch(error => console.error(error));
     } 

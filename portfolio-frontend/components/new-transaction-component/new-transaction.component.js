@@ -104,8 +104,7 @@ getUserFromToken(sessionStorage.getItem('Authorization')).then(data => {
                         body: JSON.stringify(newTransaction)
                     }).then(response => response.json())
                     .then(data => {
-                        window.location.href = "#/portfolio";
-                        location.reload();
+                        window.location.href = "http://portfolio-manager-revature.s3-website.us-east-2.amazonaws.com/#/portfolio";
                     })
                     .catch(error => console.error(error));
                 }

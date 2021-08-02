@@ -1,10 +1,14 @@
 const root = document.getElementById("app-root");
-window.addEventListener("load", onLoadandHashChange);
-window.addEventListener("hashchange", onLoadandHashChange);
+window.addEventListener("load", onLoad);
+window.addEventListener("hashchange", onHashChange);
 
-function onLoadandHashChange(){
+function onLoad(){
     route();
     navToggle();
+}
+
+function onHashChange(){
+    location.reload();
 }
 
 function navToggle(){
@@ -42,14 +46,15 @@ const routes = [
     {path: "#/portfolio", componentFileName: "portfolio"},
     {path: "#/login", componentFileName: "login"},
     {path: "#/register", componentFileName: "register"},
-    {path: "#/overview", componentFileName: "overview"}
 ]
 
 
 function route(){
+    
     const hashPath = location.hash;
+    // location.hash = "";
     const currentRoute = routes.find(r=>r.path===hashPath);
-    const viewName = currentRoute?currentRoute.componentFileName:"overview";
+    const viewName = currentRoute.componentFileName;
     renderView(viewName);
 }
 
@@ -64,9 +69,9 @@ function renderView(view){
 
 function loadScript(scriptName){
     let localScript = document.getElementById("dynamic-js");
-    if (localScript){
-        localScript.remove();
-    }
+    // if (localScript){
+    //     localScript.remove();
+    // }
     localScript = document.createElement("script");
     localScript.id = "dynamic-js";
     localScript.src = `components/${scriptName}-component/${scriptName}.component.js`;
@@ -111,7 +116,7 @@ function removeUser(password){
         if(response.status>=200 && response.status<=299){
             sessionStorage.removeItem("Authorization");
             $('#exampleModal').modal('hide');
-            window.location.href = "#/login";
+            window.location.href = "http://portfolio-manager-revature.s3-website.us-east-2.amazonaws.com/#/login";
         } else {
             passError.hidden = false;
         }

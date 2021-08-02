@@ -4,6 +4,8 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import dev.team4.portfoliotracker.services.UserDetailsService;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
@@ -51,15 +54,9 @@ public class StockControllerTest {
 	@Test
     public void addStock() {
 		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-		MultiValueMap<String, String> map= new LinkedMultiValueMap<>();
-        map.add("userId", "1");
-        map.add("stockSymbol", "AMD");
-        map.add("stockQuantity", "10");
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
-        System.out.println(asJsonString(stock));
-        System.out.println(request.getBody());
-        ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+		headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> request = new HttpEntity<>("{\"userId\":1,\"stockSymbol\":\"BRUH\",\"stockQuantity\":2.0}", headers);
+        ResponseEntity<Stock> response = restTemplate.postForEntity(url, request, Stock.class);
         System.out.println(response.getBody());
 
         assertAll(
@@ -68,9 +65,13 @@ public class StockControllerTest {
         );
     }
 	
+	//actually updateStock
 	@Test
-    public void deleteStock() {
-        ResponseEntity<Stock> response = restTemplate.getForEntity(url + "/9", Stock.class);
+    public void getAllStock3() {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> request = new HttpEntity<>("{\"userId\":1,\"stockId\": 1,\"stockSymbol\":\"BRUH\",\"stockQuantity\":20.0}", headers);
+        ResponseEntity<Stock> response = restTemplate.exchange(url, HttpMethod.PUT, request, Stock.class);
         System.out.println(response.getBody());
 
         assertAll(
@@ -79,9 +80,10 @@ public class StockControllerTest {
         );
     }
 	
+	//actually getStock, renamed for unit testing
 	@Test
-    public void updateStock() {
-        ResponseEntity<Stock> response = restTemplate.getForEntity(url + "/9", Stock.class);
+    public void getAllStock2() {
+        ResponseEntity<Stock> response = restTemplate.getForEntity(url + "/1", Stock.class);
         System.out.println(response.getBody());
 
         assertAll(
@@ -89,21 +91,10 @@ public class StockControllerTest {
                 () -> assertEquals(200, response.getStatusCodeValue())
         );
     }
-	
-	@Test
-    public void getStock() {
-        ResponseEntity<Stock> response = restTemplate.getForEntity(url + "/9", Stock.class);
-        System.out.println(response.getBody());
-
-        assertAll(
-                () -> assertNotNull(response.getBody()),
-                () -> assertEquals(200, response.getStatusCodeValue())
-        );
-    }
-	
+    
     @Test
     public void getAllStocks() {
-        ResponseEntity<Stock> response = restTemplate.getForEntity(url + "/9", Stock.class);
+        ResponseEntity<String> response = restTemplate.getForEntity(url + "/all/1", String.class);
         System.out.println(response.getBody());
 
         assertAll(
@@ -111,5 +102,19 @@ public class StockControllerTest {
                 () -> assertEquals(200, response.getStatusCodeValue())
         );
     }
+    
+	@Test
+    public void zdeleteStock() {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> request = new HttpEntity<>("{\"userId\":1,\"stockId\": 1,\"stockSymbol\":\"BRUH\",\"stockQuantity\":2.0}", headers);
+        ResponseEntity<Stock> response = restTemplate.exchange(url, HttpMethod.DELETE, request, Stock.class);
+        System.out.println(response.getBody());
+
+        assertAll(
+                () -> assertEquals(200, response.getStatusCodeValue())
+        );
+    }
+	
 
 }
