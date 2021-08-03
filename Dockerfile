@@ -1,4 +1,4 @@
-FROM java:11
+FROM openjdk:8-jdk-alpine
 EXPOSE 8082
-COPY target/portfolio-manager-1.0.0-SNAPSHOT.jar
-CMD java -jar portfolio-manager-1.0.0-SNAPSHOT.jar
+COPY target/*.jar /app.jar
+CMD java -jar /app.jar
