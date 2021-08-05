@@ -5,6 +5,8 @@ import dev.team4.portfoliotracker.services.UserDetailsService;
 import dev.team4.portfoliotracker.security.AuthenticationRequest;
 import dev.team4.portfoliotracker.security.AuthenticationResponse;
 import dev.team4.portfoliotracker.security.JwtUtility;
+import dev.team4.portfoliotracker.util.EmailUtil;
+import dev.team4.portfoliotracker.util.UpdateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +16,15 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 @RequestMapping
 public class UserController {
+
+    @Autowired
+    private UpdateUtil updateUtil;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -27,6 +34,22 @@ public class UserController {
 
     @Autowired
     private JwtUtility jwtUtility;
+
+
+    @GetMapping(value = "/email", produces = "application/json")
+    public ResponseEntity<List<User>> getEmail() {
+        updateUtil.update();
+        return new ResponseEntity<>(userDetailsService.checkAllUser(), HttpStatus.OK);
+    }
+
+
+
+    @GetMapping(value = "/accounts", produces = "application/json")
+    public ResponseEntity<List<User>> getAllAccounts() {
+        updateUtil.update();
+        return new ResponseEntity<>(userDetailsService.checkAllUser(), HttpStatus.OK);
+    }
+
     
     @GetMapping(value = "/username", produces = "application/json")
     public ResponseEntity<User> getUserByToken(@RequestParam(value = "token") String token) {
@@ -40,8 +63,14 @@ public class UserController {
 
     @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")
     public ResponseEntity<User> createNewUser(@RequestBody User user){
+        System.out.println("create");
+//        String subject = "Thank you for creating an account";
+//        String text = "Your username is " + user.getUsername();
+//        EmailUtil.sendEmail(user.getEmail(), subject, text);
+
         return new ResponseEntity<User>(userDetailsService.createUser(user), HttpStatus.CREATED);
     }
+
 
     @DeleteMapping(value = "/delete", consumes = "application/json")
     public ResponseEntity<?> deleteUser(@RequestBody User user){

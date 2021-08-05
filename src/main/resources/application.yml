@@ -9,12 +9,13 @@ management:
 
 spring:
   datasource:
-#    url: jdbc:postgresql://database-1.cs1tymkociae.us-east-2.rds.amazonaws.com:5432/postgres
-#    username: postgres
-#    password: anderson
-    url: {{SPRING_DATASOURCE_URL}}
-    username: {{SPRING_DATASOURCE_USERNAME}}
-    password: {{SPRING_DATASOURCE_PASSWORD}}
+    #    url: jdbc:postgresql://database-1.cs1tymkociae.us-east-2.rds.amazonaws.com:5432/postgres
+    #    username: postgres
+    #    password: anderson
+    url: jdbc:postgresql://training-db.cvaaoud1no8t.us-east-2.rds.amazonaws.com:5432/postgres?currentSchema=project3
+    username: postgres
+    password: 12345678
+
   jpa:
     show-sql: true
     generate-ddl: true
