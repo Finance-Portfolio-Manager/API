@@ -1,20 +1,41 @@
-server:
-  port: 8082
+#server:
+#  port: 8082
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#
+#spring:
+#  datasource:
+##    url: jdbc:postgresql://database-1.cs1tymkociae.us-east-2.rds.amazonaws.com:5432/postgres
+##    username: postgres
+##    password: anderson
+#    url: {{SPRING_DATASOURCE_URL}}
+#    username: {{SPRING_DATASOURCE_USERNAME}}
+#    password: {{SPRING_DATASOURCE_PASSWORD}}
+#  jpa:
+#    show-sql: true
+#    generate-ddl: true
+#    properties:
+#      hibernate:
+#        jdbc:
+#          lob:
+#            non_contextual_creation: true
+#    jackson:
+#      serialization:
+#        fail-on-empty-beans: false
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+server:
+  port: 8083
 
 spring:
+  profiles: dev #spring.profiles.active=dev
   datasource:
-#    url: jdbc:postgresql://database-1.cs1tymkociae.us-east-2.rds.amazonaws.com:5432/postgres
-#    username: postgres
-#    password: anderson
-    url: {{SPRING_DATASOURCE_URL}}
-    username: {{SPRING_DATASOURCE_USERNAME}}
-    password: {{SPRING_DATASOURCE_PASSWORD}}
+    url: jdbc:h2:file:~/test
+    driverClassName: org.h2.Driver
+    data: classpath:test-setup.sql #test-setup.sql can be put in resources folder
   jpa:
     show-sql: true
     generate-ddl: true
@@ -23,6 +44,6 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
-    jackson:
-      serialization:
-        fail-on-empty-beans: false
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
