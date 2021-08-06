@@ -44,14 +44,17 @@ public class UpdateUtil {
             double price = yahooStock.getQuote().getPrice().doubleValue();
             double change = yahooStock.getQuote().getChangeInPercent().doubleValue();
 
-            if(abs(change) >= 1){
+            System.out.println(change);
+            if(abs(change) >= 0.5){
                 User user = userDetailsService.getUserByUserId(stock.getUserId());
+                //User user = userDetailsService.getUserByUserId(4);
                 String subject = "User: " + user.getUsername() + ". One of your stock has significant price change";
-                String text = "Stock Name: " + yahooStock.getName() + " Change In Percent: " + change + "Current Price: " + price;
-                text += "You currently have " + stock.getStockQuantity() + "shares";
+                String text = "\nStock Name: " + yahooStock.getName() + "\nChange In Percent: " + change + "\nCurrent Price: " + price;
+                text += "\nYou currently have " + stock.getStockQuantity() + " shares";
 
                 long currentTimestamp = System.currentTimeMillis();
-                if( (currentTimestamp - stock.getLastEmailEpochTime()) > 10){
+                System.out.println(currentTimestamp);
+                if( (currentTimestamp - stock.getLastEmailEpochTime()) > 100){ //the number is for interval
                     EmailUtil.sendEmail(user.getEmail(),subject, text);
                     stock.setLastEmailEpochTime(currentTimestamp);
                     stockService.addStock(stock);

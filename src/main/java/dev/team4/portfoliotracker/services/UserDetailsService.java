@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -69,7 +70,7 @@ public class UserDetailsService implements org.springframework.security.core.use
 
     public User getUserByUserId(int id){
 
-        return userRepository.getOne(id);
+        return userRepository.findById(id);
 
     }
 }

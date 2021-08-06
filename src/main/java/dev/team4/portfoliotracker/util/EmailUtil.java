@@ -61,9 +61,9 @@ public class EmailUtil {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(myEmail));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
-            message.setSubject("Here are some stock information");
+            message.setSubject("Portfolio Update");
 
-            String html = "<h1>Your balance is " + balance + "</h1><br>";
+            String html = "<h1>Your current balance is " + balance + "</h1><br>";
             html += "<table style='text-align: center'> <tr> <th>Stock symbol</th> <th>Quantity</th> <th>Price</th> </tr>";
 
             for(Stock stock: stocks){

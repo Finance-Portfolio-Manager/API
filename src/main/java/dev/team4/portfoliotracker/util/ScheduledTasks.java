@@ -38,7 +38,7 @@ public class ScheduledTasks {
     public void scheduledNotifyPriceChange() {
         //System.out.println(new java.util.Date());
 
-        //updateUtil.notifyPriceChange();
+        updateUtil.notifyPriceChange();
     }
 
 
