@@ -25,6 +25,9 @@ public class Stock {
 	@Column(name = "stock_quantity")
 	private double stockQuantity;
 
+	@Column(name = "last_email_epoch_time")
+	private long lastEmailEpochTime;
+
 	public Stock() {
 	}
 
@@ -65,6 +68,14 @@ public class Stock {
 
 	public void setStockQuantity(double stockQuantity) {
 		this.stockQuantity = stockQuantity;
+	}
+
+	public long getLastEmailEpochTime() {
+		return lastEmailEpochTime;
+	}
+
+	public void setLastEmailEpochTime(long lastEmailEpochTime) {
+		this.lastEmailEpochTime = lastEmailEpochTime;
 	}
 
 	@Override
