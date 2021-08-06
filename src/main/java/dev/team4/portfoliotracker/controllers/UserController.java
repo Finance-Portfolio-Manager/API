@@ -36,17 +36,11 @@ public class UserController {
     private JwtUtility jwtUtility;
 
 
-    @GetMapping(value = "/email", produces = "application/json")
-    public ResponseEntity<List<User>> getEmail() {
-        updateUtil.update();
-        return new ResponseEntity<>(userDetailsService.checkAllUser(), HttpStatus.OK);
-    }
 
 
 
     @GetMapping(value = "/accounts", produces = "application/json")
     public ResponseEntity<List<User>> getAllAccounts() {
-        updateUtil.update();
         return new ResponseEntity<>(userDetailsService.checkAllUser(), HttpStatus.OK);
     }
 

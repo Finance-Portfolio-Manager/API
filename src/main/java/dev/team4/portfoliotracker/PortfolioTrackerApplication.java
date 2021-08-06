@@ -2,6 +2,7 @@ package dev.team4.portfoliotracker;
 
 //import org.json.simple.JSONObject;
 //import org.json.simple.parser.JSONParser;
+import dev.team4.portfoliotracker.models.Stock;
 import dev.team4.portfoliotracker.services.UserDetailsService;
 import dev.team4.portfoliotracker.util.UpdateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,13 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-import yahoofinance.Stock;
+//import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
 import yahoofinance.histquotes.Interval;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -43,12 +42,35 @@ public class PortfolioTrackerApplication {
 
 		SpringApplication.run(PortfolioTrackerApplication.class, args);
 
-//		Stock stock = null;
+//		yahoofinance.Stock stock = null;
+//
+//		List<String> stockSymbolList = new ArrayList<>();
+//
+//		stockSymbolList.add("AAPL");
+//		stockSymbolList.add("GOOGL");
+//
+//		String[] symbols = new String[] {"INTC", "BABA", "TSLA", "AIR.PA", "YHOO"};
+//		Map<String, yahoofinance.Stock> stocks = null;
 //		try {
-//			stock = YahooFinance.get("AAPL");
+//			stocks = YahooFinance.get(symbols);
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //		}
+//		System.out.println(stocks);
+//		yahoofinance.Stock intel = stocks.get("INTC");
+//		yahoofinance.Stock airbus = stocks.get("AIR.PA");
+//		System.out.println(intel);
+//		System.out.println(intel.getQuote().getPrice());
+
+
+
+//		BigDecimal price = stock.getQuote().getPrice();
+//		BigDecimal change = stock.getQuote().getChangeInPercent();
+//
+//		//stock.print();
+//		System.out.println("price is " + price);
+//		System.out.println("change is " + change);
+
 //
 //		BigDecimal price = stock.getQuote().getPrice();
 //		BigDecimal change = stock.getQuote().getChangeInPercent();
@@ -61,16 +83,7 @@ public class PortfolioTrackerApplication {
 //		System.out.println("peg is" + peg);
 //		System.out.println("dividend is " + dividend);
 //
-//		Calendar from = Calendar.getInstance();
-//		Calendar to = Calendar.getInstance();
-//		from.add(Calendar.YEAR, -5); // from 5 years ago
-//
-//		try {
-//			Stock google = YahooFinance.get("GOOG", from, to, Interval.WEEKLY);
-//			System.out.println(google);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+
 
 		//updateUtil.update();
 //
@@ -83,10 +96,7 @@ public class PortfolioTrackerApplication {
 //		}, 0, 1000);
 	}
 
-//	@Bean
-//	public void helper(){
-//		userDetailsService.checkAllUser();
-//	}
+
 
 
 

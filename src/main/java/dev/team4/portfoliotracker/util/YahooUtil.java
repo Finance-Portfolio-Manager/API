@@ -26,7 +26,7 @@ public class YahooUtil {
             e.printStackTrace();
         }
 
-        System.out.println(response.getBody());
+        System.out.println(response.getBody()   );
         return response.getBody();
 
     }
