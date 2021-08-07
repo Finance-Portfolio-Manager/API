@@ -2,8 +2,13 @@ package dev.team4.portfoliotracker.controllers;
 
 
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
+import dev.team4.portfoliotracker.services.ApiService;
+import io.swagger.models.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,6 +42,9 @@ public class ApiController {
 		return new ResponseEntity<String>(response.getBody(), HttpStatus.OK);
 	}
 	*/
+
+	@Autowired
+	ApiService apiService;
 	
 	//doesn't use consumed json, but its too late to change it
 	@GetMapping(value = "/all", consumes = "application/json", produces = "application/json")
@@ -56,5 +64,13 @@ public class ApiController {
 			e.printStackTrace();
 		}
 		return new ResponseEntity<String>(response.getBody(), HttpStatus.OK);
+	}
+
+	@GetMapping(value="/get-symbol-prices", consumes="application/json")
+	public ResponseEntity<Map> getSymbolPrices(@RequestBody String[] stockSymbols){
+
+		System.out.println(Arrays.toString(stockSymbols));
+
+		return ResponseEntity.ok().body(apiService.getSymbolPrices(stockSymbols));
 	}
 }
