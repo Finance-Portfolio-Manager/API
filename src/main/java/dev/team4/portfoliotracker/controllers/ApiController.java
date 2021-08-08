@@ -61,6 +61,11 @@ public class ApiController {
 		return new ResponseEntity<String>(response.getBody(), HttpStatus.OK);
 	}
 
+	/**
+	 * Author: David Garcia
+	 * @param stockSymbols - array inside of post body. CONTENT-TYPE: application/Json - ex: looking like the following as a request: ["MSFT", "AMZN", "GOOG"]
+	 * @return json string with up-to-date stock prices as of the time of the HTTP request
+	 */
 	@PostMapping(value="/get-symbol-prices", consumes="application/json")
 	public ResponseEntity<Map> getSymbolPrices(@RequestBody String[] stockSymbols){
 
@@ -68,7 +73,11 @@ public class ApiController {
 
 		return ResponseEntity.ok().body(apiService.getSymbolPrices(stockSymbols));
 	}
-
+	/**
+	 * Author: David Garcia
+	 * @param stockSymbols - array inside of post body. CONTENT-TYPE: application/Json - ex: looking like the following as a request: ["MSFT", "AMZN", "GOOG"]
+	 * @return json string with % pnl calculated from previous day's close. ex: ["MSFT": -0.02, "GOOG": 0.07, "AMZN": -0.92]
+	 */
 	@PostMapping(value="/get-symbol-pnl", consumes="application/json")
 	public ResponseEntity<Map> getSymbolPnl(@RequestBody String[] stockSymbols){
 		String[] symbolArray = {"MSFT","AMZN"};
