@@ -68,4 +68,11 @@ public class ApiController {
 
 		return ResponseEntity.ok().body(apiService.getSymbolPrices(stockSymbols));
 	}
+
+	@PostMapping(value="/get-symbol-pnl", consumes="application/json")
+	public ResponseEntity<Map> getSymbolPnl(@RequestBody String[] stockSymbols){
+		String[] symbolArray = {"MSFT","AMZN"};
+
+		return ResponseEntity.ok().body(apiService.getSymbolPnl(stockSymbols));
+	}
 }
