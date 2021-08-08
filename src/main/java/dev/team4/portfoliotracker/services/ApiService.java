@@ -16,6 +16,11 @@ import java.util.stream.Stream;
 @Service
 public class ApiService {
 
+    /**
+     * Author: David Garcia
+     * @param symbolArray
+     * @return Returns map in which key is symbol as a String, and value as current stock price of type BigDecimal
+     */
     public Map<String,BigDecimal> getSymbolPrices(String[] symbolArray){
         try {
             Map<String, Stock> yahooFinanceMap = YahooFinance.get(symbolArray);
@@ -32,6 +37,12 @@ public class ApiService {
         return null;
     }
 
+    /**
+     * Author: David Garcia
+     * @param symbolArray
+     * @return calculates profit and loss (PNL) from current stock price based on previous close. Returns
+     * map with stock symbol as string, and pnl as BigDecimal.
+     */
     public Map<String,BigDecimal> getSymbolPnl(String[] symbolArray){
         try{
             Map<String, Stock> yahooFinanceMap = YahooFinance.get(symbolArray);
