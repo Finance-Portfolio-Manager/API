@@ -1,19 +1,21 @@
 package dev.team4.portfoliotracker.controllers;
 
 
+import java.util.Arrays;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 
 import dev.team4.portfoliotracker.util.YahooUtil;
+
+import dev.team4.portfoliotracker.services.ApiService;
+import io.swagger.models.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
@@ -39,6 +41,9 @@ public class ApiController {
 		return new ResponseEntity<String>(response.getBody(), HttpStatus.OK);
 	}
 	*/
+
+	@Autowired
+	ApiService apiService;
 	
 	//doesn't use consumed json, but its too late to change it
 	@GetMapping(value = "/all", consumes = "application/json", produces = "application/json")
@@ -60,5 +65,29 @@ public class ApiController {
 
 		//return new ResponseEntity<String>(response.getBody(), HttpStatus.OK);
 		return new ResponseEntity<String>(YahooUtil.getStock(stockSymbols), HttpStatus.OK);
+	}
+
+	/**
+	 * Author: David Garcia
+	 * @param stockSymbols - array inside of post body. CONTENT-TYPE: application/Json - ex: looking like the following as a request: ["MSFT", "AMZN", "GOOG"]
+	 * @return json string with up-to-date stock prices as of the time of the HTTP request
+	 */
+	@PostMapping(value="/get-symbol-prices", consumes="application/json")
+	public ResponseEntity<Map> getSymbolPrices(@RequestBody String[] stockSymbols){
+
+		System.out.println(Arrays.toString(stockSymbols));
+
+		return ResponseEntity.ok().body(apiService.getSymbolPrices(stockSymbols));
+	}
+	/**
+	 * Author: David Garcia
+	 * @param stockSymbols - array inside of post body. CONTENT-TYPE: application/Json - ex: looking like the following as a request: ["MSFT", "AMZN", "GOOG"]
+	 * @return json string with % pnl calculated from previous day's close. ex: ["MSFT": -0.02, "GOOG": 0.07, "AMZN": -0.92]
+	 */
+	@PostMapping(value="/get-symbol-pnl", consumes="application/json")
+	public ResponseEntity<Map> getSymbolPnl(@RequestBody String[] stockSymbols){
+		String[] symbolArray = {"MSFT","AMZN"};
+
+		return ResponseEntity.ok().body(apiService.getSymbolPnl(stockSymbols));
 	}
 }
