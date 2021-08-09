@@ -73,4 +73,14 @@ public class UserDetailsService implements org.springframework.security.core.use
         return userRepository.findById(id);
 
     }
+
+    public User getUserByEmail(String email){
+        List<User> users = userRepository.findByEmail(email);
+        if(users.size() > 0){
+            User user = users.get(0);
+            return user;
+        }
+        return null;
+
+    }
 }

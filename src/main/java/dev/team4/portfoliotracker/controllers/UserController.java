@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Random;
 
 @RestController
 @CrossOrigin
@@ -34,8 +35,6 @@ public class UserController {
 
     @Autowired
     private JwtUtility jwtUtility;
-
-
 
 
 
@@ -88,5 +87,24 @@ public class UserController {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String jwt = jwtUtility.generateToken(userDetails);
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
+    }
+
+    @PostMapping(value = "/code")
+    public ResponseEntity<String> generateCode(@RequestParam(value = "email") String email) {
+        Random rnd = new Random();
+        int number = rnd.nextInt(999999);
+        String digits = String.format("%06d", number);
+        System.out.println(digits);
+        User user = userDetailsService.getUserByEmail(email);
+        user.setCode(digits);
+        userDetailsService.createUser(user);
+        String subject = "Here is confirmation code for your account";
+        String text = "confirmation code: " + digits +"\nYou can copy this code and paste it to your form to complete the email verification process";
+
+        EmailUtil.sendEmail(email,subject, text);
+
+
+
+        return new ResponseEntity<String>(digits, HttpStatus.CREATED);
     }
 }

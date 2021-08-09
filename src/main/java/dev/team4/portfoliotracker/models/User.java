@@ -31,6 +31,17 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "code")
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public User() {
     }
 

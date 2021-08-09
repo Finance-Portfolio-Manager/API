@@ -17,6 +17,7 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import java.util.Random;
 //import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
 import yahoofinance.histquotes.Interval;
@@ -39,6 +40,12 @@ public class PortfolioTrackerApplication {
 //	private static UserDetailsService userDetailsService;
 
 	public static void main(String[] args) {
+//		Random rnd = new Random();
+//		while(true){
+//			int number = rnd.nextInt(999999);
+//			String digits = String.format("%06d", number);
+//			System.out.println(digits);
+//		}
 
 		SpringApplication.run(PortfolioTrackerApplication.class, args);
 
