@@ -1,105 +1,102 @@
 package dev.team4.portfoliotracker.models;
 
-import javax.persistence.*;
-
-import org.springframework.stereotype.Component;
-
+import java.math.BigDecimal;
 import java.util.Objects;
+import dev.team4.portfoliotracker.services.ApiService;
 
-@Component
-@Entity
-@Table(name = "user_stocks")
 public class Stock {
-	
-	@Column(name = "user_id")
-	private int userId;
+    //THIS CLASS IS NOT AN ENTITY IN THE DATABASE, DO NOT MAP TO A TABLE
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "stock_id")
-	private int stockId;
-	
-	@Column(name = "stock_symbol")
-	private String stockSymbol;
-	
-	@Column(name = "stock_quantity")
-	private double stockQuantity;
+    private String symbol;
+    private int quantity;
+    private double avgBuyPrice;
+    private double currentPrice;
+    private double changePercentage;
 
-	@Column(name = "last_email_epoch_time")
-	private long lastEmailEpochTime;
+    Stock() {
+        super();
+    }
 
-	public Stock() {
-	}
+    Stock(String symbol) {
+        this.symbol = symbol;
+    }
 
-	public Stock(int userId, String stockSymbol, double stockQuantity) {
-		super();
-		this.userId = userId;
-		this.stockSymbol = stockSymbol;
-		this.stockQuantity = stockQuantity;
-	}
+    Stock(String symbol, int quantity, double avgBuyPrice, double currentPrice, double changePercentage) {
+        this.symbol = symbol;
+        this.quantity = quantity;
+        this.avgBuyPrice = avgBuyPrice;
+        this.currentPrice = currentPrice;
+        this.changePercentage = changePercentage;
+    }
 
-	public int getUserId() {
-		return userId;
-	}
+    public String getSymbol() {
+        return symbol;
+    }
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
 
-	public String getStockSymbol() {
-		return stockSymbol;
-	}
+    public int getQuantity() {
+        return quantity;
+    }
 
-	public void setStockSymbol(String stockSymbol) {
-		this.stockSymbol = stockSymbol;
-	}
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
-	public int getStockId() {
-		return stockId;
-	}
+    public double getAvgBuyPrice() {
+        return avgBuyPrice;
+    }
 
-	public void setStockId(int stockId) {
-		this.stockId = stockId;
-	}
+    public void setAvgBuyPrice(double avgBuyPrice) {
+        this.avgBuyPrice = avgBuyPrice;
+    }
 
-	public double getStockQuantity() {
-		return stockQuantity;
-	}
+    public double getCurrentPrice() {
+        //make a call to the API for stock price by symbol
+        ApiService apiService = new ApiService();
+        String[] symbolInput = new String[]{this.symbol};
+        BigDecimal apiOut = apiService.getSymbolPrices(symbolInput).get(this.symbol);
+        return  apiOut.doubleValue();
+    }
 
-	public void setStockQuantity(double stockQuantity) {
-		this.stockQuantity = stockQuantity;
-	}
+    public void setCurrentPrice(double currentPrice) {
+        ApiService apiService = new ApiService();
+        String[] symbolInput = new String[]{this.symbol};
+        BigDecimal apiOut = apiService.getSymbolPrices(symbolInput).get(this.symbol);
+        this.currentPrice = apiOut.doubleValue();
+    }
 
-	public long getLastEmailEpochTime() {
-		return lastEmailEpochTime;
-	}
+    public double getChangePercentage() {
+        return changePercentage;
+    }
 
-	public void setLastEmailEpochTime(long lastEmailEpochTime) {
-		this.lastEmailEpochTime = lastEmailEpochTime;
-	}
+    public void setChangePercentage(double changePercentage) {
+        this.changePercentage = changePercentage;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Stock stock = (Stock) o;
-		return userId == stock.userId && stockId == stock.stockId && 
-				stockSymbol.equalsIgnoreCase(stock.stockSymbol) && 
-				Double.compare(stock.stockQuantity, stockQuantity) == 0;
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Stock stock = (Stock) o;
+        return quantity == stock.quantity && Double.compare(stock.avgBuyPrice, avgBuyPrice) == 0 && Double.compare(stock.currentPrice, currentPrice) == 0 && Double.compare(stock.changePercentage, changePercentage) == 0 && Objects.equals(symbol, stock.symbol);
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(userId, stockId, stockQuantity);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(symbol, quantity, avgBuyPrice, currentPrice, changePercentage);
+    }
 
-	@Override
-	public String toString() {
-		return "\nStock: \n" +
-				"userId: " + userId + "\n" +
-				"stockId: " + stockId + "\n" +
-				"stockSymbol: " + stockSymbol + "\n" +
-				"stockQuantity: " + stockQuantity;
-	}
-
+    @Override
+    public String toString() {
+        return "Stock{" +
+                "symbol='" + symbol + '\'' +
+                ", quantity=" + quantity +
+                ", avgBuyPrice=" + avgBuyPrice +
+                ", currentPrice=" + currentPrice +
+                ", changePercentage=" + changePercentage +
+                '}';
+    }
 }
