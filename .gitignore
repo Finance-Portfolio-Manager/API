@@ -1,5 +1,7 @@
-env
-run.sh
+bin/
+mvnw
+mvnw.cmd
+.env
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
