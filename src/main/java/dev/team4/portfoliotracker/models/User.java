@@ -1,14 +1,17 @@
 package dev.team4.portfoliotracker.models;
 
+import com.sun.istack.NotNull;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 
 @Component
 @Entity
-@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = {"username"}))
+//@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = {"username"}))
+@Table(name = "user_accounts", uniqueConstraints = @UniqueConstraint(columnNames = {"username"}))
 public class User {
 
     @Id
@@ -22,14 +25,21 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
+    @NotNull
     @Column(name = "email")
     private String email;
 
+    @NotNull
     @Column(name = "username")
     private String username;
 
+    @NotNull
     @Column(name = "password")
     private String password;
+
+    // New addition to join user_accounts to portfolios
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Portfolio> portfolios;
 
     public User() {
     }
@@ -40,6 +50,14 @@ public class User {
         this.email = email;
         this.username = username;
         this.password = password;
+    }
+
+    public List<Portfolio> getPortfolios() {
+        return portfolios;
+    }
+
+    public void setPortfolios(List<Portfolio> portfolios) {
+        this.portfolios = portfolios;
     }
 
     public int getUserId() {
@@ -112,6 +130,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", portfolios=" + portfolios +
                 '}';
     }
 }
