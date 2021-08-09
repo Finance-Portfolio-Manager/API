@@ -1,3 +1,6 @@
+bin/
+mvnw
+mvnw.cmd
 .env
 HELP.md
 target/
