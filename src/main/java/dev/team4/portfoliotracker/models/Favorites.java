@@ -19,17 +19,17 @@ public class Favorites implements Serializable {
     private int userId;
 
     @Id
-    @Column(name = "stock_id")
-    private int stockId;
+    @Column(name = "portfolio_id")
+    private int portfolioId;
 
     public Favorites() {
         super();
     }
 
-    public Favorites(int userId, int stockId) {
+    public Favorites(int userId, int portfolioId) {
         super();
         this.userId = userId;
-        this.stockId = stockId;
+        this.portfolioId = portfolioId;
     }
 
     public int getUserId() {
@@ -40,12 +40,12 @@ public class Favorites implements Serializable {
         this.userId = userId;
     }
 
-    public int getStockId() {
-        return stockId;
+    public int getPortfolioId() {
+        return portfolioId;
     }
 
-    public void setStockId(int stockId) {
-        this.stockId = stockId;
+    public void setPortfolioId(int portfolioId) {
+        this.portfolioId = portfolioId;
     }
 
     @Override
@@ -53,11 +53,11 @@ public class Favorites implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Favorites favorites = (Favorites) o;
-        return userId == favorites.userId && stockId == favorites.stockId;
+        return userId == favorites.userId && portfolioId == favorites.portfolioId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, stockId);
+        return Objects.hash(userId, portfolioId);
     }
 }
