@@ -19,6 +19,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class ApiController {
 
+	@GetMapping(value = "/charts", produces = "application/json")
+	// public ResponseEntity<String> getStock(@RequestParam(value = "symbol") String stockSymbol) {
+	public ResponseEntity<String> getChart() {
+		HttpResponse<String> response = null;
+		// String uri = "https://alpha-vantage.p.rapidapi.com/query?function=GLOBAL_QUOTE&symbol=" + stockSymbol + "&datatype=json";
+		String uri = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MCD&apikey=LW7AFCIUDLGSKMIQ";
+		try {
+			response = Unirest.get(uri).asString();
+		} catch (UnirestException e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<String>(response.getBody(), HttpStatus.OK);
+	}
+
 	/*
 	@GetMapping(produces = "application/json")
 	public ResponseEntity<String> getStock(@RequestParam(value = "symbol") String stockSymbol) {
