@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/accounts/{user_id}/favorites")
 public class FavoritesController {
 
     @Autowired
