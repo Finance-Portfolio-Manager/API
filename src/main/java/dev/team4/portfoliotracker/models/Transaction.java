@@ -61,8 +61,6 @@ public class Transaction {
 //    @Transient
 //    private boolean isBuy;
 
-    public Transaction() {
-    }
 
     public Transaction(Portfolio portfolio, String stockSymbol, double shareAmount, BigDecimal sharePrice, LocalDateTime dateTime) {
         this.portfolio = portfolio;
@@ -71,6 +69,7 @@ public class Transaction {
         this.sharePrice = sharePrice;
         this.dateTime = dateTime;
     }
+
 
     public int getTransactionId() {
         return transactionId;

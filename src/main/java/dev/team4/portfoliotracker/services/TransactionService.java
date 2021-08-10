@@ -44,7 +44,7 @@ public class TransactionService {
         return txnRepo.findTransactionsByPortfolioIdAndStockSymbol(portfolioId, stockSymbol);
     }
 
-    public void deleteTransaction(int transactionId) {
-        txnRepo.deleteById(transactionId);
+    public void deleteTransaction(Transaction transaction) {
+        txnRepo.delete(transaction);
     }
 }
