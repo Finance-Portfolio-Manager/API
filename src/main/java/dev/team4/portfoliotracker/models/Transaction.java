@@ -18,13 +18,6 @@ public class Transaction {
     @Column(name = "transaction_id")
     private int transactionId;
 
-    // maybe we don't need this
-//    @Column(name = "user_Id")
-//    private int userId;
-
-//    @Column(name = "ticker")
-//    private String ticker;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "portfolio_id", nullable = false)
     private Portfolio portfolio;
@@ -33,15 +26,9 @@ public class Transaction {
     @Column(name = "stock_symbol")
     private String stockSymbol;
 
-//    @Column(name = "share_amount")
-//    private double shareAmount;
-//
-//    @Column(name = "share_price")
-//    private double sharePrice;
-
     @NotNull
-    @Column(name = "transaction_amount")
-    private double shareAmount;
+    @Column(name = "transaction_quantity")
+    private double transactionQuantity;
 
     @NotNull
     @Column(name = "transaction_price")
@@ -52,20 +39,10 @@ public class Transaction {
     private LocalDateTime dateTime;
 
 
-//    @Column(name = "note")
-//    private String note;
-//
-//    @Transient
-//    private String token;
-//
-//    @Transient
-//    private boolean isBuy;
-
-
-    public Transaction(Portfolio portfolio, String stockSymbol, double shareAmount, BigDecimal sharePrice, LocalDateTime dateTime) {
+    public Transaction(Portfolio portfolio, String stockSymbol, double transactionQuantity, BigDecimal sharePrice, LocalDateTime dateTime) {
         this.portfolio = portfolio;
         this.stockSymbol = stockSymbol;
-        this.shareAmount = shareAmount;
+        this.transactionQuantity = transactionQuantity;
         this.sharePrice = sharePrice;
         this.dateTime = dateTime;
     }
@@ -91,12 +68,12 @@ public class Transaction {
         this.stockSymbol = stockSymbol;
     }
 
-    public double getShareAmount() {
-        return shareAmount;
+    public double getTransactionQuantity() {
+        return transactionQuantity;
     }
 
-    public void setShareAmount(double shareAmount) {
-        this.shareAmount = shareAmount;
+    public void setTransactionQuantity(double transactionQuantity) {
+        this.transactionQuantity = transactionQuantity;
     }
 
     public BigDecimal getSharePrice() {
@@ -120,12 +97,12 @@ public class Transaction {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transaction that = (Transaction) o;
-        return transactionId == that.transactionId && Double.compare(that.shareAmount, shareAmount) == 0 && portfolio.equals(that.portfolio) && stockSymbol.equals(that.stockSymbol) && sharePrice.equals(that.sharePrice) && dateTime.equals(that.dateTime);
+        return transactionId == that.transactionId && Double.compare(that.transactionQuantity, transactionQuantity) == 0 && portfolio.equals(that.portfolio) && stockSymbol.equals(that.stockSymbol) && sharePrice.equals(that.sharePrice) && dateTime.equals(that.dateTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(transactionId, portfolio, stockSymbol, shareAmount, sharePrice, dateTime);
+        return Objects.hash(transactionId, portfolio, stockSymbol, transactionQuantity, sharePrice, dateTime);
     }
 
     @Override
@@ -134,7 +111,7 @@ public class Transaction {
                 "transactionId=" + transactionId +
                 ", portfolio=" + portfolio +
                 ", stockSymbol='" + stockSymbol + '\'' +
-                ", shareAmount=" + shareAmount +
+                ", shareAmount=" + transactionQuantity +
                 ", sharePrice=" + sharePrice +
                 ", dateTime=" + dateTime +
                 '}';

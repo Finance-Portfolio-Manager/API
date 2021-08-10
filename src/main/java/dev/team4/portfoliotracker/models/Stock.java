@@ -14,7 +14,7 @@ public class Stock {
     private double quantity;
     private BigDecimal avgBuyPrice;
     private BigDecimal currentPrice;
-    private double changePercentage;
+    private BigDecimal changePercentage;
 
     public Stock() {
         super();
@@ -28,10 +28,10 @@ public class Stock {
     public Stock(Transaction transaction) {
         this.symbol = transaction.getStockSymbol();
         this.portfolioId = transaction.getPortfolio().getPortfolioId();
-        this.quantity = transaction.getShareAmount();
+        this.quantity = transaction.getTransactionQuantity();
     }
 
-    public Stock(String symbol,int portfolioId, double quantity, BigDecimal avgBuyPrice, BigDecimal currentPrice, double changePercentage) {
+    public Stock(String symbol,int portfolioId, double quantity, BigDecimal avgBuyPrice, BigDecimal currentPrice, BigDecimal changePercentage) {
         this.symbol = symbol;
         this.quantity = quantity;
         this.avgBuyPrice = avgBuyPrice;
@@ -63,7 +63,7 @@ public class Stock {
     public void setQuantity(List<Transaction> transactions) {
         //Loop through a pre-processed list of transactions and sum the quantity column
         for (Transaction transaction : transactions) {
-            this.quantity += transaction.getShareAmount();
+            this.quantity += transaction.getTransactionQuantity();
         }
     }
 
@@ -71,14 +71,23 @@ public class Stock {
         return avgBuyPrice;
     }
 
-    public void setAvgBuyPrice(BigDecimal avgBuyPrice) {
-        this.avgBuyPrice = avgBuyPrice;
+    public void setAvgBuyPrice(List<Transaction> transactions) {
+        //the list of transactions passed in must only contain transactions for this stock
+        double totalShareBuys = 0;
+        BigDecimal totalSpent = BigDecimal.ZERO;
+        MathContext m = new MathContext(2);
+        for (Transaction transaction : transactions) {
+            if (transaction.getTransactionQuantity()>0) {
+                totalShareBuys += transaction.getTransactionQuantity();
+                totalSpent = totalSpent.add(transaction.getSharePrice());
+            }
+        }
+        this.avgBuyPrice = totalSpent.divide(BigDecimal.valueOf(totalShareBuys), m);
     }
 
     public BigDecimal getCurrentPrice() {
         //make a call to the setPrice method for updated info
         this.setCurrentPrice();
-
         return currentPrice;
     }
 
@@ -91,12 +100,17 @@ public class Stock {
         this.currentPrice = apiOut.round(m);
     }
 
-    public double getChangePercentage() {
+    public BigDecimal getChangePercentage() {
+        this.setChangePercentage();
         return changePercentage;
     }
 
-    public void setChangePercentage(double changePercentage) {
-        this.changePercentage = changePercentage;
+    public void setChangePercentage() {
+        ApiService apiService = new ApiService();
+        String[] symbolInput = new String[]{this.symbol};
+        BigDecimal apiOut = apiService.getSymbolPnl(symbolInput).get(this.symbol);
+        MathContext m = new MathContext(2);
+        this.changePercentage = apiOut.round(m);
     }
 
     @Override
@@ -104,7 +118,7 @@ public class Stock {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Stock stock = (Stock) o;
-        return portfolioId == stock.portfolioId && Double.compare(stock.quantity, quantity) == 0 && Double.compare(stock.changePercentage, changePercentage) == 0 && Objects.equals(symbol, stock.symbol) && Objects.equals(avgBuyPrice, stock.avgBuyPrice) && Objects.equals(currentPrice, stock.currentPrice);
+        return portfolioId == stock.portfolioId && Double.compare(stock.quantity, quantity) == 0 && Objects.equals(symbol, stock.symbol) && Objects.equals(avgBuyPrice, stock.avgBuyPrice) && Objects.equals(currentPrice, stock.currentPrice) && Objects.equals(changePercentage, stock.changePercentage);
     }
 
     @Override

@@ -35,7 +35,7 @@ public class TransactionService {
         Transaction txn = txnRepo.findTransactionByTransactionId(id);
         txn.setPortfolio(transaction.getPortfolio());
         txn.setStockSymbol(transaction.getStockSymbol());
-        txn.setShareAmount(transaction.getShareAmount());
+        txn.setTransactionQuantity(transaction.getTransactionQuantity());
         txn.setSharePrice(transaction.getSharePrice());
         txn.setDateTime(transaction.getDateTime());
     }

@@ -80,6 +80,9 @@ public class PortfolioController {
                 //will return list of transactions from a portfolio that matches one stock symbol
                 List<Transaction> relevantTransactions = transactionService.getTransactionsByPortfolioIdAndStockSymbol(portfolio.getPortfolioId(), stock.getSymbol());
                 stock.setQuantity(relevantTransactions);
+                stock.setAvgBuyPrice(relevantTransactions);
+                stock.setCurrentPrice();
+                stock.setChangePercentage();
             }
 
             //Compile remaining details about the portfolio before adding to response list
@@ -142,6 +145,9 @@ public class PortfolioController {
                 //will return list of transactions from a portfolio that matches one stock symbol
                 List<Transaction> relevantTransactions = transactionService.getTransactionsByPortfolioIdAndStockSymbol(portfolio.getPortfolioId(), stock.getSymbol());
                 stock.setQuantity(relevantTransactions);
+                stock.setAvgBuyPrice(relevantTransactions);
+                stock.setCurrentPrice();
+                stock.setChangePercentage();
             }
 
             //Compile remaining details about the portfolio before adding to response list

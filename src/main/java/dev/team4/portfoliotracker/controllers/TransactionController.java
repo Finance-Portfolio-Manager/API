@@ -1,7 +1,6 @@
 package dev.team4.portfoliotracker.controllers;
 
 import dev.team4.portfoliotracker.models.Transaction;
-import dev.team4.portfoliotracker.models.User;
 import dev.team4.portfoliotracker.security.JwtUtility;
 import dev.team4.portfoliotracker.services.TransactionService;
 import dev.team4.portfoliotracker.services.UserDetailsService;
@@ -41,7 +40,7 @@ public class TransactionController {
 
     @PostMapping(value = "/new", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Transaction> addTransaction(HttpServletRequest request, @RequestBody Transaction txn) {
-        Transaction t = new Transaction(txn.getPortfolio(), txn.getStockSymbol().toUpperCase(), txn.getShareAmount(), txn.getSharePrice(), txn.getDateTime());
+        Transaction t = new Transaction(txn.getPortfolio(), txn.getStockSymbol().toUpperCase(), txn.getTransactionQuantity(), txn.getSharePrice(), txn.getDateTime());
         return new ResponseEntity<>(txnService.addTransaction(t), HttpStatus.CREATED);
     }
 
