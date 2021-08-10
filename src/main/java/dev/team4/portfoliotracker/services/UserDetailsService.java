@@ -70,7 +70,7 @@ public class UserDetailsService implements org.springframework.security.core.use
 
     public User getUserByUserId(int id){
 
-        return userRepository.findById(id);
+        return userRepository.findByUserId(id);
 
     }
 }
