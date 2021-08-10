@@ -66,10 +66,18 @@ public class UserDetailsServiceTest {
 	}
 
 	@Test
-	public void getUserTest() {
+	public void getUserByUserNameTestSuccess() {
 		User user = new User("c@c.com", "cody", "password");
 		doReturn(user).when(userRepository).findByUsername("cody");
 
 		assertEquals(userDetailsService.getUserByUsername("cody"), user);
+	}
+
+	@Test
+	public void getUserByUserNameTestFail() {
+		User user = new User("c@c.com", "cody", "password");
+		doReturn(user).when(userRepository).findByUsername("cody");
+
+		assertNull(userDetailsService.getUserByUsername("cody2"));
 	}
 }
