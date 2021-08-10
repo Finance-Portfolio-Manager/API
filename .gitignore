@@ -1,5 +1,8 @@
-env
-run.sh
+spring.log
+bin/
+mvnw
+mvnw.cmd
+.env
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar

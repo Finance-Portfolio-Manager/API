@@ -50,4 +50,8 @@ public class StockServiceImpl implements StockService{
 	public List<Stock> getAllStocks(int userId) {
 		return stockRepo.findAllStocksByUserId(userId);
 	}
+
+	public List<Stock> getAllStocksForAllUsers() {
+		return stockRepo.findAll();
+	}
 }
