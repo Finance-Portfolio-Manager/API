@@ -12,7 +12,7 @@ public class Stock {
     private String symbol;
     private int portfolioId;
     private double quantity;
-    private double avgBuyPrice;
+    private BigDecimal avgBuyPrice;
     private BigDecimal currentPrice;
     private double changePercentage;
 
@@ -24,7 +24,7 @@ public class Stock {
         this.symbol = symbol;
     }
 
-    Stock(String symbol,int portfolioId, double quantity, double avgBuyPrice, BigDecimal currentPrice, double changePercentage) {
+    Stock(String symbol,int portfolioId, double quantity, BigDecimal avgBuyPrice, BigDecimal currentPrice, double changePercentage) {
         this.symbol = symbol;
         this.quantity = quantity;
         this.avgBuyPrice = avgBuyPrice;
@@ -60,11 +60,11 @@ public class Stock {
         this.quantity = 0; //REPLACE
     }
 
-    public double getAvgBuyPrice() {
+    public BigDecimal getAvgBuyPrice() {
         return avgBuyPrice;
     }
 
-    public void setAvgBuyPrice(double avgBuyPrice) {
+    public void setAvgBuyPrice(BigDecimal avgBuyPrice) {
         this.avgBuyPrice = avgBuyPrice;
     }
 
