@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -34,10 +34,10 @@
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.2</version>
 				<configuration>
-			        <excludes>
-			            <exclude>**/models/*</exclude>
-			        </excludes>
-			     </configuration>
+					<excludes>
+						<exclude>**/models/*</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<goals>
@@ -112,10 +112,10 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.9.2</version>
 		</dependency>
-		
+
 		<dependency>
-    		<groupId>com.mashape.unirest</groupId>
-    		<artifactId>unirest-java</artifactId>
+			<groupId>com.mashape.unirest</groupId>
+			<artifactId>unirest-java</artifactId>
 			<version>1.4.9</version>
 		</dependency>
 		<dependency>
@@ -134,6 +134,26 @@
 					<artifactId>hamcrest-core</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+
+		<!-- https://stackoverflow.com/questions/16807758/java-lang-noclassdeffounderror-com-sun-mail-util-maillogger-for-junit-test-case/16808343#16808343 -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.yahoofinance-api</groupId>
+			<artifactId>YahooFinanceAPI</artifactId>
+			<version>3.15.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.awaitility</groupId>
+			<artifactId>awaitility</artifactId>
+			<version>3.1.2</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
