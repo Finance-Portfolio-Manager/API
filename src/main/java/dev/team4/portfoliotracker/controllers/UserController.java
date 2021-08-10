@@ -5,7 +5,6 @@ import dev.team4.portfoliotracker.services.UserDetailsService;
 import dev.team4.portfoliotracker.security.AuthenticationRequest;
 import dev.team4.portfoliotracker.security.AuthenticationResponse;
 import dev.team4.portfoliotracker.security.JwtUtility;
-import dev.team4.portfoliotracker.util.EmailUtil;
 import dev.team4.portfoliotracker.util.UpdateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
