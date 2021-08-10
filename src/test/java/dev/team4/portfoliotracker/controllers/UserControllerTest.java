@@ -2,26 +2,20 @@ package dev.team4.portfoliotracker.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.team4.portfoliotracker.models.User;
-import dev.team4.portfoliotracker.repositories.UserRepository;
-import dev.team4.portfoliotracker.security.JwtUtility;
-import dev.team4.portfoliotracker.services.UserDetailsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class UserControllerTest {
 
     @BeforeEach
     public void setUp() {
-        User user = new User("Cody", "Anderson", "c@c.com", "cody", "pass");
+        User user = new User("c@c.com", "cody", "pass");
         TestRestTemplate restTemplate = new TestRestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -29,7 +23,7 @@ public class UserControllerTest {
         ResponseEntity<User> response = restTemplate.postForEntity("http://localhost:8082/register", request, User.class);
     }
 
-    User user = new User("Cody", "Anderson", "c@c.com", "cody", "pass");
+    User user = new User("c@c.com", "cody", "pass");
 
     public static String asJsonString(final Object obj) {
         try {
@@ -71,7 +65,7 @@ public class UserControllerTest {
 
     @Test
     public void loginFailure() {
-        User user2 = new User("Cody", "Anderson", "c@c.com", "user2", "pass");
+        User user2 = new User("c@c.com", "user2", "pass");
         TestRestTemplate restTemplate = new TestRestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -85,7 +79,7 @@ public class UserControllerTest {
 
     @Test
     public void deleteFailure() {
-        User user2 = new User("Cody", "Anderson", "c@c.com", "cody", "pass2");
+        User user2 = new User("c@c.com", "cody", "pass2");
         TestRestTemplate restTemplate = new TestRestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -146,7 +140,7 @@ public class UserControllerTest {
 
     @Test
     public void deleteSuccess() {
-        User user2 = new User("Cody", "Anderson", "c@c.com", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI3OTA3NDAwLCJpYXQiOjE2Mjc4NzE0MDB9.4YkqBitpwR24fngB7OWwtWMAMj_HGMCx50xne6vEdRAL3CAvMdSpk0tmVxi6KmBRE0Yux4J_YyvWMz_dOhELWw", "pass");
+        User user2 = new User("c@c.com", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI3OTA3NDAwLCJpYXQiOjE2Mjc4NzE0MDB9.4YkqBitpwR24fngB7OWwtWMAMj_HGMCx50xne6vEdRAL3CAvMdSpk0tmVxi6KmBRE0Yux4J_YyvWMz_dOhELWw", "pass");
         TestRestTemplate restTemplate = new TestRestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
