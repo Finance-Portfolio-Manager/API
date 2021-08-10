@@ -1,6 +1,8 @@
 package dev.team4.portfoliotracker.models;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.util.List;
 import java.util.Objects;
 import dev.team4.portfoliotracker.services.ApiService;
 
@@ -8,9 +10,10 @@ public class Stock {
     //THIS CLASS IS NOT AN ENTITY IN THE DATABASE, DO NOT MAP TO A TABLE
 
     private String symbol;
-    private int quantity;
+    private int portfolioId;
+    private double quantity;
     private double avgBuyPrice;
-    private double currentPrice;
+    private BigDecimal currentPrice;
     private double changePercentage;
 
     Stock() {
@@ -21,12 +24,13 @@ public class Stock {
         this.symbol = symbol;
     }
 
-    Stock(String symbol, int quantity, double avgBuyPrice, double currentPrice, double changePercentage) {
+    Stock(String symbol,int portfolioId, double quantity, double avgBuyPrice, BigDecimal currentPrice, double changePercentage) {
         this.symbol = symbol;
         this.quantity = quantity;
         this.avgBuyPrice = avgBuyPrice;
         this.currentPrice = currentPrice;
         this.changePercentage = changePercentage;
+        this.portfolioId = portfolioId;
     }
 
     public String getSymbol() {
@@ -37,12 +41,23 @@ public class Stock {
         this.symbol = symbol;
     }
 
-    public int getQuantity() {
+    public int getPortfolioId() {
+        return portfolioId;
+    }
+
+    public void setPortfolioId(int portfolioId) {
+        this.portfolioId = portfolioId;
+    }
+
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setQuantity(List<Transaction> transactions) {
+        //Pass in transactions list from trans controller call
+
+
+        this.quantity = 0; //REPLACE
     }
 
     public double getAvgBuyPrice() {
@@ -53,7 +68,7 @@ public class Stock {
         this.avgBuyPrice = avgBuyPrice;
     }
 
-    public double getCurrentPrice() {
+    public BigDecimal getCurrentPrice() {
         //make a call to the setPrice method for updated info
         this.setCurrentPrice();
 
@@ -65,7 +80,8 @@ public class Stock {
         ApiService apiService = new ApiService();
         String[] symbolInput = new String[]{this.symbol};
         BigDecimal apiOut = apiService.getSymbolPrices(symbolInput).get(this.symbol);
-        this.currentPrice = apiOut.doubleValue();
+        MathContext m = new MathContext(2);
+        this.currentPrice = apiOut.round(m);
     }
 
     public double getChangePercentage() {
@@ -81,7 +97,7 @@ public class Stock {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Stock stock = (Stock) o;
-        return quantity == stock.quantity && Double.compare(stock.avgBuyPrice, avgBuyPrice) == 0 && Double.compare(stock.currentPrice, currentPrice) == 0 && Double.compare(stock.changePercentage, changePercentage) == 0 && Objects.equals(symbol, stock.symbol);
+        return portfolioId == stock.portfolioId && Double.compare(stock.quantity, quantity) == 0 && Double.compare(stock.avgBuyPrice, avgBuyPrice) == 0 && Double.compare(stock.changePercentage, changePercentage) == 0 && Objects.equals(symbol, stock.symbol) && Objects.equals(currentPrice, stock.currentPrice);
     }
 
     @Override

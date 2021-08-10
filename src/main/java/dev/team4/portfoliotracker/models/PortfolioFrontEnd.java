@@ -1,5 +1,6 @@
 package dev.team4.portfoliotracker.models;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,25 +11,25 @@ public class PortfolioFrontEnd {
     private int portfolioId;
     private int userId;
     private boolean isPublic;
-    private int value;
+    private BigDecimal value;
     List<Stock> stocks;
     List<Transaction> transactions;
 
-    PortfolioFrontEnd() {
+    public PortfolioFrontEnd() {
         super();
     }
 
-    PortfolioFrontEnd(String name, boolean isPublic) {
+    public PortfolioFrontEnd(String name, boolean isPublic) {
         this.name = name;
         this.isPublic = isPublic;
     }
 
-    PortfolioFrontEnd(String name, boolean isPublic, List<Stock> stocks) {
+    public PortfolioFrontEnd(String name, boolean isPublic, List<Stock> stocks) {
         this.name = name;
         this.isPublic = isPublic;
         this.stocks = stocks;
     }
-    PortfolioFrontEnd(Portfolio portfolio) {
+    public PortfolioFrontEnd(Portfolio portfolio) {
         this.portfolioId = portfolio.getPortfolioId();
         this.userId = portfolio.getUser().getUserId();
         this.name = portfolio.getName();
@@ -52,10 +53,6 @@ public class PortfolioFrontEnd {
 
     public void setPublic(boolean isPublic) {
         this.isPublic = isPublic;
-    }
-
-    public int getValue() {
-        return value;
     }
 
     public int getPortfolioId() {
@@ -83,12 +80,16 @@ public class PortfolioFrontEnd {
         this.transactions = transactions;
     }
 
+    public BigDecimal getValue() {
+        return value;
+    }
+
     public void setValue(List<Stock> stocks) {
         //Calculate the total value of portfolio based on stock list
-        this.value = 0; //initialize to 0 before adding totals
+        this.value = BigDecimal.valueOf(0); //initialize to 0 before adding totals
 
         for (Stock stock : stocks) {
-            this.value += (stock.getQuantity()*stock.getCurrentPrice());
+            this.value = this.value.add(BigDecimal.valueOf(stock.getQuantity()).multiply(stock.getCurrentPrice()));
         }
     }
 
