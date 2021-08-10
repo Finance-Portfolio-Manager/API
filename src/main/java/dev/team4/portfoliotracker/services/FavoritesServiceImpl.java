@@ -13,7 +13,7 @@ import java.util.List;
 public class FavoritesServiceImpl implements FavoritesService {
 
     @Autowired
-    private FavoritesRepository favoritesRepo;
+    FavoritesRepository favoritesRepo;
 
     @Override
     public Favorites addFavorite(Favorites favorites) {

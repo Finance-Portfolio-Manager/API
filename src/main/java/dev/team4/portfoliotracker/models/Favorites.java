@@ -1,12 +1,25 @@
 package dev.team4.portfoliotracker.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Component
+@Entity
+@IdClass(FavoritesId.class)
+@Table(name = "favorites")
+@JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class Favorites implements Serializable {
 
+    @Id
+    @Column(name = "user_id")
     private int userId;
 
+    @Id
+    @Column(name = "stock_id")
     private int stockId;
 
     public Favorites() {
