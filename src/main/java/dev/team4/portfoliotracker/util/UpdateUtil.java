@@ -100,6 +100,7 @@ public class UpdateUtil {
         }//end users loop
     }
 
+    // update the balances table at some interval (set to 100 seconds now for testing)
 //    @Scheduled(cron = "0 0 0 * *") // happens at midnight everyday
     @Scheduled(fixedRate = 100000)
     public void scheduledBalanceStore() {

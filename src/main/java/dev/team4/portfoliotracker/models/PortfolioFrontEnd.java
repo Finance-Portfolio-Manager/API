@@ -1,32 +1,43 @@
 package dev.team4.portfoliotracker.models;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
-public class PortfolioObj {
+public class PortfolioFrontEnd {
     //THIS CLASS IS NOT AN ENTITY IN THE DATABASE, DO NOT MAP TO A TABLE
 
     private String name;
     private int portfolioId;
     private int userId;
     private boolean isPublic;
-    private double value;
+    private BigDecimal value;
     List<Stock> stocks;
     List<Transaction> transactions;
 
-    PortfolioObj() {
+    PortfolioFrontEnd() {
         super();
     }
 
-    PortfolioObj(String name, boolean isPublic) {
+    PortfolioFrontEnd(String name, boolean isPublic) {
         this.name = name;
         this.isPublic = isPublic;
     }
 
-    PortfolioObj(String name, boolean isPublic, List<Stock> stocks) {
+    PortfolioFrontEnd(String name, boolean isPublic, List<Stock> stocks) {
         this.name = name;
         this.isPublic = isPublic;
         this.stocks = stocks;
+    }
+
+    public PortfolioFrontEnd(String name, int portfolioId, int userId, boolean isPublic, BigDecimal value, List<Stock> stocks, List<Transaction> transactions) {
+        this.name = name;
+        this.portfolioId = portfolioId;
+        this.userId = userId;
+        this.isPublic = isPublic;
+        this.value = value;
+        this.stocks = stocks;
+        this.transactions = transactions;
     }
 
     public String getName() {
@@ -45,7 +56,7 @@ public class PortfolioObj {
         this.isPublic = isPublic;
     }
 
-    public double getValue() {
+    public BigDecimal getValue() {
         return value;
     }
 
@@ -76,10 +87,10 @@ public class PortfolioObj {
 
     public void setValue(List<Stock> stocks) {
         //Calculate the total value of portfolio based on stock list
-        this.value = 0; //initialize to 0 before adding totals
+        this.value = BigDecimal.ZERO; //initialize to 0 before adding totals
 
         for (Stock stock : stocks) {
-            this.value += (stock.getQuantity()*stock.getCurrentPrice());
+            this.value = this.value.add(stock.getQuantity().multiply(stock.getCurrentPrice()));
         }
     }
 
@@ -95,7 +106,7 @@ public class PortfolioObj {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PortfolioObj that = (PortfolioObj) o;
+        PortfolioFrontEnd that = (PortfolioFrontEnd) o;
         return isPublic == that.isPublic && value == that.value && Objects.equals(name, that.name) && Objects.equals(stocks, that.stocks);
     }
 

@@ -38,10 +38,10 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public void updateTransaction(int id, Transaction transaction) {
         Transaction txn = txnRepo.findByTransactionId(id);
-        txn.setTicker(transaction.getTicker());
+        txn.setStockSymbol(transaction.getStockSymbol());
         txn.setShareAmount(transaction.getShareAmount());
         txn.setSharePrice(transaction.getSharePrice());
-        txn.setNote(transaction.getNote());
+//        txn.setNote(transaction.getNote());
     }
 
     @Override

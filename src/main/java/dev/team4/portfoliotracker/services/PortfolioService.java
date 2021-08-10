@@ -1,10 +1,9 @@
 package dev.team4.portfoliotracker.services;
 
 
-import dev.team4.portfoliotracker.models.PortfolioObj;
+import dev.team4.portfoliotracker.models.PortfolioFrontEnd;
 import dev.team4.portfoliotracker.repositories.PortfolioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,25 +13,25 @@ public class PortfolioService {
     @Autowired
     PortfolioRepository portfolioRepository;
 
-    public PortfolioObj getPortfolioById(int portfolioId) {
+    public PortfolioFrontEnd getPortfolioById(int portfolioId) {
         return portfolioRepository.getPortfolioById(portfolioId);
     }
 
 
-    public List<PortfolioObj> getPortfoliosByAccountId(int accountId) {
+    public List<PortfolioFrontEnd> getPortfoliosByAccountId(int accountId) {
         return portfolioRepository.getPortfoliosByAccountId(accountId);
     }
 
 
-    public List<PortfolioObj> getPortfoliosByPublic(boolean privacy) {
+    public List<PortfolioFrontEnd> getPortfoliosByPublic(boolean privacy) {
         return portfolioRepository.getPortfoliosByPublic(privacy);
     }
 
-    public PortfolioObj createNewPortfolio(PortfolioObj portfolioObj) {
-        return portfolioRepository.save(portfolioObj);
+    public PortfolioFrontEnd createNewPortfolio(PortfolioFrontEnd portfolioFrontEnd) {
+        return portfolioRepository.save(portfolioFrontEnd);
     }
 
-    public List<PortfolioObj> getAllPortfolios() {
+    public List<PortfolioFrontEnd> getAllPortfolios() {
         return portfolioRepository.findAll();
     }
 }

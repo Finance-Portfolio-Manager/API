@@ -8,9 +8,9 @@ public class Stock {
     //THIS CLASS IS NOT AN ENTITY IN THE DATABASE, DO NOT MAP TO A TABLE
 
     private String symbol;
-    private double quantity;
-    private double avgBuyPrice;
-    private double currentPrice;
+    private BigDecimal quantity;
+    private BigDecimal avgBuyPrice;
+    private BigDecimal currentPrice;
     private double changePercentage;
 
     Stock() {
@@ -21,7 +21,7 @@ public class Stock {
         this.symbol = symbol;
     }
 
-    Stock(String symbol, int quantity, double avgBuyPrice, double currentPrice, double changePercentage) {
+    Stock(String symbol, BigDecimal quantity, BigDecimal avgBuyPrice, BigDecimal currentPrice, double changePercentage) {
         this.symbol = symbol;
         this.quantity = quantity;
         this.avgBuyPrice = avgBuyPrice;
@@ -37,35 +37,35 @@ public class Stock {
         this.symbol = symbol;
     }
 
-    public double getQuantity() {
+    public BigDecimal getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
     }
 
-    public double getAvgBuyPrice() {
+    public BigDecimal getAvgBuyPrice() {
         return avgBuyPrice;
     }
 
-    public void setAvgBuyPrice(double avgBuyPrice) {
+    public void setAvgBuyPrice(BigDecimal avgBuyPrice) {
         this.avgBuyPrice = avgBuyPrice;
     }
 
-    public double getCurrentPrice() {
+    public BigDecimal getCurrentPrice() {
         //make a call to the API for stock price by symbol
         ApiService apiService = new ApiService();
         String[] symbolInput = new String[]{this.symbol};
         BigDecimal apiOut = apiService.getSymbolPrices(symbolInput).get(this.symbol);
-        return  apiOut.doubleValue();
+        return apiOut;
     }
 
     public void setCurrentPrice(double currentPrice) {
         ApiService apiService = new ApiService();
         String[] symbolInput = new String[]{this.symbol};
         BigDecimal apiOut = apiService.getSymbolPrices(symbolInput).get(this.symbol);
-        this.currentPrice = apiOut.doubleValue();
+        this.currentPrice = apiOut;
     }
 
     public double getChangePercentage() {
@@ -81,7 +81,7 @@ public class Stock {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Stock stock = (Stock) o;
-        return quantity == stock.quantity && Double.compare(stock.avgBuyPrice, avgBuyPrice) == 0 && Double.compare(stock.currentPrice, currentPrice) == 0 && Double.compare(stock.changePercentage, changePercentage) == 0 && Objects.equals(symbol, stock.symbol);
+        return Double.compare(stock.changePercentage, changePercentage) == 0 && Objects.equals(symbol, stock.symbol) && Objects.equals(quantity, stock.quantity) && Objects.equals(avgBuyPrice, stock.avgBuyPrice) && Objects.equals(currentPrice, stock.currentPrice);
     }
 
     @Override

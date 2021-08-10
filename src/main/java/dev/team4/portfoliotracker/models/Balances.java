@@ -18,7 +18,7 @@ public class Balances {
     private int balanceId;
 
     @Column(name = "balance")
-    private double balance;
+    private BigDecimal balance;
 
     @Column(name = "date")
     private LocalDateTime date;
@@ -32,7 +32,7 @@ public class Balances {
     public Balances() {
     }
 
-    public Balances(double balance, LocalDateTime date, int userId, int portfolioId) {
+    public Balances(BigDecimal balance, LocalDateTime date, int userId, int portfolioId) {
         this.balance = balance;
         this.date = date;
         this.userId = userId;
@@ -47,11 +47,11 @@ public class Balances {
         this.balanceId = balanceId;
     }
 
-    public double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
@@ -84,7 +84,7 @@ public class Balances {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Balances balances = (Balances) o;
-        return balanceId == balances.balanceId && Double.compare(balances.balance, balance) == 0 && userId == balances.userId && portfolioId == balances.portfolioId && Objects.equals(date, balances.date);
+        return balanceId == balances.balanceId && userId == balances.userId && portfolioId == balances.portfolioId && Objects.equals(balance, balances.balance) && Objects.equals(date, balances.date);
     }
 
     @Override
