@@ -1,30 +1,24 @@
 package dev.team4.portfoliotracker.controllers;
 
-
-import java.util.Arrays;
-
-import java.util.List;
-import java.util.Map;
-
-
-import dev.team4.portfoliotracker.util.YahooUtil;
-
-import dev.team4.portfoliotracker.services.ApiService;
-import io.swagger.models.Response;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import dev.team4.portfoliotracker.services.ApiService;
+import dev.team4.portfoliotracker.util.YahooUtil;
+import io.swagger.models.Response;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
 public class ApiController {
+
 	/*
 	@GetMapping(produces = "application/json")
 	public ResponseEntity<String> getStock(@RequestParam(value = "symbol") String stockSymbol) {
@@ -32,7 +26,7 @@ public class ApiController {
 		String uri = "https://alpha-vantage.p.rapidapi.com/query?function=GLOBAL_QUOTE&symbol=" + stockSymbol + "&datatype=json";
 		try {
 			response = Unirest.get(uri)
-				.header("x-rapidapi-key", "2026ae733amsh2b3a3e7ba055725p1025d0jsn28ad9fad2454")
+				.header("x-rapidapi-key", "_api_key_")
 				.header("x-rapidapi-host", "alpha-vantage.p.rapidapi.com")
 				.asString();
 		} catch (UnirestException e) {
@@ -44,7 +38,7 @@ public class ApiController {
 
 	@Autowired
 	ApiService apiService;
-	
+
 	//doesn't use consumed json, but its too late to change it
 	@GetMapping(value = "/all", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> getStock(@RequestParam(value = "symbol") List<String> stockSymbols) {
@@ -56,7 +50,7 @@ public class ApiController {
 //		uri.setLength(uri.length()-3);
 //		try {
 //			response = Unirest.get(uri.toString())
-//				.header("x-rapidapi-key", "c22847e6f9mshc44c33d17be6a0bp17fc66jsne4e700e30b54")
+//				.header("x-rapidapi-key", "_api_key_")
 //				.header("x-rapidapi-host", "apidojo-yahoo-finance-v1.p.rapidapi.com")
 //				.asString();
 //		} catch (UnirestException e) {
@@ -79,6 +73,7 @@ public class ApiController {
 
 		return ResponseEntity.ok().body(apiService.getSymbolPrices(stockSymbols));
 	}
+
 	/**
 	 * Author: David Garcia
 	 * @param stockSymbols - array inside of post body. CONTENT-TYPE: application/Json - ex: looking like the following as a request: ["MSFT", "AMZN", "GOOG"]
