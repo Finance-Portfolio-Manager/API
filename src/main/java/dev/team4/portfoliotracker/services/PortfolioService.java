@@ -32,4 +32,7 @@ public class PortfolioService {
         return portfolioRepository.save(portfolioObj);
     }
 
+    public List<PortfolioObj> getAllPortfolios() {
+        return portfolioRepository.findAll();
+    }
 }

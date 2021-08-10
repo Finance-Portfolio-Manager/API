@@ -8,7 +8,7 @@ public class Stock {
     //THIS CLASS IS NOT AN ENTITY IN THE DATABASE, DO NOT MAP TO A TABLE
 
     private String symbol;
-    private int quantity;
+    private double quantity;
     private double avgBuyPrice;
     private double currentPrice;
     private double changePercentage;
@@ -37,7 +37,7 @@ public class Stock {
         this.symbol = symbol;
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 

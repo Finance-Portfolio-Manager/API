@@ -10,6 +10,7 @@ import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,9 @@ public class UpdateUtil {
 
     @Autowired
     StockServiceImpl stockService;
+
+    @Autowired
+    BalanceUtil balanceUtil;
 
     public void notifyPriceChange() {
         List<Stock> stocks = stockService.getAllStocksForAllUsers();
@@ -94,6 +98,12 @@ public class UpdateUtil {
 
             }
         }//end users loop
+    }
+
+//    @Scheduled(cron = "0 0 0 * *") // happens at midnight everyday
+    @Scheduled(fixedRate = 100000)
+    public void scheduledBalanceStore() {
+        balanceUtil.storeBalances();
     }
 
 //    public void update(){

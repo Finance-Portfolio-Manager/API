@@ -10,7 +10,7 @@ public class PortfolioObj {
     private int portfolioId;
     private int userId;
     private boolean isPublic;
-    private int value;
+    private double value;
     List<Stock> stocks;
     List<Transaction> transactions;
 
@@ -45,7 +45,7 @@ public class PortfolioObj {
         this.isPublic = isPublic;
     }
 
-    public int getValue() {
+    public double getValue() {
         return value;
     }
 
