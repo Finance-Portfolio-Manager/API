@@ -1,7 +1,6 @@
 package dev.team4.portfoliotracker.controllers;
 
 import dev.team4.portfoliotracker.models.Transaction;
-import dev.team4.portfoliotracker.models.User;
 import dev.team4.portfoliotracker.security.JwtUtility;
 import dev.team4.portfoliotracker.services.TransactionService;
 import dev.team4.portfoliotracker.services.UserDetailsService;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
