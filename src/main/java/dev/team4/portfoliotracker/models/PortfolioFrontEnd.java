@@ -86,7 +86,7 @@ public class PortfolioFrontEnd {
 
     public void setValue(List<Stock> stocks) {
         //Calculate the total value of portfolio based on stock list
-        this.value = BigDecimal.valueOf(0); //initialize to 0 before adding totals
+        this.value = BigDecimal.ZERO; //initialize to 0 before adding totals
 
         for (Stock stock : stocks) {
             this.value = this.value.add(BigDecimal.valueOf(stock.getQuantity()).multiply(stock.getCurrentPrice()));

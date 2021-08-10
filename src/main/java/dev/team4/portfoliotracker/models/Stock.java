@@ -97,7 +97,7 @@ public class Stock {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Stock stock = (Stock) o;
-        return portfolioId == stock.portfolioId && Double.compare(stock.quantity, quantity) == 0 && Double.compare(stock.avgBuyPrice, avgBuyPrice) == 0 && Double.compare(stock.changePercentage, changePercentage) == 0 && Objects.equals(symbol, stock.symbol) && Objects.equals(currentPrice, stock.currentPrice);
+        return portfolioId == stock.portfolioId && Double.compare(stock.quantity, quantity) == 0 && Double.compare(stock.changePercentage, changePercentage) == 0 && Objects.equals(symbol, stock.symbol) && Objects.equals(avgBuyPrice, stock.avgBuyPrice) && Objects.equals(currentPrice, stock.currentPrice);
     }
 
     @Override
