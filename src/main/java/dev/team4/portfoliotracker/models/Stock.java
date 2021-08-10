@@ -16,15 +16,22 @@ public class Stock {
     private BigDecimal currentPrice;
     private double changePercentage;
 
-    Stock() {
+    public Stock() {
         super();
     }
 
-    Stock(String symbol) {
+    public Stock(String symbol, int portfolioId) {
         this.symbol = symbol;
+        this.portfolioId = portfolioId;
     }
 
-    Stock(String symbol,int portfolioId, double quantity, BigDecimal avgBuyPrice, BigDecimal currentPrice, double changePercentage) {
+    public Stock(Transaction transaction) {
+        this.symbol = transaction.getStockSymbol();
+        this.portfolioId = transaction.getPortfolio().getPortfolioId();
+        this.quantity = transaction.getShareAmount();
+    }
+
+    public Stock(String symbol,int portfolioId, double quantity, BigDecimal avgBuyPrice, BigDecimal currentPrice, double changePercentage) {
         this.symbol = symbol;
         this.quantity = quantity;
         this.avgBuyPrice = avgBuyPrice;
@@ -54,10 +61,10 @@ public class Stock {
     }
 
     public void setQuantity(List<Transaction> transactions) {
-        //Pass in transactions list from trans controller call
-
-
-        this.quantity = 0; //REPLACE
+        //Loop through a pre-processed list of transactions and sum the quantity column
+        for (Transaction transaction : transactions) {
+            this.quantity += transaction.getShareAmount();
+        }
     }
 
     public BigDecimal getAvgBuyPrice() {
