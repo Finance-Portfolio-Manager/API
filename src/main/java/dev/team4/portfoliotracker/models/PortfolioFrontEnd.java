@@ -3,7 +3,7 @@ package dev.team4.portfoliotracker.models;
 import java.util.List;
 import java.util.Objects;
 
-public class PortfolioObj {
+public class PortfolioFrontEnd {
     //THIS CLASS IS NOT AN ENTITY IN THE DATABASE, DO NOT MAP TO A TABLE
 
     private String name;
@@ -14,20 +14,29 @@ public class PortfolioObj {
     List<Stock> stocks;
     List<Transaction> transactions;
 
-    PortfolioObj() {
+    PortfolioFrontEnd() {
         super();
     }
 
-    PortfolioObj(String name, boolean isPublic) {
+    PortfolioFrontEnd(String name, boolean isPublic) {
         this.name = name;
         this.isPublic = isPublic;
     }
 
-    PortfolioObj(String name, boolean isPublic, List<Stock> stocks) {
+    PortfolioFrontEnd(String name, boolean isPublic, List<Stock> stocks) {
         this.name = name;
         this.isPublic = isPublic;
         this.stocks = stocks;
     }
+    PortfolioFrontEnd(Portfolio portfolio) {
+        this.portfolioId = portfolio.getPortfolioId();
+        this.userId = portfolio.getUser().getUserId();
+        this.name = portfolio.getName();
+        this.isPublic = portfolio.getPublic();
+        this.transactions = portfolio.getTransactions();
+    }
+
+
 
     public String getName() {
         return name;
@@ -95,7 +104,7 @@ public class PortfolioObj {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PortfolioObj that = (PortfolioObj) o;
+        PortfolioFrontEnd that = (PortfolioFrontEnd) o;
         return isPublic == that.isPublic && value == that.value && Objects.equals(name, that.name) && Objects.equals(stocks, that.stocks);
     }
 

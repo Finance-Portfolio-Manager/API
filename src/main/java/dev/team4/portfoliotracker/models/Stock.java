@@ -54,14 +54,14 @@ public class Stock {
     }
 
     public double getCurrentPrice() {
-        //make a call to the API for stock price by symbol
-        ApiService apiService = new ApiService();
-        String[] symbolInput = new String[]{this.symbol};
-        BigDecimal apiOut = apiService.getSymbolPrices(symbolInput).get(this.symbol);
-        return  apiOut.doubleValue();
+        //make a call to the setPrice method for updated info
+        this.setCurrentPrice();
+
+        return currentPrice;
     }
 
-    public void setCurrentPrice(double currentPrice) {
+    public void setCurrentPrice() {
+        //Calls to web scraper for updated pricing
         ApiService apiService = new ApiService();
         String[] symbolInput = new String[]{this.symbol};
         BigDecimal apiOut = apiService.getSymbolPrices(symbolInput).get(this.symbol);

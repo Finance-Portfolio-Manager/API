@@ -20,6 +20,9 @@ public class Portfolio {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @Column(name = "portfolio_name")
+    private String name;
+
     @Column(name = "is_public", columnDefinition = "boolean default false")
     private boolean isPublic;
 
@@ -41,12 +44,20 @@ public class Portfolio {
         this.user = user;
     }
 
-    public boolean isPublic() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean getPublic() {
         return isPublic;
     }
 
-    public void setPublic(boolean aPublic) {
-        isPublic = aPublic;
+    public void setPublic(boolean isPublic) {
+        this.isPublic = isPublic;
     }
 
     public List<Transaction> getTransactions() {
