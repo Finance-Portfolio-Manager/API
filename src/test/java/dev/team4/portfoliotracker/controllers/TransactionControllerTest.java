@@ -68,64 +68,64 @@ public class TransactionControllerTest {
         );
     }
 
-    @Test
-    void addTransaction() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.add("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ");
-        Transaction txn1 = new Transaction(201, "TSLA", 5.32, 690.32, "test1", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ", true);
-        HttpEntity<Transaction> request = new HttpEntity<>(txn1, headers);
-        ResponseEntity<Transaction> response = restTemplate.postForEntity(url + "/new", request, Transaction.class);
-        System.out.println(response.getBody());
+//    @Test
+//    void addTransaction() {
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        headers.add("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ");
+//        Transaction txn1 = new Transaction(201, "TSLA", 5.32, 690.32, "test1", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ", true);
+//        HttpEntity<Transaction> request = new HttpEntity<>(txn1, headers);
+//        ResponseEntity<Transaction> response = restTemplate.postForEntity(url + "/new", request, Transaction.class);
+//        System.out.println(response.getBody());
+//
+//        assertAll(
+//                () -> assertNotNull(response.getBody()),
+//                () -> assertEquals(201, response.getStatusCodeValue())
+//        );
+//    }
 
-        assertAll(
-                () -> assertNotNull(response.getBody()),
-                () -> assertEquals(201, response.getStatusCodeValue())
-        );
-    }
+//    @Test
+//    void updateTransaction() {
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        headers.add("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ");
+//        Transaction txn1 = new Transaction(201, "TSLA", 5.32, 690.32, "test1", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ", true);
+//        HttpEntity<Transaction> request = new HttpEntity<>(txn1, headers);
+//        ResponseEntity<Transaction> response = restTemplate.postForEntity(url + "/new", request, Transaction.class);
+//
+//        HttpHeaders headers2 = new HttpHeaders();
+//        headers2.setContentType(MediaType.APPLICATION_JSON);
+//        headers2.add("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ");
+//        Transaction txn2 = new Transaction(201, "MSFT", 53.32, 69.32, "test2", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ", true);
+//        HttpEntity<String> request2 = new HttpEntity<>(asJsonString(txn2), headers2);
+//        ResponseEntity<Transaction> response2 = restTemplate.exchange(url + "/2", HttpMethod.PUT, request2, Transaction.class);
+//        System.out.println(response2.getBody());
+//
+//        assertAll(
+//                () -> assertNotNull(response2.getBody()),
+//                () -> assertEquals(200, response2.getStatusCodeValue())
+//        );
+//    }
 
-    @Test
-    void updateTransaction() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.add("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ");
-        Transaction txn1 = new Transaction(201, "TSLA", 5.32, 690.32, "test1", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ", true);
-        HttpEntity<Transaction> request = new HttpEntity<>(txn1, headers);
-        ResponseEntity<Transaction> response = restTemplate.postForEntity(url + "/new", request, Transaction.class);
-
-        HttpHeaders headers2 = new HttpHeaders();
-        headers2.setContentType(MediaType.APPLICATION_JSON);
-        headers2.add("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ");
-        Transaction txn2 = new Transaction(201, "MSFT", 53.32, 69.32, "test2", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ", true);
-        HttpEntity<String> request2 = new HttpEntity<>(asJsonString(txn2), headers2);
-        ResponseEntity<Transaction> response2 = restTemplate.exchange(url + "/2", HttpMethod.PUT, request2, Transaction.class);
-        System.out.println(response2.getBody());
-
-        assertAll(
-                () -> assertNotNull(response2.getBody()),
-                () -> assertEquals(200, response2.getStatusCodeValue())
-        );
-    }
-
-    @Test
-    void deleteTransaction() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.add("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ");
-        Transaction txn1 = new Transaction(201, "TSLA", 5.32, 690.32, "test1", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ", true);
-        HttpEntity<Transaction> request = new HttpEntity<>(txn1, headers);
-        ResponseEntity<Transaction> response = restTemplate.postForEntity(url + "/new", request, Transaction.class);
-
-        HttpHeaders headers2 = new HttpHeaders();
-        headers2.setContentType(MediaType.APPLICATION_JSON);
-        headers2.add("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ");
-        HttpEntity<String> request2 = new HttpEntity<>(headers2);
-        ResponseEntity<Transaction> response2 = restTemplate.exchange(url + "/1", HttpMethod.DELETE, request2, Transaction.class);
-        System.out.println(response2.getBody());
-
-        assertAll(
-                () -> assertNotNull(response2.getBody()),
-                () -> assertEquals(200, response2.getStatusCodeValue())
-        );
-    }
+//    @Test
+//    void deleteTransaction() {
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        headers.add("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ");
+//        Transaction txn1 = new Transaction(201, "TSLA", 5.32, 690.32, "test1", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ", true);
+//        HttpEntity<Transaction> request = new HttpEntity<>(txn1, headers);
+//        ResponseEntity<Transaction> response = restTemplate.postForEntity(url + "/new", request, Transaction.class);
+//
+//        HttpHeaders headers2 = new HttpHeaders();
+//        headers2.setContentType(MediaType.APPLICATION_JSON);
+//        headers2.add("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ");
+//        HttpEntity<String> request2 = new HttpEntity<>(headers2);
+//        ResponseEntity<Transaction> response2 = restTemplate.exchange(url + "/1", HttpMethod.DELETE, request2, Transaction.class);
+//        System.out.println(response2.getBody());
+//
+//        assertAll(
+//                () -> assertNotNull(response2.getBody()),
+//                () -> assertEquals(200, response2.getStatusCodeValue())
+//        );
+//    }
 }
