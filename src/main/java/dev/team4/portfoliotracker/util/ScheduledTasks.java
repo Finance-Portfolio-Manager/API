@@ -27,19 +27,20 @@ public class ScheduledTasks {
 //        log.info("The time is now {}", dateFormat.format(new Date()));
 //    }
 
-    @Scheduled(fixedRate = 1000000) //1000 = 1sec
-    public void scheduledSendUpdateStockInfo() {
-        //System.out.println(new java.util.Date());
-        updateUtil.sendUpdateStockInfo();
 
-    }
-
-    @Scheduled(fixedRate = 1000000) //1000 = 1sec
-    public void scheduledNotifyPriceChange() {
-        //System.out.println(new java.util.Date());
-
-        updateUtil.notifyPriceChange();
-    }
+//    @Scheduled(fixedRate = 1000000) //1000 = 1sec
+//    public void scheduledSendUpdateStockInfo() {
+//        //System.out.println(new java.util.Date());
+//        updateUtil.sendUpdateStockInfo();
+//
+//    }
+//
+//    @Scheduled(fixedRate = 1000000) //1000 = 1sec
+//    public void scheduledNotifyPriceChange() {
+//        //System.out.println(new java.util.Date());
+//
+//        updateUtil.notifyPriceChange();
+//    }
 
 
 }

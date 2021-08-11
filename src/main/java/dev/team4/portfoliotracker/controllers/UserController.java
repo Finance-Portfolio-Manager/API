@@ -103,8 +103,20 @@ public class UserController {
 
         EmailUtil.sendEmail(email,subject, text);
 
-
-
         return new ResponseEntity<String>(digits, HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/password", consumes = "application/json")
+    public ResponseEntity<String> changePassword(@RequestBody User oldUser) {
+        System.out.println(oldUser);
+        User user = userDetailsService.getUserByEmail(oldUser.getEmail());
+        if(!oldUser.getCode().equals(user.getCode())){
+            System.out.println("code does not match code in database: " + user.getCode() + " code entered: " + oldUser.getCode() );
+            return new ResponseEntity<>("code does not match", HttpStatus.UNAUTHORIZED);
+        }
+        user.setPassword(oldUser.getPassword());
+        user.setCode(null);
+        userDetailsService.createUser(user);
+        return new ResponseEntity<String>("password changed", HttpStatus.OK);
     }
 }
