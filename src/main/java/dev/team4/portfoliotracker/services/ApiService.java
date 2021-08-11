@@ -1,6 +1,9 @@
 // Author: David Garcia
 package dev.team4.portfoliotracker.services;
 
+import dev.team4.portfoliotracker.models.News;
+import dev.team4.portfoliotracker.repositories.ApiRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
@@ -10,11 +13,15 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
 public class ApiService {
+
+    @Autowired
+    ApiRepository apiRepository;
 
     /**
      * Author: David Garcia
@@ -60,6 +67,16 @@ public class ApiService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Set<News> getDailyNews(){
+
+
         return null;
     }
 }

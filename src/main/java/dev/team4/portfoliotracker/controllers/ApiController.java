@@ -5,7 +5,9 @@ package dev.team4.portfoliotracker.controllers;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import dev.team4.portfoliotracker.models.News;
 import dev.team4.portfoliotracker.services.ApiService;
 import io.swagger.models.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,4 +86,10 @@ public class ApiController {
 
 		return ResponseEntity.ok().body(apiService.getSymbolPnl(stockSymbols));
 	}
+//
+//	@GetMapping(value="/get-daily-headlines", produces="application/json")
+//	public ResponseEntity<Set<News>> getDailyHeadlines(){
+//
+//		return ResponseEntity.ok().body(apiService.getDailyNews());
+//	}
 }
