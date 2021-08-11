@@ -1,11 +1,13 @@
 package dev.team4.portfoliotracker.services;
 
+import dev.team4.portfoliotracker.models.Portfolio;
 import dev.team4.portfoliotracker.models.Transaction;
 import dev.team4.portfoliotracker.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.sound.sampled.Port;
 import java.util.List;
 
 @Service
@@ -15,8 +17,8 @@ public class TransactionService {
     @Autowired
     TransactionRepository txnRepo;
 
-    public List<Transaction> getAllTransactionsByPortfolioId(int portfolioId) {
-        return txnRepo.findTransactionsByPortfolioId(portfolioId);
+    public List<Transaction> getAllTransactionsByPortfolio(Portfolio portfolio) {
+        return txnRepo.findTransactionsByPortfolio(portfolio);
     }
 
     public List<Transaction> getAllTransactions() {
@@ -40,8 +42,8 @@ public class TransactionService {
         txn.setDateTime(transaction.getDateTime());
     }
 
-    public List<Transaction> getTransactionsByPortfolioIdAndStockSymbol(int portfolioId, String stockSymbol){
-        return txnRepo.findTransactionsByPortfolioIdAndStockSymbol(portfolioId, stockSymbol);
+    public List<Transaction> getTransactionsByPortfolioAndStockSymbol(Portfolio portfolio, String stockSymbol){
+        return txnRepo.findTransactionsByPortfolioAndStockSymbol(portfolio, stockSymbol);
     }
 
     public void deleteTransaction(Transaction transaction) {

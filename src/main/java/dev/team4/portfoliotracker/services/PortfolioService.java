@@ -3,6 +3,7 @@ package dev.team4.portfoliotracker.services;
 
 import dev.team4.portfoliotracker.models.Portfolio;
 import dev.team4.portfoliotracker.models.Transaction;
+import dev.team4.portfoliotracker.models.User;
 import dev.team4.portfoliotracker.repositories.PortfolioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,18 +15,18 @@ public class PortfolioService {
     @Autowired
     PortfolioRepository portfolioRepository;
 
-    public Portfolio getPortfolioById(int portfolioId) {
-        return portfolioRepository.getPortfolioById(portfolioId);
+    public Portfolio getPortfolioByPortfolioId(int portfolioId) {
+        return portfolioRepository.getPortfolioByPortfolioId(portfolioId);
     }
 
 
-    public List<Portfolio> getPortfoliosByAccountId(int accountId) {
-        return portfolioRepository.getPortfoliosByAccountId(accountId);
+    public List<Portfolio> getPortfoliosByUser(User user) {
+        return portfolioRepository.getPortfoliosByUser(user);
     }
 
 
-    public List<Portfolio> getPortfoliosByPublic(boolean privacy) {
-        return portfolioRepository.getPortfoliosByPublic(privacy);
+    public List<Portfolio> getPortfoliosByIsPublic(boolean privacy) {
+        return portfolioRepository.getPortfoliosByIsPublic(privacy);
     }
 
     public Portfolio createNewPortfolio(Portfolio portfolio) {

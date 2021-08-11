@@ -38,6 +38,9 @@ public class Transaction {
     @Column(name = "date_time")
     private LocalDateTime dateTime;
 
+    public Transaction() {
+        super();
+    }
 
     public Transaction(Portfolio portfolio, String stockSymbol, double transactionQuantity, BigDecimal sharePrice, LocalDateTime dateTime) {
         this.portfolio = portfolio;
