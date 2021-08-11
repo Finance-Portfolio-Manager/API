@@ -37,7 +37,9 @@ public class PortfolioFrontEnd {
         this.transactions = portfolio.getTransactions();
     }
 
-
+    public PortfolioFrontEnd(BigDecimal value) {
+        this.value = value;
+    }
 
     public PortfolioFrontEnd(String name, int portfolioId, int userId, boolean isPublic, BigDecimal value, List<Stock> stocks, List<Transaction> transactions) {
         this.name = name;

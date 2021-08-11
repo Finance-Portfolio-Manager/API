@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import yahoofinance.YahooFinance;
 
-import javax.xml.ws.soap.Addressing;
 
 @Component
 public class ScheduledTasks {
