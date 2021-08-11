@@ -90,7 +90,7 @@ public class PortfolioFrontEnd {
         this.value = BigDecimal.ZERO; //initialize to 0 before adding totals
 
         for (Stock stock : stocks) {
-            this.value = this.value.add(stock.getQuantity().multiply(stock.getCurrentPrice()));
+            this.value = this.value.add(stock.getCurrentPrice().multiply(new BigDecimal(stock.getQuantity())));
         }
     }
 

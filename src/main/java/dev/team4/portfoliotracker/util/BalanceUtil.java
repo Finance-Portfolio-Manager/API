@@ -1,6 +1,7 @@
 package dev.team4.portfoliotracker.util;
 
 import dev.team4.portfoliotracker.models.Balances;
+import dev.team4.portfoliotracker.models.Portfolio;
 import dev.team4.portfoliotracker.models.PortfolioFrontEnd;
 import dev.team4.portfoliotracker.services.BalancesService;
 import dev.team4.portfoliotracker.services.PortfolioService;
@@ -21,13 +22,14 @@ public class BalanceUtil {
 
     public void storeBalances() {
         //get every portfolio
-        List<PortfolioFrontEnd> portfolios = portfolioService.getAllPortfolios();
+        List<Portfolio> portfolios = portfolioService.getAllPortfolios();
         // get current timestamp
         LocalDateTime timestamp = LocalDateTime.now();
 
         // get list of stocks AND quantities from every portfolio
         //for each portfolio, sum each (stock quantity*stock price) for total portfolio value
-        for (PortfolioFrontEnd portfolio: portfolios) {
+        for (Portfolio portfolio: portfolios) {
+            PortfolioFrontEnd pf = new PortfolioFrontEnd();
             Balances bal = new Balances(portfolio.getValue(), timestamp, portfolio.getUserId(), portfolio.getPortfolioId());
             balancesService.addBalance(bal);
         }
