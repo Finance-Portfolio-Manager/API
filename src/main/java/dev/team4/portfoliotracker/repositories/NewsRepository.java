@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ApiRepository extends JpaRepository<News,Integer> {
+public interface NewsRepository extends JpaRepository<News,Integer> {
 
     boolean saveNews(News news);
     List<News> findAllNews();

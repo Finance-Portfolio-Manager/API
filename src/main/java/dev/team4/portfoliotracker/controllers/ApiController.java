@@ -86,10 +86,5 @@ public class ApiController {
 
 		return ResponseEntity.ok().body(apiService.getSymbolPnl(stockSymbols));
 	}
-//
-//	@GetMapping(value="/get-daily-headlines", produces="application/json")
-//	public ResponseEntity<Set<News>> getDailyHeadlines(){
-//
-//		return ResponseEntity.ok().body(apiService.getDailyNews());
-//	}
+
 }
