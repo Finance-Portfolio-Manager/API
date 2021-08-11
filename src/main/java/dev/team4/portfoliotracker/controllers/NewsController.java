@@ -22,11 +22,7 @@ public class NewsController {
     }
 
     @PostMapping(value="/post-news",consumes="application/json", produces="application/json")
-    public ResponseEntity<News> saveNews(
-            @RequestBody int newsId, String title, String description, String url, String urlToImage){
-        News news = new News(newsId, title, description, url, urlToImage);
-
-
+    public ResponseEntity<News> saveNews(@RequestBody News news){
         return new ResponseEntity<News>(newsService.saveNews(news), HttpStatus.OK);
     }
 
