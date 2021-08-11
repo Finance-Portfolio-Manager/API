@@ -66,15 +66,18 @@ public class EmailUtil {
             String html = "<h1>Your current balance is " + balance + "</h1><br>";
             html += "<table style='text-align: center'> <tr> <th>Stock symbol</th> <th>Quantity</th> <th>Price</th> </tr>";
 
-            for(Stock stock: stocks){
-                html += "<tr><td>";
-                html += stock.getStockSymbol();
-                html += "</td><td>";
-                html += stock.getStockQuantity();
-                html += "</td><td>";
-                html += priceMap.get(stock.getStockSymbol());
-                html += "</td></tr>";
-            }
+//            for(Stock stock: stocks){
+//                html += "<tr><td>";
+//                html += stock.getStockSymbol();
+//                html += "</td><td>";
+//                html += stock.getStockQuantity();
+//                html += "</td><td>";
+//                html += priceMap.get(stock.getStockSymbol());
+//                html += "</td></tr>";
+//            }
+
+            //TODO Above code commented out to prevent compile errors, will need to be refactored
+
             html += "</table>";
 
             message.setContent(html, "text/html");

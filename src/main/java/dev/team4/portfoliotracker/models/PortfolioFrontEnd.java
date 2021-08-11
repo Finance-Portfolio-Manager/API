@@ -15,20 +15,29 @@ public class PortfolioFrontEnd {
     List<Stock> stocks;
     List<Transaction> transactions;
 
-    PortfolioFrontEnd() {
+    public PortfolioFrontEnd() {
         super();
     }
 
-    PortfolioFrontEnd(String name, boolean isPublic) {
+    public PortfolioFrontEnd(String name, boolean isPublic) {
         this.name = name;
         this.isPublic = isPublic;
     }
 
-    PortfolioFrontEnd(String name, boolean isPublic, List<Stock> stocks) {
+    public PortfolioFrontEnd(String name, boolean isPublic, List<Stock> stocks) {
         this.name = name;
         this.isPublic = isPublic;
         this.stocks = stocks;
     }
+    public PortfolioFrontEnd(Portfolio portfolio) {
+        this.portfolioId = portfolio.getPortfolioId();
+        this.userId = portfolio.getUser().getUserId();
+        this.name = portfolio.getName();
+        this.isPublic = portfolio.getPublic();
+        this.transactions = portfolio.getTransactions();
+    }
+
+
 
     public PortfolioFrontEnd(String name, int portfolioId, int userId, boolean isPublic, BigDecimal value, List<Stock> stocks, List<Transaction> transactions) {
         this.name = name;
@@ -56,9 +65,6 @@ public class PortfolioFrontEnd {
         this.isPublic = isPublic;
     }
 
-    public BigDecimal getValue() {
-        return value;
-    }
 
     public int getPortfolioId() {
         return portfolioId;
@@ -78,11 +84,14 @@ public class PortfolioFrontEnd {
 
     public List<Transaction> getTransactions() {
         return transactions;
-        //THIS SHOULD CALL TO TRANS CONTROLLER METHOD FOR UPDATED LIST
     }
 
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
+    }
+
+    public BigDecimal getValue() {
+        return value;
     }
 
     public void setValue(List<Stock> stocks) {
@@ -90,7 +99,7 @@ public class PortfolioFrontEnd {
         this.value = BigDecimal.ZERO; //initialize to 0 before adding totals
 
         for (Stock stock : stocks) {
-            this.value = this.value.add(stock.getCurrentPrice().multiply(new BigDecimal(stock.getQuantity())));
+            this.value = this.value.add(BigDecimal.valueOf(stock.getQuantity()).multiply(stock.getCurrentPrice()));
         }
     }
 

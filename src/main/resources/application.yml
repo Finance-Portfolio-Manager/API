@@ -30,6 +30,9 @@ spring:
     serialization:
       fail-on-empty-beans: false
 
+logging:
+  file:
+    path: .
 
 #This is a test
 #server:
