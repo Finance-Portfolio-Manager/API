@@ -33,7 +33,7 @@ public class Favorites implements Serializable {
 
     public Favorites(User user, Portfolio portfolio) {
         super();
-        this.id = new FavoritesId(user, portfolio);
+        this.id = new FavoritesId();
         this.user = user;
         this.portfolio = portfolio;
     }

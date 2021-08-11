@@ -1,5 +1,6 @@
 package dev.team4.portfoliotracker.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +31,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Portfolio> portfolios;
 

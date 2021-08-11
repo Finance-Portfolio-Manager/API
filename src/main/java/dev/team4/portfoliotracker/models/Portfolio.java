@@ -1,5 +1,6 @@
 package dev.team4.portfoliotracker.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class Portfolio {
     @Column(name = "is_public", columnDefinition = "boolean default false")
     private boolean isPublic;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "portfolio")
     private List<Transaction> transactions;
 

@@ -1,6 +1,7 @@
 package dev.team4.portfoliotracker.models;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Objects;
 
@@ -88,7 +89,8 @@ public class PortfolioFrontEnd {
         this.value = BigDecimal.ZERO; //initialize to 0 before adding totals
 
         for (Stock stock : stocks) {
-            this.value = this.value.add(BigDecimal.valueOf(stock.getQuantity()).multiply(stock.getCurrentPrice()));
+            this.value = this.value.add(BigDecimal.valueOf(stock.getQuantity())
+                    .multiply(stock.getCurrentPrice())).setScale(2, RoundingMode.CEILING);
         }
     }
 

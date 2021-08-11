@@ -2,6 +2,7 @@ package dev.team4.portfoliotracker.models;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Objects;
 import dev.team4.portfoliotracker.services.ApiService;
@@ -82,7 +83,7 @@ public class Stock {
                 totalSpent = totalSpent.add(transaction.getSharePrice());
             }
         }
-        this.avgBuyPrice = totalSpent.divide(BigDecimal.valueOf(totalShareBuys), m);
+        this.avgBuyPrice = totalSpent.divide(BigDecimal.valueOf(totalShareBuys)).setScale(2, RoundingMode.CEILING);
     }
 
     public BigDecimal getCurrentPrice() {
@@ -97,7 +98,7 @@ public class Stock {
         String[] symbolInput = new String[]{this.symbol};
         BigDecimal apiOut = apiService.getSymbolPrices(symbolInput).get(this.symbol);
         MathContext m = new MathContext(2);
-        this.currentPrice = apiOut.round(m);
+        this.currentPrice = apiOut.setScale(2, RoundingMode.CEILING);
     }
 
     public BigDecimal getChangePercentage() {
