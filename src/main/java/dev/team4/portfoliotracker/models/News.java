@@ -17,7 +17,7 @@ import java.util.Objects;
 public class News {
 
     @Id
-    private int id;
+    private int newsId;
 
     @JsonProperty("title")
     private String title;
@@ -31,8 +31,16 @@ public class News {
     @JsonProperty("urlToImage")
     private String urlToImage;
 
-    News(){
+    public News(){
         super();
+    }
+
+    public News(int newsId, String title, String description, String url, String urlToImage){
+        this.newsId = newsId;
+        this.title = title;
+        this.description = description;
+        this.url = url;
+        this.urlToImage = urlToImage;
     }
 
     public String getTitle() {
@@ -67,12 +75,12 @@ public class News {
         this.urlToImage = urlToImage;
     }
 
-    public int getId() {
-        return id;
+    public int getNewsId() {
+        return newsId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setNewsId(int newsId) {
+        this.newsId = newsId;
     }
 
     @Override
@@ -80,18 +88,18 @@ public class News {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         News news = (News) o;
-        return id == news.id && Objects.equals(title, news.title) && Objects.equals(description, news.description) && Objects.equals(url, news.url) && Objects.equals(urlToImage, news.urlToImage);
+        return newsId == news.newsId && Objects.equals(title, news.title) && Objects.equals(description, news.description) && Objects.equals(url, news.url) && Objects.equals(urlToImage, news.urlToImage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, url, urlToImage);
+        return Objects.hash(newsId, title, description, url, urlToImage);
     }
 
     @Override
     public String toString() {
         return "News{" +
-                "id=" + id +
+                "newsId=" + newsId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", url='" + url + '\'' +
