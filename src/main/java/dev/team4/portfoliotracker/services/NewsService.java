@@ -14,11 +14,18 @@ public class NewsService {
     private NewsRepository newsRepository;
 
     @Autowired
-    News news;
+    private News news;
 
 
     public List<News> getNewsList(){
-        return newsRepository.findAllNews();
+        return newsRepository.findAll();
+    }
+
+    public News saveNews(News news){
+        return newsRepository.saveAndFlush(news);
+    }
+    public News findNewsById(int id){
+        return newsRepository.findById(id);
     }
 
     //    public NewsApiResponse getNewsApiResponseObject(){

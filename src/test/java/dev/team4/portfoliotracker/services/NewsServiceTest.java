@@ -40,6 +40,14 @@ public class NewsServiceTest {
     @Autowired
     NewsService newsService;
 
+    final News news1 = new News(1,"test Title","test Description","Test URL", "Test IMG URL");
+    final News news2 = new News(2,"test Title","test Description","Test URL", "Test IMG URL");
+    final News news3 = new News(3,"test Title","test Description","Test URL", "Test IMG URL");
+    final News news4 = new News(4,"test Title","test Description","Test URL", "Test IMG URL");
+    final News news5 = new News(5,"test Title","test Description","Test URL", "Test IMG URL");
+
+    final List<News> newsList = Arrays.asList(news1,news2,news3,news4,news5);
+
     @BeforeEach
     public void setUp(){
         this.mvc = MockMvcBuilders.standaloneSetup(newsRepository).build();
@@ -47,26 +55,16 @@ public class NewsServiceTest {
 
     @Test
     public void newsObjectIsReturnedTest(){
-        News news1 = new News(1,"test Title","test Description","Test URL", "Test IMG URL");
-        News news2 = new News(2,"test Title","test Description","Test URL", "Test IMG URL");
-        News news3 = new News(3,"test Title","test Description","Test URL", "Test IMG URL");
-        News news4 = new News(4,"test Title","test Description","Test URL", "Test IMG URL");
-        News news5 = new News(5,"test Title","test Description","Test URL", "Test IMG URL");
 
-        List<News> newsList = Arrays.asList(news1,news2,news3,news4,news5);
-        doReturn(newsList).when(newsRepository).findAllNews();
+        doReturn(newsList).when(newsRepository).findAll();
 
         assertEquals(newsList,newsService.getNewsList());
 
-//
-//        when(mockNewsRepository.findAllNews()).thenReturn(newsList);
-//
-//
-////        Mockito.doReturn(newsList).when(mockNewsRepository).findAllNews();
-//
-//        NewsRepository newsRepository = applicationContext.getBean(NewsRepository.class);
-//        System.out.println(newsRepository.findAllNews());
-//        assertEquals(newsList,newsService.getNewsList());
+    }
 
+    @Test
+    public void newsListIsPersistedTest(){
+        newsService.saveNews(news1);
+        assertEquals(news1,newsService.findNewsById(1));
     }
 }

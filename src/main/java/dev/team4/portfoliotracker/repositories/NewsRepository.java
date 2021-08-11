@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface NewsRepository extends JpaRepository<News,Integer> {
 
-    boolean saveNews(News news);
-    List<News> findAllNews();
+    News findById(int id);
+    List<News> findAll();
 }
