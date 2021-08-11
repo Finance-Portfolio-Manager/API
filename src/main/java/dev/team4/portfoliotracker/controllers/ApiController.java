@@ -9,7 +9,11 @@ import io.swagger.models.Response;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +23,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class ApiController {
 
+	@Autowired
+	Environment environment;
+
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
 	@GetMapping(value = "/charts", produces = "application/json")
 	// public ResponseEntity<String> getStock(@RequestParam(value = "symbol") String stockSymbol) {
 	public ResponseEntity<String> getChart() {
 		HttpResponse<String> response = null;
-		// String uri = "https://alpha-vantage.p.rapidapi.com/query?function=GLOBAL_QUOTE&symbol=" + stockSymbol + "&datatype=json";
-		String uri = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MCD&apikey=LW7AFCIUDLGSKMIQ";
+		String uri = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MCD&apikey="+environment.getProperty("KEYS_ALPHAVANTAGE");
 		try {
 			response = Unirest.get(uri).asString();
 		} catch (UnirestException e) {
