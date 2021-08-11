@@ -1,3 +1,4 @@
+
 package dev.team4.portfoliotracker.controllers;
 
 import dev.team4.portfoliotracker.models.Stock;
@@ -18,16 +19,16 @@ public class TransactionControllerTest {
     private String url = "http://localhost:8082/transactions";
     private TestRestTemplate restTemplate = new TestRestTemplate();
 
-    @BeforeEach
-    public void setUp() {
-        User user = new User("Cody", "Anderson", "c@c.com", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ", "pass");
-        user.setUsername("admin");
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> request2 = new HttpEntity<>(asJsonString(user), headers);
-        ResponseEntity<User> response2 = restTemplate.postForEntity("http://localhost:8082/register", request2, User.class);
-        System.out.println(response2.getBody());
-    }
+//    @BeforeEach
+//    public void setUp() {
+//        User user = new User("Cody", "Anderson", "c@c.com", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNzkwMDk5OCwiaWF0IjoxNjI3ODY0OTk4fQ.c0tO21C-Wl1vdhyEeTo1iJ1i1doxhm9_4ElA6VPKDGZvVVM-r0ULszdug5LJDRRM_ogaPycOyv5DkUJfCSjEBQ", "pass");
+//        user.setUsername("admin");
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        HttpEntity<String> request2 = new HttpEntity<>(asJsonString(user), headers);
+//        ResponseEntity<User> response2 = restTemplate.postForEntity("http://localhost:8082/register", request2, User.class);
+//        System.out.println(response2.getBody());
+//    }
 
     @Test
     void getAllTransactions() {
@@ -67,7 +68,7 @@ public class TransactionControllerTest {
                 () -> assertEquals(200, response.getStatusCodeValue())
         );
     }
-
+}
 //    @Test
 //    void addTransaction() {
 //        HttpHeaders headers = new HttpHeaders();
@@ -107,6 +108,7 @@ public class TransactionControllerTest {
 //        );
 //    }
 
+
 //    @Test
 //    void deleteTransaction() {
 //        HttpHeaders headers = new HttpHeaders();
@@ -128,4 +130,5 @@ public class TransactionControllerTest {
 //                () -> assertEquals(200, response2.getStatusCodeValue())
 //        );
 //    }
-}
+//}
+

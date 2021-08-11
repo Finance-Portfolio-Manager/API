@@ -73,7 +73,6 @@ public class PortfolioFrontEnd {
 
     public List<Transaction> getTransactions() {
         return transactions;
-        //THIS SHOULD CALL TO TRANS CONTROLLER METHOD FOR UPDATED LIST
     }
 
     public void setTransactions(List<Transaction> transactions) {
