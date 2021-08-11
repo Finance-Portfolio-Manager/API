@@ -2,6 +2,7 @@ package dev.team4.portfoliotracker.services;
 
 import dev.team4.portfoliotracker.models.Favorites;
 import dev.team4.portfoliotracker.models.Portfolio;
+import dev.team4.portfoliotracker.models.User;
 import dev.team4.portfoliotracker.repositories.FavoritesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,14 +26,14 @@ public class FavoritesService {
         favoritesRepo.delete(favorites);
     }
 
-    public List<Portfolio> getFavoritesByUserId(int userId) {
-        List<Favorites> favList = favoritesRepo.getFavoritesByUserId(userId);
+    public List<Portfolio> getFavoritesByUser(User user) {
+        List<Favorites> favList = favoritesRepo.getFavoritesByUser(user);
         List<Portfolio> favoritePortfolios = new ArrayList<>();
 
         PortfolioService portfolioService = new PortfolioService();
         //for each entry in the favorites table for a user, return the portfolio for the Id listed
         for (Favorites favorite : favList) {
-            Portfolio tempPort = portfolioService.getPortfolioById(favorite.getPortfolioId());
+            Portfolio tempPort = portfolioService.getPortfolioByPortfolioId(favorite.getPortfolio().getPortfolioId());
             favoritePortfolios.add(tempPort);
         }
         return favoritePortfolios;

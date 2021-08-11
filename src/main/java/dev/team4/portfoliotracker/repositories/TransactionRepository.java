@@ -9,7 +9,7 @@ import java.util.List;
 public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
 
     Transaction findTransactionByTransactionId(int transactionId);
-    List<Transaction> findTransactionsByPortfolioId(int portfolioId);
-    List<Transaction> findTransactionsByPortfolioIdAndStockSymbol(int portfolioId, String stockSymbol);
+    List<Transaction> findTransactionsByPortfolio(Portfolio portfolio);
+    List<Transaction> findTransactionsByPortfolioAndStockSymbol(Portfolio portfolio, String stockSymbol);
 
 }

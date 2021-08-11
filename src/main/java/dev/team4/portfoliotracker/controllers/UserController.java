@@ -31,9 +31,6 @@ public class UserController {
     private JwtUtility jwtUtility;
 
 
-
-
-
     @GetMapping(value = "/accounts", produces = "application/json")
     public ResponseEntity<List<User>> getAllAccounts() {
         return new ResponseEntity<>(userDetailsService.checkAllUser(), HttpStatus.OK);
