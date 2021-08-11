@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/accounts/{user_id}/favorites")
+@RequestMapping("/favorites")
 public class FavoritesController {
 
     @Autowired
@@ -21,7 +21,10 @@ public class FavoritesController {
 
     @PostMapping(consumes = "application/json")
     public ResponseEntity<Favorites> addNewFavorites(@RequestBody Favorites favorites) {
-        Favorites f = favoritesService.addFavorite(favorites);
+        Favorites f = new Favorites();
+        f.setUser(favorites.getUser());
+        f.setPortfolio(favorites.getPortfolio());
+        favoritesService.addFavorite(f);
         return new ResponseEntity<>(f, HttpStatus.CREATED);
     }
 

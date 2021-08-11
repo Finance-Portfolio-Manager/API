@@ -17,13 +17,13 @@ public class Favorites implements Serializable {
     FavoritesId id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("userId")
-    @JoinColumn(name = "user_id")
+    @MapsId("user")
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("portfolioId")
-    @JoinColumn(name = "portfolio_id")
+    @MapsId("portfolio")
+    @JoinColumn(name = "portfolio_id", insertable = false, updatable = false)
     private Portfolio portfolio;
 
 
@@ -33,6 +33,7 @@ public class Favorites implements Serializable {
 
     public Favorites(User user, Portfolio portfolio) {
         super();
+        this.id = new FavoritesId(user, portfolio);
         this.user = user;
         this.portfolio = portfolio;
     }
@@ -51,6 +52,14 @@ public class Favorites implements Serializable {
 
     public void setPortfolio(Portfolio portfolio) {
         this.portfolio = portfolio;
+    }
+
+    public FavoritesId getId() {
+        return id;
+    }
+
+    public void setId(FavoritesId id) {
+        this.id = id;
     }
 
     @Override

@@ -9,34 +9,34 @@ import java.util.Objects;
 public class FavoritesId implements Serializable {
 
     @Column(name = "user_id")
-    private int userId;
+    private User user;
 
     @Column(name = "portfolio_id")
-    private int portfolioId;
+    private Portfolio portfolio;
 
     public FavoritesId() {
         super();
     }
 
-    public FavoritesId(int userId, int portfolioId) {
-        this.userId = userId;
-        this.portfolioId = portfolioId;
+    public FavoritesId(User user, Portfolio portfolio) {
+        this.user = user;
+        this.portfolio = portfolio;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getPortfolioId() {
-        return portfolioId;
+    public Portfolio getPortfolio() {
+        return portfolio;
     }
 
-    public void setPortfolioId(int portfolioId) {
-        this.portfolioId = portfolioId;
+    public void setPortfolio(Portfolio portfolio) {
+        this.portfolio = portfolio;
     }
 
     @Override
@@ -44,19 +44,19 @@ public class FavoritesId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FavoritesId that = (FavoritesId) o;
-        return userId == that.userId && portfolioId == that.portfolioId;
+        return Objects.equals(user, that.user) && Objects.equals(portfolio, that.portfolio);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, portfolioId);
+        return Objects.hash(user, portfolio);
     }
 
     @Override
     public String toString() {
         return "FavoritesId{" +
-                "userId=" + userId +
-                ", portfolioId=" + portfolioId +
+                "user=" + user +
+                ", portfolio=" + portfolio +
                 '}';
     }
 }

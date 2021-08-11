@@ -33,4 +33,9 @@ public class PortfolioService {
         return portfolioRepository.save(portfolio);
     }
 
+    public Portfolio deletePortfolio(Portfolio portfolio) {
+        portfolioRepository.delete(portfolio);
+        return portfolio;
+    }
+
 }

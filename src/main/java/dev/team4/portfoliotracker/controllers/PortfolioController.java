@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +29,6 @@ public class PortfolioController {
 
     @Autowired
     FavoritesService favoriteService;
-    //This will be dependant on merging other branches
 
     @Autowired
     TransactionService transactionService;
@@ -166,7 +164,7 @@ public class PortfolioController {
 
     }
 
-    @GetMapping("/portfolios/public")
+    @GetMapping(value = "/public", produces = "application/json")
     public ResponseEntity<List<PortfolioFrontEnd>> getAllPublicPortfolios() {
         //Similar process to creating the user's portfolios, but grabbing all public ports
 
@@ -227,6 +225,18 @@ public class PortfolioController {
 
         }
         return new ResponseEntity<>(responsePorts, HttpStatus.OK);
+    }
+
+    @PostMapping(consumes = "application/json")
+    public ResponseEntity<Portfolio> createNewPortfolio(@RequestBody Portfolio portfolio) {
+        Portfolio p = portfolioService.createNewPortfolio(portfolio);
+        return new ResponseEntity<>(p, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(consumes = "application/json")
+    public ResponseEntity<Portfolio> deletePortfolio(@RequestBody Portfolio portfolio) {
+        portfolioService.deletePortfolio(portfolio);
+        return new ResponseEntity<>(portfolio, HttpStatus.ACCEPTED);
     }
 
 }

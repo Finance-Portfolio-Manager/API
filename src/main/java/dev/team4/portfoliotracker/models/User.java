@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 
 @Component
@@ -34,12 +33,8 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Portfolio> portfolios;
 
-    @ManyToMany
-    @JoinTable(
-            name = "favorites",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "portfolio_id"))
-    Set<Portfolio> favorites;
+    @OneToMany(targetEntity = Favorites.class, fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Portfolio> favorites;
 
     public User() {
     }
