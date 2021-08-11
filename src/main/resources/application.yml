@@ -24,6 +24,8 @@ spring:
     serialization:
       fail-on-empty-beans: false
 
+api:
+  key: ${NEWS_API_KEY}
 
 #This is a test
 #server:

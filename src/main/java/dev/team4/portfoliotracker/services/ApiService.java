@@ -1,9 +1,13 @@
 // Author: David Garcia
 package dev.team4.portfoliotracker.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.team4.portfoliotracker.models.News;
+import dev.team4.portfoliotracker.models.NewsApiResponse;
 import dev.team4.portfoliotracker.repositories.ApiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
@@ -12,6 +16,10 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -22,6 +30,9 @@ public class ApiService {
 
     @Autowired
     ApiRepository apiRepository;
+
+    @Value("${NEWS_API_KEY}")
+    private String newsApiKey;
 
     /**
      * Author: David Garcia
@@ -75,7 +86,26 @@ public class ApiService {
      * @return
      */
     public Set<News> getDailyNews(){
+        String targetUrl = "https://newsapi.org/v2/everything?q=stocks&from=2021-08-09&to=2021-08-09&sortBy=popularity&domains=forbes.com&apiKey=" + newsApiKey;
 
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(targetUrl))
+                .header("Accept","application/json")
+                .build();
+
+        HttpResponse<String> response = null;
+        try {
+            response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ObjectMapper objectMapper2 = new ObjectMapper();
+        try {
+            NewsApiResponse resp = objectMapper2.readValue(response.body(), NewsApiResponse.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
 
         return null;
     }
