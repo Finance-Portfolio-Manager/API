@@ -19,6 +19,6 @@ public class NewsController {
         return ResponseEntity.ok().body(newsService.findNewsById(1));
     }
 
-    @PostMapping(value="/post-news",consumes="application/json", produces="application/json")
-    public ResponseEntity<News> saveNews(@RequestBody)
+//    @PostMapping(value="/post-news",consumes="application/json", produces="application/json")
+//    public ResponseEntity<News> saveNews(@RequestBody)
 }
