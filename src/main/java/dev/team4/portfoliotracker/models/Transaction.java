@@ -19,6 +19,7 @@ public class Transaction {
     private int transactionId;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    //@ManyToOne
     @JoinColumn(name = "portfolio_id", nullable = false)
     private Portfolio portfolio;
 
@@ -112,7 +113,7 @@ public class Transaction {
     public String toString() {
         return "Transaction{" +
                 "transactionId=" + transactionId +
-                ", portfolio=" + portfolio +
+//                ", portfolio=" + portfolio +
                 ", stockSymbol='" + stockSymbol + '\'' +
                 ", shareAmount=" + transactionQuantity +
                 ", sharePrice=" + sharePrice +

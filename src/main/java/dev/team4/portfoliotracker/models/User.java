@@ -32,6 +32,7 @@ public class User {
     private String password;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Portfolio> portfolios;
 
     @ManyToMany
@@ -40,6 +41,17 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "portfolio_id"))
     Set<Portfolio> favorites;
+
+    @Column(name = "code")
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public User() {
     }
@@ -113,7 +125,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", portfolios=" + portfolios +
+//                ", portfolios=" + portfolios +
                 '}';
     }
 }

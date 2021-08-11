@@ -53,7 +53,7 @@ public class EmailUtil {
         return false;
     }
 
-    public static boolean sendEmailAboutStock(User user, List<Stock> stocks, double balance,  HashMap<String, Double> priceMap){
+    public static boolean sendEmailAboutStock(User user, List<Stock> stocks, double balance,  HashMap<String, Double> priceMap, String name){
 
         Session session = createEmailSession();
 
@@ -63,29 +63,23 @@ public class EmailUtil {
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
             message.setSubject("Portfolio Update");
 
-            String html = "<h1>Your current balance is " + balance + "</h1><br>";
+            String html = "<h1>For your portfolio " + name + " Your current balance is " + balance + "</h1><br>";
             html += "<table style='text-align: center'> <tr> <th>Stock symbol</th> <th>Quantity</th> <th>Price</th> </tr>";
 
-//            for(Stock stock: stocks){
-//                html += "<tr><td>";
-//                html += stock.getStockSymbol();
-//                html += "</td><td>";
-//                html += stock.getStockQuantity();
-//                html += "</td><td>";
-//                html += priceMap.get(stock.getStockSymbol());
-//                html += "</td></tr>";
-//            }
-
-            //TODO Above code commented out to prevent compile errors, will need to be refactored
-
+            for(Stock stock: stocks){
+                html += "<tr><td>";
+                html += stock.getSymbol();
+                html += "</td><td>";
+                html += stock.getQuantity();
+                html += "</td><td>";
+                html += priceMap.get(stock.getSymbol());
+                html += "</td></tr>";
+            }
             html += "</table>";
-
             message.setContent(html, "text/html");
-
             Transport.send(message);
             System.out.println("Email sent successfully");
             return true;
-
         } catch (MessagingException e) {
             e.printStackTrace();
         }
