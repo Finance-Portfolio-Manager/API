@@ -2,15 +2,20 @@ package dev.team4.portfoliotracker.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class NewsApiResponse {
 
-
+    @Id
+    private int id;
     private String status;
     private String totalResults;
 
