@@ -4,7 +4,7 @@ package dev.team4.portfoliotracker;
 //import org.json.simple.parser.JSONParser;
 import dev.team4.portfoliotracker.models.Stock;
 import dev.team4.portfoliotracker.services.UserDetailsService;
-import dev.team4.portfoliotracker.util.UpdateUtil;
+//import dev.team4.portfoliotracker.util.UpdateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -33,8 +33,8 @@ import java.util.concurrent.TimeUnit;
 @EnableScheduling
 public class PortfolioTrackerApplication {
 
-	@Autowired
-	UpdateUtil updateUtil;
+//	@Autowired
+//	UpdateUtil updateUtil;
 
 //	private static UserDetailsService userDetailsService;
 
