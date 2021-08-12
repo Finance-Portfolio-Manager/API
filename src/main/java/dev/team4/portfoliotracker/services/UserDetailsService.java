@@ -63,10 +63,14 @@ public class UserDetailsService implements org.springframework.security.core.use
     }
 
     public List<User> checkAllUser(){
+
         return userRepository.findAll();
+
     }
 
     public User getUserByUserId(int id){
-        return userRepository.findById(id);
+
+        return userRepository.findUserByUserId(id);
+
     }
 }

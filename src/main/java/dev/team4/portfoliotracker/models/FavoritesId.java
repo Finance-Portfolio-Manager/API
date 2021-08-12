@@ -1,10 +1,17 @@
 package dev.team4.portfoliotracker.models;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Embeddable
 public class FavoritesId implements Serializable {
+
+    @Column(name = "user_id")
     private int userId;
+
+    @Column(name = "portfolio_id")
     private int portfolioId;
 
     public FavoritesId() {
@@ -43,5 +50,13 @@ public class FavoritesId implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(userId, portfolioId);
+    }
+
+    @Override
+    public String toString() {
+        return "FavoritesId{" +
+                "userId=" + userId +
+                ", portfolioId=" + portfolioId +
+                '}';
     }
 }

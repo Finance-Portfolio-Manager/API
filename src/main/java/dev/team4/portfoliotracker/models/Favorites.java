@@ -9,43 +9,66 @@ import java.util.Objects;
 
 @Component
 @Entity
-@IdClass(FavoritesId.class)
 @Table(name = "favorites")
 @JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class Favorites implements Serializable {
 
-    @Id
-    @Column(name = "user_id")
-    private int userId;
+    @EmbeddedId
+    FavoritesId id;
 
-    @Id
-    @Column(name = "portfolio_id")
-    private int portfolioId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("user")
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("portfolio")
+    @JoinColumn(name = "portfolio_id", insertable = false, updatable = false)
+    private Portfolio portfolio;
+
 
     public Favorites() {
         super();
     }
 
-    public Favorites(int userId, int portfolioId) {
+    public Favorites(User user, Portfolio portfolio) {
         super();
-        this.userId = userId;
-        this.portfolioId = portfolioId;
+        this.id = new FavoritesId();
+        this.user = user;
+        this.portfolio = portfolio;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getPortfolioId() {
-        return portfolioId;
+    public Portfolio getPortfolio() {
+        return portfolio;
     }
 
-    public void setPortfolioId(int portfolioId) {
-        this.portfolioId = portfolioId;
+    public void setPortfolio(Portfolio portfolio) {
+        this.portfolio = portfolio;
+    }
+
+    public FavoritesId getId() {
+        return id;
+    }
+
+    public void setId(FavoritesId id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Favorites{" +
+                "id=" + id +
+                ", user=" + user +
+                ", portfolio=" + portfolio +
+                '}';
     }
 
     @Override
@@ -53,11 +76,11 @@ public class Favorites implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Favorites favorites = (Favorites) o;
-        return userId == favorites.userId && portfolioId == favorites.portfolioId;
+        return Objects.equals(id, favorites.id) && Objects.equals(user, favorites.user) && Objects.equals(portfolio, favorites.portfolio);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, portfolioId);
+        return Objects.hash(id, user, portfolio);
     }
 }

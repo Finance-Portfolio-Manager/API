@@ -4,26 +4,18 @@ package dev.team4.portfoliotracker.services;
 import dev.team4.portfoliotracker.models.User;
 import dev.team4.portfoliotracker.repositories.UserRepository;
 import dev.team4.portfoliotracker.security.UserPrincipal;
-import org.junit.Assert;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.hamcrest.MatcherAssert.*;
-import static org.mockito.ArgumentMatchers.isNotNull;
-
 import static org.mockito.Mockito.*;
-import static org.springframework.security.config.http.MatcherType.mvc;
+
 
 @SpringBootTest
 public class UserDetailsServiceTest {
@@ -36,7 +28,7 @@ public class UserDetailsServiceTest {
 	
 	@Test
 	public void loadUserTest() throws Exception {
-		User user = new User("Cody", "Anderson", "c@c.com", "cody", "password");
+		User user = new User("c@c.com", "cody", "password");
 		doReturn(user).when(userRepository).findByUsername("cody");
 
 		UserPrincipal userP = new UserPrincipal(user);
@@ -52,8 +44,8 @@ public class UserDetailsServiceTest {
 
 	@Test
 	public void createUserTest() {
-		User user = new User("Cody", "Anderson", "c@c.com", "cody", "password");
-		User user2 = new User("Cody", "Anderson", "c@c.com", "cody", "password");
+		User user = new User("c@c.com", "cody", "password");
+		User user2 = new User("c@c.com", "cody", "password");
 		user2.setUserId(1);
 		doReturn(user2).when(userRepository).save(user);
 		assertEquals(userDetailsService.createUser(user), user2);
@@ -69,7 +61,7 @@ public class UserDetailsServiceTest {
 
 	@Test
 	public void removeUserTestSuccess() {
-		User user = new User("Cody", "Anderson", "c@c.com", "cody", "password");
+		User user = new User("c@c.com", "cody", "password");
 		doNothing().when(userRepository).delete(user);
 		userDetailsService.removeUser(user);
 		verify(userRepository, times(1)).delete(user);
@@ -77,8 +69,8 @@ public class UserDetailsServiceTest {
 	}
 
 	@Test
-	public void getUserTest() {
-		User user = new User("Cody", "Anderson", "c@c.com", "cody", "password");
+	public void getUserByUserNameTestSuccess() {
+		User user = new User("c@c.com", "cody", "password");
 		doReturn(user).when(userRepository).findByUsername("cody");
 
 		assertEquals(userDetailsService.getUserByUsername("cody"), user);
@@ -87,8 +79,8 @@ public class UserDetailsServiceTest {
 	@Test
 	public void getListOfUsers() {
 		List<User> userList = new ArrayList<>();
-		User user = new User("Cody", "Anderson", "c@c.com", "cody", "password");
-		User user2 = new User("Cody2", "Anderson2", "c2@c.com", "cody2", "password2");
+		User user = new User("c@c.com", "cody", "password");
+		User user2 = new User("c2@c.com", "cody2", "password2");
 		userList.add(user);
 		userList.add(user2);
 
@@ -99,11 +91,19 @@ public class UserDetailsServiceTest {
 
 	@Test
 	public void getUserByUserIdTest() {
-		User user = new User("Cody", "Anderson", "c@c.com", "cody", "password");
-		User user2 = new User("Cody2", "Anderson2", "c2@c.com", "cody2", "password2");
+		User user = new User("c@c.com", "cody", "password");
+		User user2 = new User("c2@c.com", "cody2", "password2");
 
-		doReturn(user).when(userRepository).findById(1);
+		doReturn(user).when(userRepository).findUserByUserId(1);
 
 		assertEquals(userDetailsService.getUserByUserId(1), user);
+	}
+
+	@Test
+	public void getUserByUserNameTestFail() {
+		User user = new User("c@c.com", "cody", "password");
+		doReturn(user).when(userRepository).findByUsername("cody");
+
+		assertNull(userDetailsService.getUserByUsername("cody2"));
 	}
 }
