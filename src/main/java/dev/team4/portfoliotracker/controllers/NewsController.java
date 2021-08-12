@@ -21,6 +21,13 @@ public class NewsController {
         return ResponseEntity.ok().body(newsService.findNewsById(1));
     }
 
+    /**
+     * Not for use with front-end
+     *
+     * Allows news object to be created and persisted to database via JSON string in request body
+     * @param news
+     * @return Response Entity of added News
+     */
     @PostMapping(value="/post-news",consumes="application/json", produces="application/json")
     public ResponseEntity<News> saveNews(@RequestBody News news){
         return new ResponseEntity<News>(newsService.saveNews(news), HttpStatus.OK);
