@@ -108,8 +108,6 @@ public class PortfolioController {
         List<Portfolio> favoritePortfolios = new ArrayList<>();
         //for each entry in the favorites table for a user, return the portfolio for the Id listed
         for (Favorites favorite : favList) {
-            System.out.println(favorite);
-            System.out.println(favorite.getPortfolioId());
             Portfolio tempPort = portfolioService.getPortfolioByPortfolioId(favorite.getPortfolioId());
             favoritePortfolios.add(tempPort);
         }

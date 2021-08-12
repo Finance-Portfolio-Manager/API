@@ -38,13 +38,13 @@ public class TransactionController {
         return new ResponseEntity<>(txnService.getTransactionById(transactionId), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/new", consumes = "application/json", produces = "application/json")
+    @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<Transaction> addTransaction(@RequestBody Transaction txn) {
         Transaction t = new Transaction(txn.getPortfolio(), txn.getStockSymbol().toUpperCase(), txn.getTransactionQuantity(), txn.getSharePrice(), txn.getDateTime());
         return new ResponseEntity<>(txnService.addTransaction(t), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/{transactionId}", consumes = "application/json")
+    @PutMapping(consumes = "application/json")
     public ResponseEntity<Map<String, Boolean>> updateTransaction(@RequestBody Transaction txn) {
         txnService.updateTransaction(txn.getPortfolio().getPortfolioId(), txn);
         Map<String, Boolean> map = new HashMap<>();

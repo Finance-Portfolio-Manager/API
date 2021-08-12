@@ -33,8 +33,6 @@ public class Portfolio {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "portfolio")
     private List<Transaction> transactions;
 
-//    @OneToMany(targetEntity = Favorites.class, fetch = FetchType.LAZY, mappedBy = "portfolio")
-//    private List<User> favorited;
 
     public Portfolio() {
     }

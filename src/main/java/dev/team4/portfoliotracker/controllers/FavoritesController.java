@@ -31,6 +31,6 @@ public class FavoritesController {
     @DeleteMapping(consumes = "application/json")
     public ResponseEntity<Favorites> deleteFavorites(@RequestBody Favorites favorites) {
         favoritesService.deleteFavorite(favorites);
-        return new ResponseEntity<>(favorites, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }

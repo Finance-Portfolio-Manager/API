@@ -13,20 +13,14 @@ import java.util.Objects;
 @JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class Favorites implements Serializable {
 
-//    @EmbeddedId
-//    FavoritesId id;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "favorite_id")
     private int favoriteId;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @MapsId("user")
     @Column(name = "user_id")
     private int userId;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @MapsId("portfolio")
     @Column(name = "portfolio_id")
     private int portfolioId;
 
@@ -56,12 +50,12 @@ public class Favorites implements Serializable {
         this.portfolioId = portfolioId;
     }
 
-    @Override
-    public String toString() {
-        return "Favorites{" +
-                "userId=" + userId +
-                ", portfolioId=" + portfolioId +
-                '}';
+    public int getFavoriteId() {
+        return favoriteId;
+    }
+
+    public void setFavoriteId(int favoriteId) {
+        this.favoriteId = favoriteId;
     }
 
     @Override
@@ -69,11 +63,20 @@ public class Favorites implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Favorites favorites = (Favorites) o;
-        return userId == favorites.userId && portfolioId == favorites.portfolioId;
+        return favoriteId == favorites.favoriteId && userId == favorites.userId && portfolioId == favorites.portfolioId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, portfolioId);
+        return Objects.hash(favoriteId, userId, portfolioId);
+    }
+
+    @Override
+    public String toString() {
+        return "Favorites{" +
+                "favoriteId=" + favoriteId +
+                ", userId=" + userId +
+                ", portfolioId=" + portfolioId +
+                '}';
     }
 }

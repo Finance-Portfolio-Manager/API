@@ -27,8 +27,6 @@ public class FavoritesService {
     }
 
     public List<Favorites> getFavoritesByUserId(int userId) {
-        List<Favorites> favList = favoritesRepo.getFavoritesByUserId(userId);
-        System.out.println(favList);
-        return favList;
+        return favoritesRepo.getFavoritesByUserId(userId);
     }
 }

@@ -37,8 +37,6 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Portfolio> portfolios;
 
-//    @OneToMany(targetEntity = Favorites.class, fetch = FetchType.LAZY, mappedBy = "user")
-//    private List<Portfolio> favorites;
 
     public User() {
     }
