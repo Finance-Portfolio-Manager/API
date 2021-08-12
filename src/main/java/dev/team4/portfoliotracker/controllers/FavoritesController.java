@@ -11,20 +11,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/accounts/{user_id}/favorites")
+@RequestMapping("/favorites")
 public class FavoritesController {
 
     @Autowired
     FavoritesService favoritesService;
 
-    @GetMapping(produces = "application/json")
-    public ResponseEntity<List<Favorites>> getFavorites(@PathVariable("user_id") int id) {
-        return new ResponseEntity<>(favoritesService.getFavorite(id), HttpStatus.OK);
-    }
+    //Relocated the get favorites for a user functionality to portfolio controller
 
     @PostMapping(consumes = "application/json")
     public ResponseEntity<Favorites> addNewFavorites(@RequestBody Favorites favorites) {
-        Favorites f = favoritesService.addFavorite(favorites);
+        Favorites f = new Favorites();
+        f.setUser(favorites.getUser());
+        f.setPortfolio(favorites.getPortfolio());
+        favoritesService.addFavorite(f);
         return new ResponseEntity<>(f, HttpStatus.CREATED);
     }
 
