@@ -1,6 +1,8 @@
 package dev.team4.portfoliotracker.controllers;
 
 import dev.team4.portfoliotracker.models.Favorites;
+import dev.team4.portfoliotracker.models.Portfolio;
+import dev.team4.portfoliotracker.models.User;
 import dev.team4.portfoliotracker.services.FavoritesService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,20 +38,29 @@ public class FavoritesControllerTest {
     }
 
     @Test
-    public void getFavoritesByUserId() throws Exception {
+    public void getFavoritesByUser() throws Exception {
+        Portfolio portfolio = new Portfolio();
+
+        User user = new User();
+        user.setUserId(1);
+        user.setUsername("Marc");
+        user.setPassword("1234");
+        user.setEmail("Marc@marc.test");
+
+
+        portfolio.setUser(user);
+        portfolio.setName("Marc's Test Portfolio");
+        portfolio.setPublic(false);
+
+
         List<Favorites> listId = Arrays.asList(
-                new Favorites(3, 2),
-                new Favorites(3, 4),
-                new Favorites(3, 6)
+                new Favorites(user, portfolio)
         );
-        doReturn(listId).when(favoritesService).getFavorite(3);
+        doReturn(listId).when(favoritesService).getFavoritesByUser(user);
 
         this.mockMvc.perform(get("/accounts/3/favorites").header("Authorization","auth"))
-                .andDo(MockMvcResultHandlers.print())
+                //.andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[*].portfolioId").value(hasItems(2,4,6)));
-
-
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 }
