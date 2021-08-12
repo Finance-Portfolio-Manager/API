@@ -12,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import java.net.URL;
 import java.util.List;
 
 @Component
@@ -39,26 +41,71 @@ public class UpdateNews {
         System.out.println("test");
         String targetUrl = "https://newsapi.org/v2/everything?q=stocks&from=2021-08-09&to=2021-08-09&sortBy=popularity&domains=forbes.com&apiKey=" + environment.getProperty("NEWS_API_KEY") + "&pageSize=5&page=1";
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(targetUrl))
-                .header("Accept", "application/json")
-                .build();
-
-        HttpResponse<String> response = null;
+        URL url = null;
         try {
-            response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (IOException | InterruptedException e) {
+            url = new URL(targetUrl);
+        } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .uri(URI.create(targetUrl))
+//                .header("Accept","application/json")
+//                .build();
+//
+//        HttpResponse<String> response = HttpClient.newHttpClient().send(request,HttpResponse.BodyHandlers.ofString());
+
+        HttpURLConnection con = null;
+        try {
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Accept","application/json");
+            int status = con.getResponseCode();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        StringBuffer content = new StringBuffer();
+
+        try(BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));){
+            String inputLine;
+            while((inputLine = in.readLine())!= null ){
+                content.append(inputLine);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        con.disconnect();
+        System.out.println(content);
 
         ObjectMapper objectMapper2 = new ObjectMapper();
         NewsApiResponse newsApiResponse = null;
         try {
-            assert response != null;
-            newsApiResponse = objectMapper2.readValue(response.body(), NewsApiResponse.class);
+            newsApiResponse = objectMapper2.readValue(content.toString(), NewsApiResponse.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .uri(URI.create(targetUrl))
+//                .header("Accept", "application/json")
+//                .build();
+//
+//        HttpResponse<String> response = null;
+//        try {
+//            response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+//        } catch (IOException | InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        ObjectMapper objectMapper2 = new ObjectMapper();
+//        NewsApiResponse newsApiResponse = null;
+//        try {
+//            assert response != null;
+//            newsApiResponse = objectMapper2.readValue(response.body(), NewsApiResponse.class);
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
 
         try{
             if(!("ok").equals(newsApiResponse.getStatus())){
