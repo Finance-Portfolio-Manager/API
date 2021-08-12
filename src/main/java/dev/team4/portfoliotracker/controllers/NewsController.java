@@ -2,7 +2,6 @@ package dev.team4.portfoliotracker.controllers;
 
 import dev.team4.portfoliotracker.models.News;
 import dev.team4.portfoliotracker.services.NewsService;
-import io.swagger.models.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,6 +55,4 @@ public class NewsController {
         return new ResponseEntity<List<News>>(newsService.saveAllNews(newsList), HttpStatus.OK);
     }
 
-//    @PostMapping(value="/post-news",consumes="application/json", produces="application/json")
-//    public ResponseEntity<News> saveNews(@RequestBody)
 }

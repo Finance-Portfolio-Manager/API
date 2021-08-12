@@ -21,9 +21,8 @@ public class ScheduledTasks {
     @Autowired
     private UpdateNews updateNews;
 
-    @Scheduled(fixedRate = 86400000)
+    @Scheduled(fixedRate = 3600000) // fixed rate set to an hour
     public void scheduledReceiveDailyNews(){
-
         updateNews.updateDailyNews();
     }
 
