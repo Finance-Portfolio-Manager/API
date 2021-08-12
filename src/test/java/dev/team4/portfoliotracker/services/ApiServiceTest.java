@@ -47,4 +47,20 @@ public class ApiServiceTest {
         assertNull(testMap.get("M.SFT"));
 
     }
+
+    @Test
+    public void getPriceNullTest(){
+
+        String[] testArray = {""};
+
+        assertNull(apiService.getSymbolPrices(testArray));
+    }
+
+    @Test
+    public void getPnlNullTest(){
+
+        String[] testArray = {""};
+
+        assertNull(apiService.getSymbolPnl(testArray));
+    }
 }

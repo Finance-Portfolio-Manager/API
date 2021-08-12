@@ -15,6 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.mockito.ArgumentMatchers.isNotNull;
@@ -79,5 +82,28 @@ public class UserDetailsServiceTest {
 		doReturn(user).when(userRepository).findByUsername("cody");
 
 		assertEquals(userDetailsService.getUserByUsername("cody"), user);
+	}
+
+	@Test
+	public void getListOfUsers() {
+		List<User> userList = new ArrayList<>();
+		User user = new User("Cody", "Anderson", "c@c.com", "cody", "password");
+		User user2 = new User("Cody2", "Anderson2", "c2@c.com", "cody2", "password2");
+		userList.add(user);
+		userList.add(user2);
+
+		doReturn(userList).when(userRepository).findAll();
+
+		assertEquals(userDetailsService.checkAllUser(), userList);
+	}
+
+	@Test
+	public void getUserByUserIdTest() {
+		User user = new User("Cody", "Anderson", "c@c.com", "cody", "password");
+		User user2 = new User("Cody2", "Anderson2", "c2@c.com", "cody2", "password2");
+
+		doReturn(user).when(userRepository).findById(1);
+
+		assertEquals(userDetailsService.getUserByUserId(1), user);
 	}
 }
