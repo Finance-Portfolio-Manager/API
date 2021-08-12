@@ -19,8 +19,8 @@ public class NewsController {
     NewsService newsService;
 
     @GetMapping(value="/get-news",produces = "application/json")
-    public ResponseEntity<News> getNews(){
-        return ResponseEntity.ok().body(newsService.findNewsById(1));
+    public ResponseEntity<List<News>> getNews(){
+        return ResponseEntity.ok().body(newsService.getNewsList());
     }
 
     /**
@@ -35,6 +35,13 @@ public class NewsController {
         return new ResponseEntity<News>(newsService.saveNews(news), HttpStatus.OK);
     }
 
+    /**
+     * Not for use with front-end
+     *
+     * Intended to take in JSON object which holds multiple news objects
+     * @param newsList
+     * @return
+     */
     @PostMapping(value="/post-more-news", consumes="application/json",produces="application/json")
     public ResponseEntity<List<News>> saveMoreNews(@RequestBody List<News> newsList){
         return new ResponseEntity<List<News>>(newsService.saveAllNews(newsList), HttpStatus.OK);
