@@ -28,19 +28,6 @@ public class ApiController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-	@GetMapping(value = "/charts", produces = "application/json")
-	// public ResponseEntity<String> getStock(@RequestParam(value = "symbol") String stockSymbol) {
-	public ResponseEntity<String> getChart() {
-		HttpResponse<String> response = null;
-		String uri = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MCD&apikey="+environment.getProperty("KEYS_ALPHAVANTAGE");
-		try {
-			response = Unirest.get(uri).asString();
-		} catch (UnirestException e) {
-			e.printStackTrace();
-		}
-		return new ResponseEntity<String>(response.getBody(), HttpStatus.OK);
-	}
-
 	/*
 	@GetMapping(produces = "application/json")
 	public ResponseEntity<String> getStock(@RequestParam(value = "symbol") String stockSymbol) {

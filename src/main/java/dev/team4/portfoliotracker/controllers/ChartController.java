@@ -26,12 +26,6 @@ public class ChartController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    @GetMapping("")
-    public String please(){
-        logger.info("test");
-        return "test";
-    }
-
     @GetMapping("/{symbol}")
     public ResponseEntity<String> pleaseVar(
         @PathVariable("symbol") String symbol
