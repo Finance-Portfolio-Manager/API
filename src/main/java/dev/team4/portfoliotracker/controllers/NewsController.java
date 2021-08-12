@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/news")
@@ -31,6 +33,11 @@ public class NewsController {
     @PostMapping(value="/post-news",consumes="application/json", produces="application/json")
     public ResponseEntity<News> saveNews(@RequestBody News news){
         return new ResponseEntity<News>(newsService.saveNews(news), HttpStatus.OK);
+    }
+
+    @PostMapping(value="/post-more-news", consumes="application/json",produces="application/json")
+    public ResponseEntity<List<News>> saveMoreNews(@RequestBody List<News> newsList){
+        return new ResponseEntity<List<News>>(newsService.saveAllNews(newsList), HttpStatus.OK);
     }
 
 //    @PostMapping(value="/post-news",consumes="application/json", produces="application/json")
