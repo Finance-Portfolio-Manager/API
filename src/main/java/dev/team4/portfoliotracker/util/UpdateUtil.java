@@ -10,6 +10,7 @@ import dev.team4.portfoliotracker.services.UserDetailsService;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
+import org.mockito.internal.matchers.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Component;
@@ -97,7 +98,7 @@ public class UpdateUtil {
                     }
                     System.out.println(priceMap);
                     EmailUtil.sendEmailAboutStock(user, stocks, balance, priceMap, portfolio.getName());
-            }
+                }
 
 
             }
@@ -105,6 +106,52 @@ public class UpdateUtil {
 
 
         }//end users loop
+    }
+
+    public void notifyPriceChange() {
+        List<User> users = userDetailsService.checkAllUser();
+        for(User user: users){
+
+            List<Portfolio> portfolios = portfolioService.getPortfoliosByUser(user);
+            List<Stock> stocks = new ArrayList<>();
+            for(Portfolio portfolio: portfolios){
+                List<Transaction> transactions = transactionService.getAllTransactionsByPortfolio(portfolio);
+                stocks = convertTransactionsToStock(transactions);
+
+                for (Stock stock : stocks) {
+                    yahoofinance.Stock yahooStock = null;
+                    try {
+                        yahooStock = YahooFinance.get(stock.getSymbol());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    double price = yahooStock.getQuote().getPrice().doubleValue();
+                    double change = yahooStock.getQuote().getChangeInPercent().doubleValue();
+
+                    System.out.println(change);
+                    if(abs(change) >= 0.5) {
+                        String subject = "User: " + user.getUsername() + ". One of your stock has significant price change";
+                        String text = "\nStock Name: " + yahooStock.getName() + "\nChange In Percent: " + change + "\nCurrent Price: " + price;
+                        text += "\nYou currently have " + stock.getQuantity() + " shares";
+
+                        long currentTimestamp = System.currentTimeMillis();
+                        System.out.println(currentTimestamp);
+                        if(user.getLastEmailEpochTime() != null){
+                            if( (currentTimestamp - user.getLastEmailEpochTime()) > 86400) { //the number is for interval
+                                EmailUtil.sendEmail(user.getEmail(), subject, text);
+                            }
+                        }else{ // when user.getLastEmailEpochTime() is  null
+                            EmailUtil.sendEmail(user.getEmail(), subject, text);
+                        }
+                        user.setLastEmailEpochTime(currentTimestamp);
+                        userDetailsService.createUser(user);
+
+
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -45,6 +45,17 @@ public class User {
     @Column(name = "code")
     private String code;
 
+    @Column(name = "last_email_epoch_time")
+    private Long lastEmailEpochTime;
+
+    public Long getLastEmailEpochTime() {
+        return lastEmailEpochTime;
+    }
+
+    public void setLastEmailEpochTime(Long lastEmailEpochTime) {
+        this.lastEmailEpochTime = lastEmailEpochTime;
+    }
+
     public String getCode() {
         return code;
     }
@@ -52,6 +63,8 @@ public class User {
     public void setCode(String code) {
         this.code = code;
     }
+
+
 
     public User() {
     }

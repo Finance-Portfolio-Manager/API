@@ -1,7 +1,5 @@
 package dev.team4.portfoliotracker.util;
 
-import java.io.IOException;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -10,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import yahoofinance.YahooFinance;
 
 //import javax.xml.ws.soap.Addressing;
 
@@ -30,21 +27,20 @@ public class ScheduledTasks {
 //    }
 
 
-    @Scheduled(fixedRate = 100000000) //1000 = 1sec
+    @Scheduled(fixedRate = 86400000) //1000 = 1sec
     public void scheduledSendUpdateStockInfo() {
         //System.out.println(new java.util.Date());
         updateUtil.sendUpdateStockInfo();
 
     }
-//
-//    @Scheduled(fixedRate = 10000) //1000 = 1sec
-//    public void scheduledNotifyPriceChange() {
-//        //System.out.println(new java.util.Date());
-//
-//        updateUtil.notifyPriceChange();
-//    }
 
-    //TODO Above code commented out to prevent compile errors, will need to be refactored
+    @Scheduled(fixedRate = 3600000) //1000 = 1sec
+    public void scheduledNotifyPriceChange() {
+        //System.out.println(new java.util.Date());
+
+        updateUtil.notifyPriceChange();
+    }
+
 
 }
 
