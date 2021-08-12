@@ -29,14 +29,18 @@ public class Balances {
     @Column(name = "portfolio_id")
     private int portfolioId;
 
+    @Column(name = "balance_type")
+    private String balanceType;
+
     public Balances() {
     }
 
-    public Balances(BigDecimal balance, LocalDateTime date, int userId, int portfolioId) {
+    public Balances(BigDecimal balance, LocalDateTime date, int userId, int portfolioId, String balanceType) {
         this.balance = balance;
         this.date = date;
         this.userId = userId;
         this.portfolioId = portfolioId;
+        this.balanceType = balanceType;
     }
 
     public int getBalanceId() {
@@ -79,17 +83,25 @@ public class Balances {
         this.portfolioId = portfolioId;
     }
 
+    public String getBalanceType() {
+        return balanceType;
+    }
+
+    public void setBalanceType(String balanceType) {
+        this.balanceType = balanceType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Balances balances = (Balances) o;
-        return balanceId == balances.balanceId && userId == balances.userId && portfolioId == balances.portfolioId && Objects.equals(balance, balances.balance) && Objects.equals(date, balances.date);
+        return balanceId == balances.balanceId && userId == balances.userId && portfolioId == balances.portfolioId && Objects.equals(balance, balances.balance) && Objects.equals(date, balances.date) && Objects.equals(balanceType, balances.balanceType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(balanceId, balance, date, userId, portfolioId);
+        return Objects.hash(balanceId, balance, date, userId, portfolioId, balanceType);
     }
 
     @Override
@@ -100,6 +112,7 @@ public class Balances {
                 ", date=" + date +
                 ", userId=" + userId +
                 ", portfolioId=" + portfolioId +
+                ", balanceType='" + balanceType + '\'' +
                 '}';
     }
 }

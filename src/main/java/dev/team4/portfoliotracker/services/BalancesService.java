@@ -8,9 +8,9 @@ public interface BalancesService {
 
     List<Balances> getAllBalances();
 
-    List<Balances> getAllBalancesByUserId();
+    List<Balances> getAllBalancesByUserId(int userId);
 
-    List<Balances> getAllBalancesByPortfolioId();
+    List<Balances> getAllBalancesByPortfolioId(int portfolioId);
 
     Balances addBalance(Balances bal);
 }

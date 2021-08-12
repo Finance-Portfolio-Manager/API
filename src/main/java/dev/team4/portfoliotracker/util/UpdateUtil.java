@@ -48,13 +48,6 @@ public class UpdateUtil {
 
     // TODO Above code commented out to prevent compile errors, will need to be refactored
 
-
-    // update the balances table at some interval (set to 100 seconds now for testing)
-//    @Scheduled(cron = "0 0 0 * *") // happens at midnight everyday
-    @Scheduled(fixedRate = 100000)
-    public void scheduledBalanceStore() {
-        balanceUtil.storeBalances();
-    }
 }
 
 //    public void update(){

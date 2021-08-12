@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface BalancesRepository extends JpaRepository<Balances, Integer> {
-    List<Balances> findAllBalancesByUserId();
-    List<Balances> findAllBalancesByPortfolioId();
+    List<Balances> findAllBalancesByUserId(int userId);
+    List<Balances> findAllBalancesByPortfolioId(int portfolioId);
 }
