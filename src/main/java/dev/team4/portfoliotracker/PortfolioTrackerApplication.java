@@ -1,5 +1,7 @@
 package dev.team4.portfoliotracker;
 
+import dev.team4.portfoliotracker.util.UpdateNews;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

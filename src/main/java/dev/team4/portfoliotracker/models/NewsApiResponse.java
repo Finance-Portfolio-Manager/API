@@ -1,6 +1,7 @@
 package dev.team4.portfoliotracker.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,6 +11,7 @@ import javax.persistence.OneToMany;
 import java.util.List;
 import java.util.Objects;
 
+@Component
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class NewsApiResponse {
