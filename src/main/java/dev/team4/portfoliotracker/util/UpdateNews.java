@@ -38,7 +38,6 @@ public class UpdateNews {
      */
 
     public List<News> updateDailyNews() {
-        System.out.println("test");
         String targetUrl = "https://newsapi.org/v2/everything?q=stocks&from=2021-08-09&to=2021-08-09&sortBy=popularity&domains=forbes.com&apiKey=" + environment.getProperty("NEWS_API_KEY") + "&pageSize=5&page=1";
 
         URL url = null;
@@ -77,7 +76,6 @@ public class UpdateNews {
         }
 
         con.disconnect();
-        System.out.println(content);
 
         ObjectMapper objectMapper2 = new ObjectMapper();
         NewsApiResponse newsApiResponse = null;
@@ -115,7 +113,6 @@ public class UpdateNews {
                 int z = 1;
                 for (int i = 0; i < newsList.size(); i++) {
 
-                    System.out.println(z);
                     newsList.get(i).setNewsId(z);
                     z++;
 //                    newsList.get(i).setTitle(newsList.get(i).getTitle().substring(0,200));
@@ -127,7 +124,6 @@ public class UpdateNews {
                     }
 
                 }
-                System.out.println(newsList);
                 newsService.saveAllNews(newsList);
                 return newsList;
             }
