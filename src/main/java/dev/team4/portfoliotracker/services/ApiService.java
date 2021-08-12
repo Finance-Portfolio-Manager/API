@@ -7,14 +7,14 @@ import yahoofinance.YahooFinance;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class ApiService {
+
+
 
     /**
      * Author: David Garcia
@@ -62,4 +62,5 @@ public class ApiService {
         }
         return null;
     }
+
 }
