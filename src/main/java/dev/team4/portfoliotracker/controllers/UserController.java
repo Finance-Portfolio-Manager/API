@@ -2,16 +2,10 @@ package dev.team4.portfoliotracker.controllers;
 
 import dev.team4.portfoliotracker.models.User;
 import dev.team4.portfoliotracker.services.UserDetailsService;
-import dev.team4.portfoliotracker.security.AuthenticationRequest;
-import dev.team4.portfoliotracker.security.AuthenticationResponse;
 import dev.team4.portfoliotracker.security.JwtUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
