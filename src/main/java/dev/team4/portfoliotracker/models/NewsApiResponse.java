@@ -11,6 +11,10 @@ import javax.persistence.OneToMany;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Author: David Garcia
+ */
+
 @Component
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)

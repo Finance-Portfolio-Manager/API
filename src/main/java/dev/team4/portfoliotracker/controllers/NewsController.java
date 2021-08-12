@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Author: David Garcia
+ */
+
 @RestController
 @CrossOrigin
 @RequestMapping("/news")
@@ -17,6 +21,11 @@ public class NewsController {
 
     @Autowired
     NewsService newsService;
+
+    /**
+     * @return returns json string of news objects that have been
+     * persisted in the H2 Database
+     */
 
     @GetMapping(value="/get-news",produces = "application/json")
     public ResponseEntity<List<News>> getNews(){

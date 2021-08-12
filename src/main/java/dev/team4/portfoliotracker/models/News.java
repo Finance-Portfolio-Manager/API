@@ -10,6 +10,10 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * Author: David Garcia
+ */
+
 @Component
 @Entity
 @Table(name="news")

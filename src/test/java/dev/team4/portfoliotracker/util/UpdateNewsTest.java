@@ -11,6 +11,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * Author: David Garcia
+ */
+
 @SpringBootTest
 public class UpdateNewsTest {
     @Autowired

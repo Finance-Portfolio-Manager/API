@@ -28,6 +28,13 @@ public class UpdateNews {
     @Autowired
     Environment environment;
 
+    /**
+     * Author: David Garcia
+     * Sends http request to news api, parses news fields to make sure they have valid lengths
+     * for persisting into database
+     * @return List of News which has been persisted to the H2 database
+     */
+
     public List<News> updateDailyNews() {
         System.out.println("test");
         String targetUrl = "https://newsapi.org/v2/everything?q=stocks&from=2021-08-09&to=2021-08-09&sortBy=popularity&domains=forbes.com&apiKey=" + environment.getProperty("NEWS_API_KEY") + "&pageSize=5&page=1";
