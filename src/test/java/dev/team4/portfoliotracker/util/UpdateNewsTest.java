@@ -31,7 +31,7 @@ public class UpdateNewsTest {
         List<News> newsList = updateNews.updateDailyNews();
 
         System.out.println(newsList.get(0));
-        assertNotNull(newsList.get(0).getNewsId());
+        assertNotNull(newsList.get(0).getTitle());
     }
 
 }

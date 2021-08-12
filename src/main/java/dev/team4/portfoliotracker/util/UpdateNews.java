@@ -66,8 +66,11 @@ public class UpdateNews {
             } else {
                 List<News> newsList = newsApiResponse.getArticles();
                 int z = 1;
-                for (int i = 0; i < newsList.size() - 1; i++) {
+                for (int i = 0; i < newsList.size(); i++) {
+
+                    System.out.println(z);
                     newsList.get(i).setNewsId(z);
+                    z++;
 //                    newsList.get(i).setTitle(newsList.get(i).getTitle().substring(0,200));
                     if(newsList.get(i).getTitle().length() > 201){
                         newsList.get(i).setTitle(newsList.get(i).getTitle().substring(0,200));
@@ -75,7 +78,7 @@ public class UpdateNews {
                     if(newsList.get(i).getDescription().length() > 201){
                         newsList.get(i).setDescription(newsList.get(i).getDescription().substring(0,200));
                     }
-                    z++;
+
                 }
                 System.out.println(newsList);
                 newsService.saveAllNews(newsList);

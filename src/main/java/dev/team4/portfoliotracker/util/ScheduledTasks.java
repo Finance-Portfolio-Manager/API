@@ -21,6 +21,10 @@ public class ScheduledTasks {
     @Autowired
     private UpdateNews updateNews;
 
+    /**
+     * Author: David Garcia
+     * scheduledReceiveDailyNews calls the news API every hour and persists news data to database
+     */
     @Scheduled(fixedRate = 3600000) // fixed rate set to an hour
     public void scheduledReceiveDailyNews(){
         updateNews.updateDailyNews();
