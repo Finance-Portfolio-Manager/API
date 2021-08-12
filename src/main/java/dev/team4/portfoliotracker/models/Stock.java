@@ -66,6 +66,11 @@ public class Stock {
             this.quantity += transaction.getTransactionQuantity();
         }
     }
+    public void setQuantityNormal(double quantity) {
+        this.quantity = quantity;
+    }
+
+
 
     public BigDecimal getAvgBuyPrice() {
         return avgBuyPrice;
