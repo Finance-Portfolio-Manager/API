@@ -27,6 +27,7 @@ public class ScheduledTasks {
      */
     @Scheduled(fixedRate = 3600000) // fixed rate set to an hour
     public void scheduledReceiveDailyNews(){
+        log.info("running update daily news");
         updateNews.updateDailyNews();
     }
 
