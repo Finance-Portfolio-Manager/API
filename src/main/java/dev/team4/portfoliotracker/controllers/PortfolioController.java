@@ -42,16 +42,16 @@ public class PortfolioController {
         //Prepped list of full portfolio objects to be sent back as the response entity
         List<PortfolioFrontEnd> responsePorts = new ArrayList<>();
 
-        //List of stocks to be assigned to the portfolio
-        List<Stock> portStocks = new ArrayList<>();
-        //Temp list of stock symbols for tracking in the loop
-        List<String> symbols = new ArrayList<>();
-
         for (Portfolio portfolio : userPortfolios) {
             //Create new response portfolio with portfolio table as constructor parameter
             PortfolioFrontEnd portObj = new PortfolioFrontEnd(portfolio);
             //Will rely on creating List of Stock objects with transaction methods
             portObj.setTransactions(transactionService.getAllTransactionsByPortfolio(portfolio));
+
+            //List of stocks to be assigned to the portfolio
+            List<Stock> portStocks = new ArrayList<>();
+            //Temp list of stock symbols for tracking in the loop
+            List<String> symbols = new ArrayList<>();
 
             //Create the list of Stock objects
             for (Transaction transaction : portObj.getTransactions()) {
@@ -72,18 +72,18 @@ public class PortfolioController {
 
                 }
 
+                //After making the list of stocks and initializing their first quantity, update all quantities
+                for (Stock stock : portStocks) {
+                    //The method named here has not been created at the time of writing, but its function is planned
+                    //will return list of transactions from a portfolio that matches one stock symbol
+                    List<Transaction> relevantTransactions = transactionService.getTransactionsByPortfolioAndStockSymbol(portfolio, stock.getSymbol());
+                    stock.setQuantity(relevantTransactions);
+                    stock.setAvgBuyPrice(relevantTransactions);
+                    stock.setCurrentPrice();
+                    stock.setChangePercentage();
+                }
             }
 
-            //After making the list of stocks and initializing their first quantity, update all quantities
-            for (Stock stock : portStocks) {
-                //The method named here has not been created at the time of writing, but its function is planned
-                //will return list of transactions from a portfolio that matches one stock symbol
-                List<Transaction> relevantTransactions = transactionService.getTransactionsByPortfolioAndStockSymbol(portfolio, stock.getSymbol());
-                stock.setQuantity(relevantTransactions);
-                stock.setAvgBuyPrice(relevantTransactions);
-                stock.setCurrentPrice();
-                stock.setChangePercentage();
-            }
 
             //Compile remaining details about the portfolio before adding to response list
             portObj.setStocks(portStocks);
@@ -108,16 +108,17 @@ public class PortfolioController {
         //Prepped list of full portfolio objects to be sent back as the response entity
         List<PortfolioFrontEnd> responsePorts = new ArrayList<>();
 
-        //List of stocks to be assigned to the portfolio
-        List<Stock> portStocks = new ArrayList<>();
-        //Temp list of stock symbols for tracking in the loop
-        List<String> symbols = new ArrayList<>();
 
         for (Portfolio portfolio : favoritePortfolios) {
             //Create new response portfolio with portfolio table as constructor parameter
             PortfolioFrontEnd portObj = new PortfolioFrontEnd(portfolio);
             //Will rely on creating List of Stock objects with transaction methods
             portObj.setTransactions(transactionService.getAllTransactionsByPortfolio(portfolio));
+
+            //List of stocks to be assigned to the portfolio
+            List<Stock> portStocks = new ArrayList<>();
+            //Temp list of stock symbols for tracking in the loop
+            List<String> symbols = new ArrayList<>();
 
             //Create the list of Stock objects
             for (Transaction transaction : portObj.getTransactions()) {
@@ -138,18 +139,19 @@ public class PortfolioController {
 
                 }
 
+                //After making the list of stocks and initializing their first quantity, update all quantities
+                for (Stock stock : portStocks) {
+                    //The method named here has not been created at the time of writing, but its function is planned
+                    //will return list of transactions from a portfolio that matches one stock symbol
+                    List<Transaction> relevantTransactions = transactionService.getTransactionsByPortfolioAndStockSymbol(portfolio, stock.getSymbol());
+                    stock.setQuantity(relevantTransactions);
+                    stock.setAvgBuyPrice(relevantTransactions);
+                    stock.setCurrentPrice();
+                    stock.setChangePercentage();
+                }
             }
 
-            //After making the list of stocks and initializing their first quantity, update all quantities
-            for (Stock stock : portStocks) {
-                //The method named here has not been created at the time of writing, but its function is planned
-                //will return list of transactions from a portfolio that matches one stock symbol
-                List<Transaction> relevantTransactions = transactionService.getTransactionsByPortfolioAndStockSymbol(portfolio, stock.getSymbol());
-                stock.setQuantity(relevantTransactions);
-                stock.setAvgBuyPrice(relevantTransactions);
-                stock.setCurrentPrice();
-                stock.setChangePercentage();
-            }
+
 
             //Compile remaining details about the portfolio before adding to response list
             portObj.setStocks(portStocks);
@@ -174,16 +176,16 @@ public class PortfolioController {
         //Prepped list of full portfolio objects to be sent back as the response entity
         List<PortfolioFrontEnd> responsePorts = new ArrayList<>();
 
-        //List of stocks to be assigned to the portfolio
-        List<Stock> portStocks = new ArrayList<>();
-        //Temp list of stock symbols for tracking in the loop
-        List<String> symbols = new ArrayList<>();
-
         for (Portfolio portfolio : publicPortfolios) {
             //Create new response portfolio with portfolio table as constructor parameter
             PortfolioFrontEnd portObj = new PortfolioFrontEnd(portfolio);
             //Will rely on creating List of Stock objects with transaction methods
             portObj.setTransactions(transactionService.getAllTransactionsByPortfolio(portfolio));
+
+            //List of stocks to be assigned to the portfolio
+            List<Stock> portStocks = new ArrayList<>();
+            //Temp list of stock symbols for tracking in the loop
+            List<String> symbols = new ArrayList<>();
 
             //Create the list of Stock objects
             for (Transaction transaction : portObj.getTransactions()) {
@@ -204,18 +206,19 @@ public class PortfolioController {
 
                 }
 
+                //After making the list of stocks and initializing their first quantity, update all quantities
+                for (Stock stock : portStocks) {
+                    //The method named here has not been created at the time of writing, but its function is planned
+                    //will return list of transactions from a portfolio that matches one stock symbol
+                    List<Transaction> relevantTransactions = transactionService.getTransactionsByPortfolioAndStockSymbol(portfolio, stock.getSymbol());
+                    stock.setQuantity(relevantTransactions);
+                    stock.setAvgBuyPrice(relevantTransactions);
+                    stock.setCurrentPrice();
+                    stock.setChangePercentage();
+                }
             }
 
-            //After making the list of stocks and initializing their first quantity, update all quantities
-            for (Stock stock : portStocks) {
-                //The method named here has not been created at the time of writing, but its function is planned
-                //will return list of transactions from a portfolio that matches one stock symbol
-                List<Transaction> relevantTransactions = transactionService.getTransactionsByPortfolioAndStockSymbol(portfolio, stock.getSymbol());
-                stock.setQuantity(relevantTransactions);
-                stock.setAvgBuyPrice(relevantTransactions);
-                stock.setCurrentPrice();
-                stock.setChangePercentage();
-            }
+
 
             //Compile remaining details about the portfolio before adding to response list
             portObj.setStocks(portStocks);
