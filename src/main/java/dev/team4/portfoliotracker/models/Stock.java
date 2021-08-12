@@ -29,7 +29,6 @@ public class Stock {
     public Stock(Transaction transaction) {
         this.symbol = transaction.getStockSymbol();
         this.portfolioId = transaction.getPortfolio().getPortfolioId();
-        this.quantity = transaction.getTransactionQuantity();
     }
 
     public Stock(String symbol,int portfolioId, double quantity, BigDecimal avgBuyPrice, BigDecimal currentPrice, BigDecimal changePercentage) {
@@ -76,14 +75,16 @@ public class Stock {
         //the list of transactions passed in must only contain transactions for this stock
         double totalShareBuys = 0;
         BigDecimal totalSpent = BigDecimal.ZERO;
-        MathContext m = new MathContext(2);
         for (Transaction transaction : transactions) {
             if (transaction.getTransactionQuantity()>0) {
                 totalShareBuys += transaction.getTransactionQuantity();
-                totalSpent = totalSpent.add(transaction.getSharePrice());
+                totalSpent = totalSpent.add(transaction.getSharePrice().multiply(BigDecimal.valueOf(transaction.getTransactionQuantity())));
             }
         }
+
         this.avgBuyPrice = totalSpent.divide(BigDecimal.valueOf(totalShareBuys)).setScale(2, RoundingMode.CEILING);
+
+
     }
 
     public BigDecimal getCurrentPrice() {
