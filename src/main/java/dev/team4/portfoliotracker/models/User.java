@@ -47,6 +47,13 @@ public class User {
         this.password = password;
     }
 
+    public User(int userId, String email, String username, String password) {
+        this.userId = userId;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+    }
+
     public List<Portfolio> getPortfolios() {
         return portfolios;
     }

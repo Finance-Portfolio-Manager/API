@@ -2,6 +2,8 @@ package dev.team4.portfoliotracker.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.team4.portfoliotracker.models.User;
+import dev.team4.portfoliotracker.security.JwtUtility;
+import dev.team4.portfoliotracker.security.UserPrincipal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,9 +15,15 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class UserControllerTest {
 
+    String jwtToken = "";
+
     @BeforeEach
     public void setUp() {
         User user = new User("c@c.com", "cody", "pass");
+        UserPrincipal userP = new UserPrincipal(user);
+        jwtToken = new JwtUtility().generateToken(userP);
+        System.out.println(jwtToken);
+
         TestRestTemplate restTemplate = new TestRestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -97,7 +105,7 @@ public class UserControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> request = new HttpEntity<>(headers);
-        ResponseEntity<?> response = restTemplate.getForEntity("http://localhost:8082/username?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI3OTA5NzAyLCJpYXQiOjE2Mjc4NzM3MDJ9.kZQ9wiaQ0TUY7jM5BwwC3-y66z4wjXl-mGD6XmubLNYhuQqk3TtARYpXrYTYjt1g7mYjx6MUV3NyQlI9AZK6dA", User.class);
+        ResponseEntity<?> response = restTemplate.getForEntity("http://localhost:8082/username?token="+ jwtToken, User.class);
         System.out.println(request.getBody());
         System.out.println(response.getBody());
 
@@ -140,7 +148,7 @@ public class UserControllerTest {
 
     @Test
     public void deleteSuccess() {
-        User user2 = new User("c@c.com", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI3OTA3NDAwLCJpYXQiOjE2Mjc4NzE0MDB9.4YkqBitpwR24fngB7OWwtWMAMj_HGMCx50xne6vEdRAL3CAvMdSpk0tmVxi6KmBRE0Yux4J_YyvWMz_dOhELWw", "pass");
+        User user2 = new User("c@c.com", jwtToken, "pass");
         TestRestTemplate restTemplate = new TestRestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
