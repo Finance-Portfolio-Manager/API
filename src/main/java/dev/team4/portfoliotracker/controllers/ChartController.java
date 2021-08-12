@@ -27,44 +27,25 @@ public class ChartController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @GetMapping("")
-    public ResponseEntity please(){
-        logger.info("please");
-        logger.info("please");
-        logger.info("please");
-        logger.info("please");
-        logger.info("please");
-        logger.info("please");
-        logger.info("please");
-        logger.info("please");
-        logger.info("please");
-        logger.info("please");
-        logger.info("please");
-        return new ResponseEntity<>("please", HttpStatus.OK);
+    public String please(){
+        logger.info("test");
+        return "test";
     }
 
- 	// @GetMapping("/{symbol}")
-	// public ResponseEntity<String> getChart(
-    //     @PathVariable("symbol") String symbol
-    // ) {
-    //     logger.info(symbol);
-    //     logger.info(symbol);
-    //     logger.info(symbol);
-    //     logger.info(symbol);
-    //     logger.info(symbol);
-    //     logger.info(symbol);
-    //     logger.info(symbol);
-    //     logger.info(symbol);
-    //     logger.info(symbol);
-    //     logger.info(symbol);
-    //     logger.info(symbol);
-	// 	HttpResponse<String> response = null;
-	// 	String uri = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MCD&apikey="+environment.getProperty("KEYS_ALPHAVANTAGE");
-	// 	try {
-	// 		response = Unirest.get(uri).asString();
-	// 	} catch (UnirestException e) {
-	// 		e.printStackTrace();
-	// 	}
-	// 	return new ResponseEntity<String>(response.getBody(), HttpStatus.OK);
-	// }
+    @GetMapping("/{symbol}")
+    public ResponseEntity<String> pleaseVar(
+        @PathVariable("symbol") String symbol
+    ){
+        logger.info(symbol); // debug
+
+		HttpResponse<String> response = null;
+		String uri = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol="+symbol+"&apikey="+environment.getProperty("KEYS_ALPHAVANTAGE");
+		try {
+			response = Unirest.get(uri).asString();
+		} catch (UnirestException e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<String>(response.getBody(), HttpStatus.OK);
+    }
 
 }
