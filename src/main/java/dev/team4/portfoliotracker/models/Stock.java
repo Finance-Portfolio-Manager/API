@@ -98,7 +98,6 @@ public class Stock {
         ApiService apiService = new ApiService();
         String[] symbolInput = new String[]{this.symbol};
         BigDecimal apiOut = apiService.getSymbolPrices(symbolInput).get(this.symbol);
-        MathContext m = new MathContext(2);
         this.currentPrice = apiOut.setScale(2, RoundingMode.CEILING);
     }
 

@@ -16,7 +16,8 @@ public class PortfolioService {
     PortfolioRepository portfolioRepository;
 
     public Portfolio getPortfolioByPortfolioId(int portfolioId) {
-        return portfolioRepository.getPortfolioByPortfolioId(portfolioId);
+        System.out.println("Service method: "+portfolioId);
+        return portfolioRepository.findPortfolioByPortfolioId(portfolioId);
     }
 
 

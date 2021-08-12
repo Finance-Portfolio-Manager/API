@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PortfolioRepository extends JpaRepository<Portfolio, Integer> {
-    Portfolio getPortfolioByPortfolioId(int portfolioId);
+    Portfolio findPortfolioByPortfolioId(int portfolioId);
     List<Portfolio> getPortfoliosByUser(User user);
     List<Portfolio> getPortfoliosByIsPublic(boolean privacy);
 }

@@ -22,8 +22,8 @@ public class FavoritesController {
     @PostMapping(consumes = "application/json")
     public ResponseEntity<Favorites> addNewFavorites(@RequestBody Favorites favorites) {
         Favorites f = new Favorites();
-        f.setUser(favorites.getUser());
-        f.setPortfolio(favorites.getPortfolio());
+        f.setUserId(favorites.getUserId());
+        f.setPortfolioId(favorites.getPortfolioId());
         favoritesService.addFavorite(f);
         return new ResponseEntity<>(f, HttpStatus.CREATED);
     }

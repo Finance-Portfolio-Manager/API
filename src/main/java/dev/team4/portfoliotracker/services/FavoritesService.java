@@ -26,16 +26,9 @@ public class FavoritesService {
         favoritesRepo.delete(favorites);
     }
 
-    public List<Portfolio> getFavoritesByUser(User user) {
-        List<Favorites> favList = favoritesRepo.getFavoritesByUser(user);
-        List<Portfolio> favoritePortfolios = new ArrayList<>();
-
-        PortfolioService portfolioService = new PortfolioService();
-        //for each entry in the favorites table for a user, return the portfolio for the Id listed
-        for (Favorites favorite : favList) {
-            Portfolio tempPort = portfolioService.getPortfolioByPortfolioId(favorite.getPortfolio().getPortfolioId());
-            favoritePortfolios.add(tempPort);
-        }
-        return favoritePortfolios;
+    public List<Favorites> getFavoritesByUserId(int userId) {
+        List<Favorites> favList = favoritesRepo.getFavoritesByUserId(userId);
+        System.out.println(favList);
+        return favList;
     }
 }
