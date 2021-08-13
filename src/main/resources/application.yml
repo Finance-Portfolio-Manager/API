@@ -12,6 +12,9 @@ spring:
     url: jdbc:h2:file:~/test
     driverClassName: org.h2.Driver
     data: classpath:test-setup.sql #test-setup.sql can be put in resources folder
+#    url: ${DB_URL}
+#    username: ${DB_USER}
+#    password: ${DB_PASS}
   jpa:
     show-sql: false
     generate-ddl: true
@@ -27,6 +30,6 @@ spring:
 logging:
   file:
     path: .
-    
+
 api:
   key: ${NEWS_API_KEY}
