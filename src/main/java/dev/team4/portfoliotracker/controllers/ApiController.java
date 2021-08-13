@@ -9,9 +9,13 @@ import io.swagger.models.Response;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import dev.team4.portfoliotracker.models.News;
+import dev.team4.portfoliotracker.services.ApiService;
+import io.swagger.models.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -94,4 +98,5 @@ public class ApiController {
 
 		return ResponseEntity.ok().body(apiService.getSymbolPnl(stockSymbols));
 	}
+
 }

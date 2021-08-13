@@ -12,7 +12,8 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
-@SpringBootTest
+@SpringBootTest(properties = "spring.main.lazy-initialization=true",
+classes = {ApiService.class})
 public class ApiServiceTest {
 
     @Autowired
@@ -46,5 +47,21 @@ public class ApiServiceTest {
 
         assertNull(testMap.get("M.SFT"));
 
+    }
+
+    @Test
+    public void getPriceNullTest(){
+
+        String[] testArray = {""};
+
+        assertNull(apiService.getSymbolPrices(testArray));
+    }
+
+    @Test
+    public void getPnlNullTest(){
+
+        String[] testArray = {""};
+
+        assertNull(apiService.getSymbolPnl(testArray));
     }
 }

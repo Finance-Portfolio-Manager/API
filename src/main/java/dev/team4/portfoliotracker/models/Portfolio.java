@@ -18,6 +18,7 @@ public class Portfolio {
     private int portfolioId;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    //ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -90,9 +91,9 @@ public class Portfolio {
     public String toString() {
         return "Portfolio{" +
                 "portfolioId=" + portfolioId +
-                ", user=" + user +
+//                ", user=" + user +
                 ", isPublic=" + isPublic +
-                ", transactions=" + transactions +
+//                ", transactions=" + transactions +
                 '}';
     }
 }
