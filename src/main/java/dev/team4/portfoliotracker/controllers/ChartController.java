@@ -27,7 +27,7 @@ public class ChartController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @GetMapping("/{symbol}")
-    public ResponseEntity<String> pleaseVar(
+    public ResponseEntity<String> getChartBySymbol(
         @PathVariable("symbol") String symbol
     ){
         logger.info(symbol); // debug
