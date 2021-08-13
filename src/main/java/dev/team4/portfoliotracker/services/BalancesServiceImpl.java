@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -27,7 +28,8 @@ public class BalancesServiceImpl implements BalancesService {
 
     @Override
     public List<Balances> getAllBalancesByPortfolioId(int portfolioId) {
-        return balancesRepository.findAllBalancesByPortfolioId(portfolioId);
+        return balancesRepository.findAllBalancesByPortfolioIdOrderByDateDesc(portfolioId);
+        //.stream().limit(14).collect(Collectors.toList())
     }
 
     @Override

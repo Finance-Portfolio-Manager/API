@@ -27,10 +27,10 @@ public class ScheduledTasks {
 
 //    update the balances table at some interval (set to 100 seconds now for testing)
 //    @Scheduled(cron = "0 0 0 * *") // happens at midnight everyday
-    @Scheduled(fixedRate = 10000)
-    public void scheduledBalanceStore() {
-        balanceUtil.storeBalances();
-    }
+//    @Scheduled(fixedRate = 10000)
+//    public void scheduledBalanceStore() {
+//        balanceUtil.storeBalances();
+//    }
 
 
 //    @Scheduled(fixedRate = 5000)
