@@ -1,5 +1,6 @@
 package dev.team4.portfoliotracker.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,7 @@ import java.util.Objects;
 @Component
 @Entity
 @Table(name = "transactions")
+@JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class Transaction {
 
     @Id
