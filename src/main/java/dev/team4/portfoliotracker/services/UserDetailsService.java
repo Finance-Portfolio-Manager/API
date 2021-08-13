@@ -23,7 +23,7 @@ public class UserDetailsService implements org.springframework.security.core.use
      * @param user
      * @return added User
      */
-    public User createUser(User user){
+    public User createUser(dev.team4.portfoliotracker.models.User user){
         return userRepository.save(user);
     }
 
@@ -31,7 +31,7 @@ public class UserDetailsService implements org.springframework.security.core.use
      * Deletes user matching username from the database
      * @param user
      */
-    public void removeUser(User user){
+    public void removeUser(dev.team4.portfoliotracker.models.User user){
         if(user.getUsername() == null){
             throw new UsernameNotFoundException(user.getUsername());
         } else {
@@ -68,9 +68,17 @@ public class UserDetailsService implements org.springframework.security.core.use
 
     }
 
-    public User getUserByUserId(int id){
+    public User getUserByUserId(int id) {
 
-        return userRepository.findUserByUserId(id);
+        return userRepository.findByUserId(id);
 
+    }
+    public User getUserByEmail(String email){
+        List<User> users = userRepository.findByEmail(email);
+        if(users.size() > 0){
+            User user = users.get(0);
+            return user;
+        }
+        return null;
     }
 }
