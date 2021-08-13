@@ -34,12 +34,13 @@ public class TransactionService {
     }
 
     public void updateTransaction(int id, Transaction transaction) {
-        Transaction txn = txnRepo.findTransactionByTransactionId(id);
-        txn.setPortfolio(transaction.getPortfolio());
-        txn.setStockSymbol(transaction.getStockSymbol());
-        txn.setTransactionQuantity(transaction.getTransactionQuantity());
-        txn.setSharePrice(transaction.getSharePrice());
-        txn.setDateTime(transaction.getDateTime());
+//        Transaction txn = txnRepo.findTransactionByTransactionId(id);
+//        txn.setPortfolio(transaction.getPortfolio());
+//        txn.setStockSymbol(transaction.getStockSymbol());
+//        txn.setTransactionQuantity(transaction.getTransactionQuantity());
+//        txn.setSharePrice(transaction.getSharePrice());
+//        txn.setDateTime(transaction.getDateTime());
+        txnRepo.save(transaction);
     }
 
     public List<Transaction> getTransactionsByPortfolioAndStockSymbol(Portfolio portfolio, String stockSymbol){

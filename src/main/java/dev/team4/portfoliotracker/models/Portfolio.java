@@ -33,6 +33,18 @@ public class Portfolio {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "portfolio")
     private List<Transaction> transactions;
 
+    public Portfolio(User user, String name, boolean isPublic) {
+        this.user = user;
+        this.name = name;
+        this.isPublic = isPublic;
+    }
+
+    public Portfolio(int portfolioId, User user, String name, boolean isPublic) {
+        this.portfolioId = portfolioId;
+        this.user = user;
+        this.name = name;
+        this.isPublic = isPublic;
+    }
 
     public Portfolio() {
     }
