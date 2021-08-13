@@ -69,13 +69,34 @@ public class TransactionControllerTest {
         );
     }
 
-    @Test
-    void updateTransaction() {
-        addTransaction();
+    Transaction addTransactionforUpdate() {
         User user = new User(30, "test@email.com", "testuser_ap", "pass");
         LocalDateTime dateTime = LocalDateTime.now();
         Portfolio p = new Portfolio(10, user, "test", false);
-        Transaction txn1 = new Transaction(6 , p, "MSFT", 10.32, BigDecimal.valueOf(690.32), dateTime);
+        Transaction txn1 = new Transaction(p, "TSLA", 5.32, BigDecimal.valueOf(690.32), dateTime);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.add("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI4OTA5NzQwLCJpYXQiOjE2Mjg4NzM3NDB9.P7KYQArjVHxTr8E6veIhMpuvKJTVUjuoVIH74Eo_2swxLLw4LxhcogZmIR8pGZYrESGp1fVFsLJvOr8UpVI1Ow");
+        HttpEntity<Transaction> request = new HttpEntity<>(txn1, headers);
+        ResponseEntity<Transaction> response = restTemplate.postForEntity(url, request, Transaction.class);
+        System.out.println(request.getBody());
+        System.out.println(response.getBody());
+        assertAll(
+                () -> assertNotNull(response.getBody()),
+                () -> assertEquals(201, response.getStatusCodeValue())
+        );
+        return response.getBody();
+    }
+
+
+    @Test
+    void updateTransaction() {
+        Transaction txn2 = addTransactionforUpdate();
+        int id= txn2.getTransactionId();
+        User user = new User(30, "test@email.com", "testuser_ap", "pass");
+        LocalDateTime dateTime = LocalDateTime.now();
+        Portfolio p = new Portfolio(10, user, "test", false);
+        Transaction txn1 = new Transaction(id , p, "MSFT", 10.32, BigDecimal.valueOf(690.32), dateTime);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.add("Authorization", jwtToken);
