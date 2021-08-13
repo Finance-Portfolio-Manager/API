@@ -38,7 +38,7 @@ public class UpdateNews {
      */
 
     public List<News> updateDailyNews() {
-        String targetUrl = "https://newsapi.org/v2/everything?q=stocks&from=2021-08-09&to=2021-08-09&sortBy=popularity&domains=forbes.com&apiKey=" + environment.getProperty("NEWS_API_KEY") + "&pageSize=5&page=1";
+        String targetUrl = "https://newsapi.org/v2/everything?q=stocks&sortBy=publishedAt&domains=forbes.com" + environment.getProperty("NEWS_API_KEY") + "&pageSize=5&page=1";
 
         URL url = null;
         try {
@@ -46,13 +46,6 @@ public class UpdateNews {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-//        HttpRequest request = HttpRequest.newBuilder()
-//                .uri(URI.create(targetUrl))
-//                .header("Accept","application/json")
-//                .build();
-//
-//        HttpResponse<String> response = HttpClient.newHttpClient().send(request,HttpResponse.BodyHandlers.ofString());
-
         HttpURLConnection con = null;
         try {
             con = (HttpURLConnection) url.openConnection();
@@ -84,26 +77,6 @@ public class UpdateNews {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-//        HttpRequest request = HttpRequest.newBuilder()
-//                .uri(URI.create(targetUrl))
-//                .header("Accept", "application/json")
-//                .build();
-//
-//        HttpResponse<String> response = null;
-//        try {
-//            response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-//        } catch (IOException | InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        ObjectMapper objectMapper2 = new ObjectMapper();
-//        NewsApiResponse newsApiResponse = null;
-//        try {
-//            assert response != null;
-//            newsApiResponse = objectMapper2.readValue(response.body(), NewsApiResponse.class);
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//        }
 
         try{
             if(!("ok").equals(newsApiResponse.getStatus())){

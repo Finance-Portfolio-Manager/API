@@ -94,7 +94,7 @@ public class UserDetailsServiceTest {
 		User user = new User("c@c.com", "cody", "password");
 		User user2 = new User("c2@c.com", "cody2", "password2");
 
-		doReturn(user).when(userRepository).findUserByUserId(1);
+//		doReturn(user).when(userRepository).findUserByUserId(1);
 
 		assertEquals(userDetailsService.getUserByUserId(1), user);
 	}
