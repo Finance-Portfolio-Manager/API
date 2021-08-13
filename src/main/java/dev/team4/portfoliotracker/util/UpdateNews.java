@@ -38,7 +38,7 @@ public class UpdateNews {
      */
 
     public List<News> updateDailyNews() {
-        String targetUrl = "https://newsapi.org/v2/everything?q=stocks&sortBy=publishedAt&domains=forbes.com" + environment.getProperty("NEWS_API_KEY") + "&pageSize=5&page=1";
+        String targetUrl = "https://newsapi.org/v2/everything?q=stocks&sortBy=publishedAt&domains=forbes.com&apikey=" + environment.getProperty("NEWS_API_KEY") + "&pageSize=5&page=1";
 
         URL url = null;
         try {
