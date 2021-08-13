@@ -28,7 +28,7 @@ public class UserControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> request = new HttpEntity<>(asJsonString(user), headers);
-        ResponseEntity<User> response = restTemplate.postForEntity("http://localhost:8082/register", request, User.class);
+        ResponseEntity<User> response = restTemplate.postForEntity("http://localhost:8082/users", request, User.class);
     }
 
     User user = new User("c@c.com", "cody", "pass");
@@ -48,7 +48,7 @@ public class UserControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> request = new HttpEntity<>(asJsonString(user), headers);
-        ResponseEntity<User> response = restTemplate.postForEntity("http://localhost:8082/register", request, User.class);
+        ResponseEntity<User> response = restTemplate.postForEntity("http://localhost:8082/users", request, User.class);
         System.out.println(response.getBody());
 
         assertAll(
@@ -92,7 +92,7 @@ public class UserControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> request = new HttpEntity<>(asJsonString(user2), headers);
-        ResponseEntity<User> response = restTemplate.exchange("http://localhost:8082/delete", HttpMethod.DELETE, request, User.class);
+        ResponseEntity<User> response = restTemplate.exchange("http://localhost:8082/users", HttpMethod.DELETE, request, User.class);
 
         assertAll(
                 () -> assertEquals(500, response.getStatusCodeValue())
@@ -105,7 +105,7 @@ public class UserControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> request = new HttpEntity<>(headers);
-        ResponseEntity<?> response = restTemplate.getForEntity("http://localhost:8082/username?token="+ jwtToken, User.class);
+        ResponseEntity<?> response = restTemplate.getForEntity("http://localhost:8082/users?token="+ jwtToken, User.class);
         System.out.println(request.getBody());
         System.out.println(response.getBody());
 
@@ -121,7 +121,7 @@ public class UserControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> request = new HttpEntity<>(headers);
-        ResponseEntity<?> response = restTemplate.getForEntity("http://localhost:8082/username?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI3OTA50TUY7jM5BwwC3-y66z4wjXl-mGD6XmubLNYhuQqk3TtARYpXrYTYjt1g7mYjx6MUV3NyQlI9AZK6dA", User.class);
+        ResponseEntity<?> response = restTemplate.getForEntity("http://localhost:8082/users?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI3OTA50TUY7jM5BwwC3-y66z4wjXl-mGD6XmubLNYhuQqk3TtARYpXrYTYjt1g7mYjx6MUV3NyQlI9AZK6dA", User.class);
         System.out.println(request.getBody());
         System.out.println(response.getBody());
 
@@ -136,7 +136,7 @@ public class UserControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> request = new HttpEntity<>(headers);
-        ResponseEntity<?> response = restTemplate.getForEntity("http://localhost:8082/register/cody", User.class);
+        ResponseEntity<?> response = restTemplate.getForEntity("http://localhost:8082/users/cody", User.class);
         System.out.println(request.getBody());
         System.out.println(response.getBody());
 
@@ -153,7 +153,7 @@ public class UserControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> request = new HttpEntity<>(asJsonString(user2), headers);
-        ResponseEntity<User> response = restTemplate.exchange("http://localhost:8082/delete", HttpMethod.DELETE, request, User.class);
+        ResponseEntity<User> response = restTemplate.exchange("http://localhost:8082/users", HttpMethod.DELETE, request, User.class);
 
         assertAll(
                 () -> assertEquals(200, response.getStatusCodeValue())

@@ -22,11 +22,13 @@ public class TransactionControllerTest {
     String jwtToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI4OTA5NzQwLCJpYXQiOjE2Mjg4NzM3NDB9.P7KYQArjVHxTr8E6veIhMpuvKJTVUjuoVIH74Eo_2swxLLw4LxhcogZmIR8pGZYrESGp1fVFsLJvOr8UpVI1Ow";
 
     @Test
-    void getAllTransactions() {
+    public void getAllTransactions() {
         TestRestTemplate restTemplate = new TestRestTemplate();
+
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Integer> request = new HttpEntity<>(headers);
+
         ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:8082/transactions", String.class);
         System.out.println(request.getBody());
         System.out.println(response.getBody());
@@ -37,7 +39,7 @@ public class TransactionControllerTest {
     }
 
     @Test
-    void getTransactionById() {
+    public void getTransactionById() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", jwtToken);
         HttpEntity<String> request = new HttpEntity<>(headers);
@@ -51,7 +53,7 @@ public class TransactionControllerTest {
     }
 
     @Test
-    void addTransaction() {
+    public void addTransaction() {
         User user = new User(30, "test@email.com", "testuser_ap", "pass");
         LocalDateTime dateTime = LocalDateTime.now();
         Portfolio p = new Portfolio(10, user, "test", false);
@@ -69,7 +71,8 @@ public class TransactionControllerTest {
         );
     }
 
-    Transaction addTransactionforUpdate() {
+    @Test
+    public Transaction addTransactionForUpdate() {
         User user = new User(30, "test@email.com", "testuser_ap", "pass");
         LocalDateTime dateTime = LocalDateTime.now();
         Portfolio p = new Portfolio(10, user, "test", false);
@@ -90,8 +93,8 @@ public class TransactionControllerTest {
 
 
     @Test
-    void updateTransaction() {
-        Transaction txn2 = addTransactionforUpdate();
+    public void updateTransaction() {
+        Transaction txn2 = addTransactionForUpdate();
         int id= txn2.getTransactionId();
         User user = new User(30, "test@email.com", "testuser_ap", "pass");
         LocalDateTime dateTime = LocalDateTime.now();
@@ -111,7 +114,7 @@ public class TransactionControllerTest {
     }
 
     @Test
-    void deleteTransaction() {
+    public void deleteTransaction() {
         User user = new User(30, "test@email.com", "testuser_ap", "pass");
         LocalDateTime dateTime = LocalDateTime.now();
         Portfolio p = new Portfolio(10, user, "test", false);
