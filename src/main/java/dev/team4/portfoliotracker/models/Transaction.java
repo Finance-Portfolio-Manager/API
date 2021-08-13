@@ -50,6 +50,12 @@ public class Transaction {
         this.dateTime = dateTime;
     }
 
+    public Transaction(String stockSymbol, double transactionQuantity, BigDecimal sharePrice) {
+        this.stockSymbol = stockSymbol;
+        this.transactionQuantity = transactionQuantity;
+        this.sharePrice = sharePrice;
+    }
+
 
     public int getTransactionId() {
         return transactionId;

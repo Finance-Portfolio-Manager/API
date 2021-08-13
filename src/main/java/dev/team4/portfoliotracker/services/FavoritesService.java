@@ -33,8 +33,12 @@ public class FavoritesService {
         PortfolioService portfolioService = new PortfolioService();
         //for each entry in the favorites table for a user, return the portfolio for the Id listed
         for (Favorites favorite : favList) {
+            System.out.println(favorite);
+
             Portfolio tempPort = portfolioService.getPortfolioByPortfolioId(favorite.getPortfolio().getPortfolioId());
+            System.out.println(tempPort);
             favoritePortfolios.add(tempPort);
+
         }
         return favoritePortfolios;
     }

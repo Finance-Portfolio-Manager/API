@@ -73,6 +73,10 @@ public class Portfolio {
         this.transactions = transactions;
     }
 
+    public void setPortfolioId(int portfolioId) {
+        this.portfolioId = portfolioId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
