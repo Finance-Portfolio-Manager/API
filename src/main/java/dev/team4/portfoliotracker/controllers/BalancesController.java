@@ -35,8 +35,13 @@ public class BalancesController {
 
     @GetMapping(value = "/daily/{portfolioId}")
     public ResponseEntity<List<Balances>> getDailyBalancesByPortfolioId(@PathVariable("portfolioId") int portfolioId) {
+        int rotate = 1;
         Balances balance = new Balances();
         balance.setBalance(new BigDecimal(0));
+        balance.setBalanceType("c");
+        Balances balance2 = new Balances();
+        balance2.setBalance(new BigDecimal(0));
+        balance2.setBalanceType("i");
         LocalDateTime current = null;
         int indexTracker = 0;
         List<Balances> list = balancesService.getAllBalancesByPortfolioId(portfolioId);
@@ -53,6 +58,8 @@ public class BalancesController {
         }
         while(filteredList.size()<14){
             filteredList.add(balance);
+
+            filteredList.add(balance2);
         }
         return new ResponseEntity<>(filteredList, HttpStatus.OK);
     }
