@@ -3,6 +3,8 @@ package dev.team4.portfoliotracker.controllers;
 import dev.team4.portfoliotracker.models.Favorites;
 import dev.team4.portfoliotracker.models.Portfolio;
 import dev.team4.portfoliotracker.models.User;
+import dev.team4.portfoliotracker.security.JwtUtility;
+import dev.team4.portfoliotracker.security.UserPrincipal;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -12,7 +14,15 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class FavoritesControllerTest {
 
-    private String jwt = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI4OTA5NzQwLCJpYXQiOjE2Mjg4NzM3NDB9.P7KYQArjVHxTr8E6veIhMpuvKJTVUjuoVIH74Eo_2swxLLw4LxhcogZmIR8pGZYrESGp1fVFsLJvOr8UpVI1Ow";
+    private static String jwt = "";
+
+    static {
+        User user = new User("c@c.com", "cody", "pass");
+        UserPrincipal userP = new UserPrincipal(user);
+        jwt = new JwtUtility().generateToken(userP);
+    }
+
+//    private String jwt = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI4OTA5NzQwLCJpYXQiOjE2Mjg4NzM3NDB9.P7KYQArjVHxTr8E6veIhMpuvKJTVUjuoVIH74Eo_2swxLLw4LxhcogZmIR8pGZYrESGp1fVFsLJvOr8UpVI1Ow";
     //This is generated via a login request and expires after 10 hours, if you get a 403 response, renew this token.
 
     @Test
