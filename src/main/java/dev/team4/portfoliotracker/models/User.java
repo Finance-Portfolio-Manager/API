@@ -1,6 +1,7 @@
 package dev.team4.portfoliotracker.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import java.util.Objects;
 @Component
 @Entity
 @Table(name = "user_accounts", uniqueConstraints = @UniqueConstraint(columnNames = {"username"}))
+@JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class User {
 
     @Id
@@ -35,8 +37,6 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Portfolio> portfolios;
 
-    @OneToMany(targetEntity = Favorites.class, fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Portfolio> favorites;
 
     public User() {
     }
