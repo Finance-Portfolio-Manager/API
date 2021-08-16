@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.team4.portfoliotracker.models.User;
 import dev.team4.portfoliotracker.security.JwtUtility;
 import dev.team4.portfoliotracker.security.UserPrincipal;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
@@ -57,7 +54,7 @@ public class UserControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> request = new HttpEntity<>(asJsonString(user2), headers);
-        ResponseEntity<User> response = restTemplate.postForEntity("http://localhost:8082/register", request, User.class);
+        ResponseEntity<User> response = restTemplate.postForEntity("http://localhost:8082/users", request, User.class);
         System.out.println(response.getBody());
 
         assertAll(
@@ -147,7 +144,7 @@ public class UserControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> request = new HttpEntity<>(headers);
-        ResponseEntity<?> response = restTemplate.getForEntity("http://localhost:8082/register/u1", User.class);
+        ResponseEntity<?> response = restTemplate.getForEntity("http://localhost:8082/users/u1", User.class);
         System.out.println(request.getBody());
         System.out.println(response.getBody());
 
