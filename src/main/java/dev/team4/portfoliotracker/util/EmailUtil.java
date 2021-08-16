@@ -1,5 +1,6 @@
 package dev.team4.portfoliotracker.util;
 
+import dev.team4.portfoliotracker.models.News;
 import dev.team4.portfoliotracker.models.Stock;
 import dev.team4.portfoliotracker.models.User;
 
@@ -13,6 +14,7 @@ import java.util.Properties;
 public class EmailUtil {
     private static String myEmail = "revature.team.3@gmail.com";
     private static String myPassword = "team3casino";
+
     public static Session createEmailSession(){
         System.out.println("Prepare to send email....");
         Properties properties = new Properties();
@@ -53,10 +55,11 @@ public class EmailUtil {
         return false;
     }
 
-    public static boolean sendEmailAboutStock(User user, List<Stock> stocks, double balance,  HashMap<String, Double> priceMap, String name){
+    public static boolean sendEmailAboutPortfolio(User user, List<Stock> stocks, double balance, HashMap<String, Double> priceMap, String name){
 
+        System.out.println(user);
+        System.out.println("sending Portfolio Update email to " + user.getEmail());
         Session session = createEmailSession();
-
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(myEmail));
@@ -76,6 +79,33 @@ public class EmailUtil {
                 html += "</td></tr>";
             }
             html += "</table>";
+            String logoURL = "https://i.imgur.com/bJmwANo.png";
+            String projectName = "apexstocks";
+            html += "<br><br><h2>" + projectName + "</h2>";
+            html += "<br><apexstocks><img src=' " + logoURL + " 'alt='logo' width='400'>";
+            message.setContent(html, "text/html");
+            Transport.send(message);
+            System.out.println("Email sent successfully to " + user.getEmail());
+            return true;
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean sendEmailAboutNews(User user, News news){
+        Session session = createEmailSession();
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(myEmail));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
+            message.setSubject("Daily News");
+
+            String html = "<h1>" + news.getTitle() + "</h1><br>";
+            html += "<h3>" + news.getDescription() + "</h3><br>";
+            html += "<img src=' " + news.getUrlToImage() + " 'alt= 'imageURL'><br>";
+            html += "<a href='" + news.getUrl() + "'>Click me to read more</a>";
+
             message.setContent(html, "text/html");
             Transport.send(message);
             System.out.println("Email sent successfully");

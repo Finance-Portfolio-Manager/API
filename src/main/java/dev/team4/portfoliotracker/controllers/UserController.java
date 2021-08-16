@@ -91,7 +91,12 @@ public class UserController {
         int number = rnd.nextInt(999999);
         String digits = String.format("%06d", number);
         System.out.println(digits);
+        System.out.println(email);
         User user = userDetailsService.getUserByEmail(email);
+        if(user == null){
+            System.out.println("User not found" );
+            return new ResponseEntity<String>("User not found", HttpStatus.UNAUTHORIZED);
+        }
         user.setCode(digits);
         userDetailsService.createUser(user);
         String subject = "Here is confirmation code for your account";
