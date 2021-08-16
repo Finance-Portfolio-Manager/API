@@ -10,9 +10,10 @@ management:
 spring:
   datasource:
     url : "jdbc:postgresql://project0.cbkzfukaxelt.us-east-2.rds.amazonaws.com:5432/postgres?currentSchema=project3"
-    username: ${DB_USER}
-    password: ${DB_PASS}
-
+    username: postgres
+    password: revature
+#    username: ${DB_USER}
+#    password: ${DB_PASS}
 #    url: jdbc:h2:file:~/test
 #    driverClassName: org.h2.Driver
 #    data: classpath:test-setup.sql #test-setup.sql can be put in resources folder

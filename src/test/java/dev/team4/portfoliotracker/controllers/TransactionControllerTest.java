@@ -2,6 +2,8 @@ package dev.team4.portfoliotracker.controllers;
 import dev.team4.portfoliotracker.models.Portfolio;
 import dev.team4.portfoliotracker.models.Transaction;
 import dev.team4.portfoliotracker.models.User;
+import dev.team4.portfoliotracker.security.JwtUtility;
+import dev.team4.portfoliotracker.security.UserPrincipal;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -19,7 +21,15 @@ public class TransactionControllerTest {
     private String url = "http://localhost:8082/transactions";
     private TestRestTemplate restTemplate = new TestRestTemplate();
 
-    String jwtToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI4OTA5NzQwLCJpYXQiOjE2Mjg4NzM3NDB9.P7KYQArjVHxTr8E6veIhMpuvKJTVUjuoVIH74Eo_2swxLLw4LxhcogZmIR8pGZYrESGp1fVFsLJvOr8UpVI1Ow";
+    private static String jwtToken = "";
+
+    static {
+        User user = new User("c@c.com", "cody", "pass");
+        UserPrincipal userP = new UserPrincipal(user);
+        jwtToken = new JwtUtility().generateToken(userP);
+    }
+
+    //String jwtToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI4OTA5NzQwLCJpYXQiOjE2Mjg4NzM3NDB9.P7KYQArjVHxTr8E6veIhMpuvKJTVUjuoVIH74Eo_2swxLLw4LxhcogZmIR8pGZYrESGp1fVFsLJvOr8UpVI1Ow";
 
     @Test
     public void getAllTransactions() {
