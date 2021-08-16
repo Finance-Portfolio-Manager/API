@@ -168,7 +168,7 @@ public class UserControllerTest {
         );
     }
 
-    @AfterAll
+    @AfterEach
     public void tearDown() {
         User u1 = new User("c@c.com", jwtToken, "pass");
         User u2 = new User("c@c.com", jwtToken2, "pass");
