@@ -94,7 +94,7 @@ public class UserDetailsServiceTest {
 		User user = new User("c@c.com", "cody", "password");
 		User user2 = new User("c2@c.com", "cody2", "password2");
 
-		doReturn(user).when(userRepository).findUserByUserId(1);
+		doReturn(user).when(userRepository).findByUserId(1);
 
 		assertEquals(userDetailsService.getUserByUserId(1), user);
 	}
@@ -105,5 +105,26 @@ public class UserDetailsServiceTest {
 		doReturn(user).when(userRepository).findByUsername("cody");
 
 		assertNull(userDetailsService.getUserByUsername("cody2"));
+	}
+
+	@Test
+	public void getUserByEmailTest() {
+		List<User> users = new ArrayList<>();
+		User user = new User("c@c.com", "cody", "password");
+		users.add(user);
+
+		doReturn(users).when(userRepository).findByEmail("c@c.com");
+
+		assertEquals(userDetailsService.getUserByEmail("c@c.com"), user);
+	}
+
+	@Test
+	public void getUserByEmailTestFail() {
+		List<User> users = new ArrayList<>();
+		User user = new User("c@c.com", "cody", "password");
+
+		doReturn(users).when(userRepository).findByEmail("c@c.com");
+
+		assertNull(userDetailsService.getUserByEmail("c@c.com"));
 	}
 }
