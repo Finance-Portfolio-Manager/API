@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+//YOU CAN DELETE THIS class
 public class YahooUtil {
     public static String getStock(List<String> stockSymbols) {
         HttpResponse<String> response = null;

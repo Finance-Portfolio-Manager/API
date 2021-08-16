@@ -1,13 +1,7 @@
 package dev.team4.portfoliotracker.util;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-
-import dev.team4.portfoliotracker.models.User;
-import dev.team4.portfoliotracker.services.PortfolioService;
 import dev.team4.portfoliotracker.services.UserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,22 +41,22 @@ public class ScheduledTasks {
 //        User user = new User();
 //        user.setUsername("test1");
 //        userDetailsService.createUser(user);
-        updateUtil.sendUpdateStockInfo();
+        updateUtil.sendAllAboutPortfolio();
 
     }
-//
-//    //fuming
-//    @Scheduled(fixedRate = 86400000) //1000 = 1sec
-//    public void scheduledSendUpdateNews() {
-//        updateUtil.sendUpdateNews();
-//
-//    }
-//
-//    //fuming
-//    @Scheduled(fixedRate = 3600000) //1000 = 1sec
-//    public void scheduledNotifyPriceChange() {
-//        updateUtil.notifyPriceChange(0.1, 1); //should be 1, 86400
-//    }
+
+    //fuming
+    @Scheduled(fixedRate = 86400000) //1000 = 1sec
+    public void scheduledSendUpdateNews() {
+        updateUtil.sendUpdateNews();
+
+    }
+
+    //fuming
+    @Scheduled(fixedRate = 3600000) //1000 = 1sec
+    public void scheduledNotifyPriceChange() {
+        updateUtil.notifyPriceChange(0.1, 1); //should be 1, 86400
+    }
 
 
 }
