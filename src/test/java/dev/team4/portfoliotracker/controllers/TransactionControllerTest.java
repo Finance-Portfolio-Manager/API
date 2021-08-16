@@ -70,7 +70,7 @@ public class TransactionControllerTest {
         Transaction txn1 = new Transaction(p, "TSLA", 5.32, BigDecimal.valueOf(690.32), dateTime);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.add("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI4OTA5NzQwLCJpYXQiOjE2Mjg4NzM3NDB9.P7KYQArjVHxTr8E6veIhMpuvKJTVUjuoVIH74Eo_2swxLLw4LxhcogZmIR8pGZYrESGp1fVFsLJvOr8UpVI1Ow");
+        headers.add("Authorization", jwtToken);
         HttpEntity<Transaction> request = new HttpEntity<>(txn1, headers);
         ResponseEntity<Transaction> response = restTemplate.postForEntity(url, request, Transaction.class);
         System.out.println(request.getBody());
@@ -89,7 +89,7 @@ public class TransactionControllerTest {
         Transaction txn1 = new Transaction(p, "TSLA", 5.32, BigDecimal.valueOf(690.32), dateTime);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.add("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2R5IiwiZXhwIjoxNjI4OTA5NzQwLCJpYXQiOjE2Mjg4NzM3NDB9.P7KYQArjVHxTr8E6veIhMpuvKJTVUjuoVIH74Eo_2swxLLw4LxhcogZmIR8pGZYrESGp1fVFsLJvOr8UpVI1Ow");
+        headers.add("Authorization", jwtToken);
         HttpEntity<Transaction> request = new HttpEntity<>(txn1, headers);
         ResponseEntity<Transaction> response = restTemplate.postForEntity(url, request, Transaction.class);
         System.out.println(request.getBody());
