@@ -53,6 +53,14 @@ public class Transaction {
         this.dateTime = dateTime;
     }
 
+    public Transaction(int transactionId, Portfolio portfolio, String stockSymbol, double transactionQuantity, BigDecimal sharePrice, LocalDateTime dateTime) {
+        this.transactionId = transactionId;
+        this.portfolio = portfolio;
+        this.stockSymbol = stockSymbol;
+        this.transactionQuantity = transactionQuantity;
+        this.sharePrice = sharePrice;
+        this.dateTime = dateTime;
+    }
 
     public int getTransactionId() {
         return transactionId;

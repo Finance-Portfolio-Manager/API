@@ -24,10 +24,10 @@ public class UserController {
     private JwtUtility jwtUtility;
 
 
-    @GetMapping(produces = "application/json")
-    public ResponseEntity<List<User>> getAllAccounts() {
-        return new ResponseEntity<>(userDetailsService.checkAllUser(), HttpStatus.OK);
-    }
+//    @GetMapping(produces = "application/json")
+//    public ResponseEntity<List<User>> getAllAccounts() {
+//        return new ResponseEntity<>(userDetailsService.checkAllUser(), HttpStatus.OK);
+//    }
 
 
     @GetMapping(value = "/{username}")
