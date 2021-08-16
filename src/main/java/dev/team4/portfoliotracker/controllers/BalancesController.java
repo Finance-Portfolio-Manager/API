@@ -58,8 +58,9 @@ public class BalancesController {
         }
         while(filteredList.size()<14){
             filteredList.add(balance);
-
+            System.out.println(balance);
             filteredList.add(balance2);
+            System.out.println(balance2);
         }
         return new ResponseEntity<>(filteredList, HttpStatus.OK);
     }

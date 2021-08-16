@@ -29,7 +29,6 @@ public class BalancesServiceImpl implements BalancesService {
     @Override
     public List<Balances> getAllBalancesByPortfolioId(int portfolioId) {
         return balancesRepository.findAllBalancesByPortfolioIdOrderByDateDesc(portfolioId);
-        //.stream().limit(14).collect(Collectors.toList())
     }
 
     @Override
