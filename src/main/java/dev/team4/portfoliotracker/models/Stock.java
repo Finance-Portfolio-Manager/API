@@ -82,7 +82,7 @@ public class Stock {
             }
         }
 
-        this.avgBuyPrice = totalSpent.divide(BigDecimal.valueOf(totalShareBuys)).setScale(2, RoundingMode.CEILING);
+        this.avgBuyPrice = totalSpent.divide(BigDecimal.valueOf(totalShareBuys), 2, RoundingMode.CEILING);
 
 
     }
@@ -111,7 +111,7 @@ public class Stock {
         String[] symbolInput = new String[]{this.symbol};
         BigDecimal apiOut = apiService.getSymbolPnl(symbolInput).get(this.symbol);
         MathContext m = new MathContext(2);
-        this.changePercentage = apiOut.round(m);
+        this.changePercentage = apiOut.setScale(2, RoundingMode.CEILING);
     }
 
     @Override
