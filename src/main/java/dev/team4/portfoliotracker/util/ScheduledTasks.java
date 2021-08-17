@@ -45,27 +45,27 @@ public class ScheduledTasks {
 //        updateNews.updateDailyNews();
 //    }
 
-//
-//    //fuming
-//    @Scheduled(fixedRate = 86400000) //1000 = 1sec
-//    public void scheduledSendUpdateStockInfo() {
-//        //System.out.println(new java.util.Date());
-//        updateUtil.sendAllAboutPortfolio();
-//
-//    }
-//
-//    //fuming
-//    @Scheduled(fixedRate = 86400000) //1000 = 1sec
-//    public void scheduledSendUpdateNews() {
-//        updateUtil.sendUpdateNews();
-//
-//    }
-//
-//    //fuming
-//    @Scheduled(fixedRate = 3600000) //1000 = 1sec
-//    public void scheduledNotifyPriceChange() {
-//        updateUtil.notifyPriceChange(0.1, 1); //should be 1, 86400
-//    }
-//
+
+    //fuming
+    @Scheduled(fixedRate = 86400000) //1000 = 1sec
+    public void scheduledSendUpdateStockInfo() {
+        //System.out.println(new java.util.Date());
+        updateUtil.sendAllAboutPortfolio();
+
+    }
+
+    //fuming
+    @Scheduled(fixedRate = 86400000) //1000 = 1sec
+    public void scheduledSendUpdateNews() {
+        updateUtil.sendUpdateNews();
+
+    }
+
+    //fuming
+    @Scheduled(fixedRate = 3600000) //1000 = 1sec
+    public void scheduledNotifyPriceChange() {
+        updateUtil.notifyPriceChange(1.0, 86400); //should be 1.0, 86400
+    }
+
 
 }
