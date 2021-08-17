@@ -64,7 +64,7 @@ public class ScheduledTasks {
     //fuming
     @Scheduled(fixedRate = 3600000) //1000 = 1sec
     public void scheduledNotifyPriceChange() {
-        updateUtil.notifyPriceChange(1, 86400); //should be 1, 86400
+        updateUtil.notifyPriceChange((double)1, 86400); //should be 1, 86400
     }
 
 
