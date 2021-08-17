@@ -7,6 +7,8 @@ and see stock-specific gains and losses. The backend is built to leverage AlphaV
 stock details. This ensures that users will see up-to-date valuations on their current positions. Users can also provide a valid
 email address and receive daily updates on their portfolio performance, as well as receive alerts if prices fluctuate intensely.
 
+####Visit the website: [apexstocks.xyz](apexstocks.xyz)
+
 > ### Profile Interactions
 > * **Sign Up** - Create an account on portfolio manager!
 > * **Log In** - Log in to an existing account
@@ -38,5 +40,8 @@ The following things would have been nice to add, given time:
 * Add functionality for cryptocurrencies
 * Create an account / sign in with Google or Facebook
 * Password hashing and salting
+
+## License
+
 
 ###### Contributors: Aaron Parker, Apurv Patel, Carlos Galvan, Cody Anderson, Conor Scalf, Curtis Greene-Morgan, David Garcia, Elvis Lee, Fuming Zhao, Greg Mccoy, Kalvin Miller, Marc Hartley, Melanie Duah, Nick Bilotta, Quinton Liang, Rensy T Aikara, Trent Greenman, Wyatt Goettsch
