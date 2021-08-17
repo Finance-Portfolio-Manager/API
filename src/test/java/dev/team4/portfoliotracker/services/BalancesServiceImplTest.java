@@ -1,5 +1,6 @@
 package dev.team4.portfoliotracker.services;
 
+import dev.team4.portfoliotracker.exceptions.BadRequestException;
 import dev.team4.portfoliotracker.models.Balances;
 import dev.team4.portfoliotracker.repositories.BalancesRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,9 +54,25 @@ class BalancesServiceImplTest {
     }
 
     @Test
+    void getAllBalancesByUserIdInvalidUserShouldFail() {
+        doThrow(BadRequestException.class).when(balancesRepository).findAllBalancesByUserId(-1);
+        assertThrows(BadRequestException.class, () -> {
+           balancesService.getAllBalancesByUserId(-1);
+        });
+    }
+
+    @Test
     void getAllBalancesByPortfolioId() {
         doReturn(list).when(balancesRepository).findAllBalancesByPortfolioIdOrderByDateDesc(2);
         assertEquals(balancesService.getAllBalancesByPortfolioId(2), list);
+    }
+
+    @Test
+    void getAllBalancesByUserIdInvalidPortfolioShouldFail() {
+        doThrow(BadRequestException.class).when(balancesRepository).findAllBalancesByPortfolioIdOrderByDateDesc(-1);
+        assertThrows(BadRequestException.class, () -> {
+            balancesService.getAllBalancesByPortfolioId(-1);
+        });
     }
 
     @Test

@@ -22,17 +22,6 @@ public class BalancesController {
     @Autowired
     BalancesService balancesService;
 
-    /**
-     * Author: Aaron Parker
-     *
-     * @param portfolioId - the id of the portfolio in which we are getting the historical balances
-     * @return list of balances to be graphed
-     */
-    @GetMapping(value = "/{portfolioId}")
-    public ResponseEntity<List<Balances>> getAllBalancesByPortfolioId(@PathVariable("portfolioId") int portfolioId) {
-        return new ResponseEntity<>(balancesService.getAllBalancesByPortfolioId(portfolioId), HttpStatus.OK);
-    }
-
     @GetMapping(value = "/daily/{portfolioId}")
     public ResponseEntity<List<Balances>> getDailyBalancesByPortfolioId(@PathVariable("portfolioId") int portfolioId) {
         int rotate = 1;
@@ -63,17 +52,6 @@ public class BalancesController {
             System.out.println(balance2);
         }
         return new ResponseEntity<>(filteredList, HttpStatus.OK);
-    }
-
-    /**
-     * Author: Aaron Parker
-     *
-     * @param userId - the id of the user of which we are getting the historical balances
-     * @return list of balances to be graphed
-     */
-    @GetMapping(value = "userId")
-    public ResponseEntity<List<Balances>> getAllBalancesByUserId(@PathVariable("userId") int userId) {
-        return new ResponseEntity<>(balancesService.getAllBalancesByUserId(userId), HttpStatus.OK);
     }
 
 }
