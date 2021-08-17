@@ -62,8 +62,11 @@ public class Stock {
 
     public void setQuantity(List<Transaction> transactions) {
         //Loop through a pre-processed list of transactions and sum the quantity column
+        this.quantity = 0; //initialize for testing
         for (Transaction transaction : transactions) {
+            System.out.println("Starting quantity for "+this.symbol+": "+this.quantity);
             this.quantity += transaction.getTransactionQuantity();
+            System.out.println("Ending quantity for "+this.symbol+": "+this.quantity);
         }
     }
 
@@ -110,7 +113,6 @@ public class Stock {
         ApiService apiService = new ApiService();
         String[] symbolInput = new String[]{this.symbol};
         BigDecimal apiOut = apiService.getSymbolPnl(symbolInput).get(this.symbol);
-        MathContext m = new MathContext(2);
         this.changePercentage = apiOut.setScale(2, RoundingMode.CEILING);
     }
 
