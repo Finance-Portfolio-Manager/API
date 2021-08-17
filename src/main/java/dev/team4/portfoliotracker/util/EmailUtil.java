@@ -38,15 +38,12 @@ public class EmailUtil {
 
     public static List<Stock> convertTransactionsToStock(List<Transaction> transactions){
         List<Stock> stocks = new ArrayList<>();
-        System.out.println(transactions);
         for(Transaction transaction: transactions){
             boolean isExisted = false;
             for(int i =0; i<stocks.size(); i++){
                 if(stocks.get(i).getSymbol().equals(transaction.getStockSymbol())){
                     isExisted = true;
                     double quantity = stocks.get(i).getQuantity() + transaction.getTransactionQuantity();
-                    System.out.println(quantity);
-                    System.out.println(stocks);
                     if(quantity > 0){
                         // new method: setQuantityNormal
                         stocks.get(i).setQuantityNormal(quantity);
@@ -61,7 +58,6 @@ public class EmailUtil {
                 newStock.setQuantityNormal(transaction.getTransactionQuantity());
                 stocks.add(newStock);
             }
-            System.out.println(stocks);
         }
         return stocks;
     }
@@ -137,7 +133,6 @@ public class EmailUtil {
             html += "</table>";
 
             if (sendEmailHtml(user.getEmail(), subject, html)) {
-                System.out.println("Email sent successfully to " + user.getEmail());
                 return true;
             }
         }
@@ -158,6 +153,10 @@ public class EmailUtil {
     }
 
     public static boolean sendEmailHtml(String recipientEmail, String subject, String html){
+        if(recipientEmail == null){
+            System.out.println("email is null");
+            return false;
+        }
         String logoURL = "https://i.imgur.com/bJmwANo.png";
         String projectName = "apexstocks";
         html += "<br><br><h2>" + projectName + "</h2>";
@@ -170,7 +169,7 @@ public class EmailUtil {
             message.setSubject(subject);
             message.setContent(html, "text/html");
             Transport.send(message);
-            System.out.println("Email sent successfully");
+            System.out.println("Email sent successfully to " + recipientEmail);
             return true;
         } catch (MessagingException e) {
             e.printStackTrace();

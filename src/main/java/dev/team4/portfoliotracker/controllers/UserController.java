@@ -20,7 +20,9 @@ import java.util.Random;
 
 @RestController
 @CrossOrigin
-@RequestMapping
+//@RequestMapping
+
+@RequestMapping(value = "/users")
 public class UserController {
 
     @Autowired
@@ -92,7 +94,7 @@ public class UserController {
         String digits = String.format("%06d", number);
         System.out.println(digits);
         System.out.println(email);
-        User user = userDetailsService.getUserByEmail(email);
+        User user = gituserDetailsService.getUserByEmail(email);
         if(user == null){
             System.out.println("User not found" );
             return new ResponseEntity<String>("User not found", HttpStatus.UNAUTHORIZED);

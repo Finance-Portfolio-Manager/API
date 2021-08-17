@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 8080
 
 management:
   endpoints:
@@ -13,13 +13,10 @@ spring:
 #    driverClassName: org.h2.Driver
 #    data: classpath:test-setup.sql #test-setup.sql can be put in resources folder
 
-  #Delete this database when merging
     url: ${DB_URL}
     username: ${DB_USER}
     password: ${DB_PASS}
-#    url: jdbc:postgresql://training-db.cvaaoud1no8t.us-east-2.rds.amazonaws.com:5432/postgres?currentSchema=project3
-#    username: postgres
-#    password: 12345678
+
 
   jpa:
     show-sql: false
