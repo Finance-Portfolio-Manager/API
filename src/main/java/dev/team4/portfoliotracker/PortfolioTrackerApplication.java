@@ -43,14 +43,6 @@ public class PortfolioTrackerApplication {
 
 		SpringApplication.run(PortfolioTrackerApplication.class, args);
 
-
-//		Timer timer = new Timer();
-//		timer.schedule(new TimerTask() {
-//			@Override
-//			public void run() {
-//				System.out.println("send email at: " + new java.util.Date());
-//			}
-//		}, 0, 1000);
 	}
 
 

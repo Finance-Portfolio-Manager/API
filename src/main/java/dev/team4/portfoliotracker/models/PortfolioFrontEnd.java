@@ -10,7 +10,7 @@ public class PortfolioFrontEnd {
 
     private String name;
     private int portfolioId;
-    private int userId;
+    private String username;
     private boolean isPublic;
     private BigDecimal value;
     List<Stock> stocks;
@@ -32,12 +32,15 @@ public class PortfolioFrontEnd {
     }
     public PortfolioFrontEnd(Portfolio portfolio) {
         this.portfolioId = portfolio.getPortfolioId();
-        this.userId = portfolio.getUser().getUserId();
+        this.username = portfolio.getUser().getUsername();
         this.name = portfolio.getName();
         this.isPublic = portfolio.getPublic();
         this.transactions = portfolio.getTransactions();
     }
 
+    public PortfolioFrontEnd(BigDecimal value) {
+        this.value = value;
+    }
 
 
     public String getName() {
@@ -56,6 +59,7 @@ public class PortfolioFrontEnd {
         this.isPublic = isPublic;
     }
 
+
     public int getPortfolioId() {
         return portfolioId;
     }
@@ -64,12 +68,12 @@ public class PortfolioFrontEnd {
         this.portfolioId = portfolioId;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public List<Transaction> getTransactions() {

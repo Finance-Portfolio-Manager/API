@@ -40,6 +40,7 @@ public class TransactionService {
         txn.setTransactionQuantity(transaction.getTransactionQuantity());
         txn.setSharePrice(transaction.getSharePrice());
         txn.setDateTime(transaction.getDateTime());
+        txnRepo.save(transaction);
     }
 
     public List<Transaction> getTransactionsByPortfolioAndStockSymbol(Portfolio portfolio, String stockSymbol){

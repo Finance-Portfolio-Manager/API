@@ -101,9 +101,16 @@ public class PortfolioController {
     public ResponseEntity<List<PortfolioFrontEnd>> getFavoritesByUserId(@PathVariable("id")int id) {
         //Similar process to creating the user's portfolios, but using the favorites table to grab the IDs
 
-        //List of portfolios mapped to database returned by the service method
-        User user = userDetailsService.getUserByUserId(id);
-        List<Portfolio> favoritePortfolios = favoriteService.getFavoritesByUser(user);
+        //List of favorite objects for the user
+        List<Favorites> favList = favoriteService.getFavoritesByUserId(id);
+
+        //Tried moving this logic from the favorites service layer to the controller
+        List<Portfolio> favoritePortfolios = new ArrayList<>();
+        //for each entry in the favorites table for a user, return the portfolio for the Id listed
+        for (Favorites favorite : favList) {
+            Portfolio tempPort = portfolioService.getPortfolioByPortfolioId(favorite.getPortfolioId());
+            favoritePortfolios.add(tempPort);
+        }
 
         //Prepped list of full portfolio objects to be sent back as the response entity
         List<PortfolioFrontEnd> responsePorts = new ArrayList<>();

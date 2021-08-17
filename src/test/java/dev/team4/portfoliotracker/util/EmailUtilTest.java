@@ -54,6 +54,11 @@ public class EmailUtilTest {
         assertTrue(EmailUtil.sendEmailAboutNews(user, news));
     }
 
+    @Test
+    public void sendEmailTest(){
+        assertTrue(EmailUtil.sendEmail("revature.team.3@gmail.com", "test_subject", "test_body"));
+    }
+
 
 
 

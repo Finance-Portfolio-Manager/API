@@ -10,6 +10,7 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.*;
 
 import static java.lang.Math.abs;
@@ -18,8 +19,9 @@ public class EmailUtil {
     private static String myEmail = "revature.team.3@gmail.com";
     private static String myPassword = "team3casino";
 
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
+
     public static Session createEmailSession(){
-        System.out.println("Prepare to send email....");
         Properties properties = new Properties();
 
         properties.put("mail.smtp.auth", "true");
@@ -44,12 +46,8 @@ public class EmailUtil {
                 if(stocks.get(i).getSymbol().equals(transaction.getStockSymbol())){
                     isExisted = true;
                     double quantity = stocks.get(i).getQuantity() + transaction.getTransactionQuantity();
-                    if(quantity > 0){
-                        // new method: setQuantityNormal
-                        stocks.get(i).setQuantityNormal(quantity);
-                    }else{
-                        stocks.remove(i);
-                    }
+                    // new method: setQuantityNormal
+                    stocks.get(i).setQuantityNormal(quantity);
                 }
             }
             if(isExisted == false){
@@ -57,6 +55,11 @@ public class EmailUtil {
                 newStock.setSymbol(transaction.getStockSymbol());
                 newStock.setQuantityNormal(transaction.getTransactionQuantity());
                 stocks.add(newStock);
+            }
+        }
+        for(int i =0; i<stocks.size(); i++){ // remove 0 quantity stock
+            if(stocks.get(i).getQuantity() <= 0){
+                stocks.remove(i);
             }
         }
         return stocks;
@@ -77,8 +80,9 @@ public class EmailUtil {
             System.out.println(change);
             if(abs(change) >= bound) {
                 String subject = "User: " + user.getUsername() + ". One of your stock has significant price change";
-                String html = "<p>Stock Name: " + yahooStock.getName() + "<br>Change In Percent: " + change + "<br>Current Price: $" + price;
-                html += "<br>You currently have " + stock.getQuantity() + " shares</p>";
+                String html = "<h3 >Stock Symbol: " +  yahooStock.getSymbol() + "<br style='padding-right: 5px'>Company: "
+                        + yahooStock.getName() + "<br style='padding-right: 5px'>Change In Percent: " + change + "<br style='padding-right: 5px'>Current Price: $" + df2.format(price);
+                html += "<br>You currently have " + stock.getQuantity() + " shares</h3>";
                 long currentTimestamp = System.currentTimeMillis();
                 if(user.getLastEmailEpochTime() != null){
                     if( (currentTimestamp - user.getLastEmailEpochTime()) > intervalInSec) { //the number is for interval
@@ -117,9 +121,9 @@ public class EmailUtil {
             System.out.println(priceMap);
 
             //ready for email
-            System.out.println("sending Portfolio Update email to " + user.getEmail());
+
             String subject = "Portfolio Update";
-            String html = "<h2>For your portfolio " + portfolioName + " Your current balance is " + balance + "</h2><br>";
+            String html = "<h3>For your portfolio " + portfolioName + ". Your current balance is $" + df2.format(balance) + "</h3><br>";
             html += "<table style='text-align: center' border='1'> <tr> <th>Stock symbol</th> <th>Quantity</th> <th>Price</th> </tr>";
             for (Stock stock : stocks) {
                 html += "<tr><td>";
@@ -127,7 +131,7 @@ public class EmailUtil {
                 html += "</td><td>";
                 html += stock.getQuantity();
                 html += "</td><td>$";
-                html += priceMap.get(stock.getSymbol());
+                html += df2.format(priceMap.get(stock.getSymbol()));
                 html += "</td></tr>";
             }
             html += "</table>";
@@ -140,12 +144,12 @@ public class EmailUtil {
     }
 
     public static boolean sendEmailAboutNews(User user, News news) {
-        String subject = "Portfolio Update";
+        String subject = "Daily News";
 
         String html = "<h1>" + news.getTitle() + "</h1><br>";
         html += "<h3>" + news.getDescription() + "</h3><br>";
         html += "<img src=' " + news.getUrlToImage() + " 'alt= 'imageURL'><br>";
-        html += "<a href='" + news.getUrl() + "'>Click me to read more</a>";
+        html += "<a href='" + news.getUrl() + "'>Click me to read more</a><br>";
         if (EmailUtil.sendEmailHtml(user.getEmail(), subject, html)){
             return true;
         }
@@ -157,10 +161,11 @@ public class EmailUtil {
             System.out.println("email is null");
             return false;
         }
+        System.out.println("Prepare to send email");
         String logoURL = "https://i.imgur.com/bJmwANo.png";
-        String projectName = "apexstocks";
-        html += "<br><br><h2>" + projectName + "</h2>";
-        html += "<br><apexstocks><img src=' " + logoURL + " 'alt='logo' width='200'>";
+        String projectName = "APEX Stocks";
+        html += "<br><img src=' " + logoURL + " 'alt='logo' width='100'>";
+        html += "<h1>" + projectName + "</h1>";
         Session session = createEmailSession();
         try {
             Message message = new MimeMessage(session);
