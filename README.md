@@ -1,15 +1,16 @@
 ![test](https://i.imgur.com/bJmwANo.png)
 # Apex Stocks
-#### CODY ANDERSON, QUINTON LIANG, AARON PARKER
-#### and Revature batch 2021-06-14 Java Enterprise
+#### Reston 2106 Batch
+Apex Stocks is created with the intention of providing a persistent, remote, location where users can track their investment 
+positions. Users are able to persist their stock purchases and sales, see a graph visualization of their current portfolio balance,
+and see stock-specific gains and losses. The backend is built to leverage AlphaVantage and Yahoo Finance to produce real-time
+stock details. This ensures that users will see up-to-date valuations on their current positions. Users can also provide a valid
+email address and receive daily updates on their portfolio performance, as well as receive alerts if prices fluctuate intensely.
 
-
-Portfolio Manager is designed to be a central location for users to track their investment positions. It allows users to enter their stock purchases and sales, which will be reflected in our portfolio, showing both overall and stock-specific gains and losses. It leverages AlphaVantange API and Yahoo Finance to produce real-time stock details. We ensured application security by leveraging JSON Web Tokens and partial integration of Spring Security.
-
-> ### Create your profile
-> * **Sign Up** - create an account one portfolio manager!
+> ### Profile Interactions
+> * **Sign Up** - Create an account on portfolio manager!
 > * **Log In** - Log in to an existing account
-> * **Delete** - delete your account if you no longer have need of it
+> * **Change Password** - Change password with an email verification service
 
 > ### Transactions
 > * **CREATE** - build your portfolios by creating transactions
@@ -33,4 +34,9 @@ Your portfolios can handle groups of holdings. You can see your top holdings for
 ## To-Do
 
 The following things would have been nice to add, given time:
-* search algorithm for stock tickers
+* Search algorithm for stock tickers
+* Add functionality for cryptocurrencies
+* Create an account / sign in with Google or Facebook
+* Password hashing and salting
+
+######contributors: 
