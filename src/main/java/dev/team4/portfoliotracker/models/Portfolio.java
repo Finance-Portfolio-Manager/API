@@ -1,6 +1,7 @@
 package dev.team4.portfoliotracker.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.Objects;
 @Component
 @Entity
 @Table(name = "portfolios")
+@JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class Portfolio {
 
     @Id
@@ -32,8 +34,18 @@ public class Portfolio {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "portfolio")
     private List<Transaction> transactions;
 
-    @OneToMany(targetEntity = Favorites.class, fetch = FetchType.LAZY, mappedBy = "portfolio")
-    private List<User> favorited;
+    public Portfolio(User user, String name, boolean isPublic) {
+        this.user = user;
+        this.name = name;
+        this.isPublic = isPublic;
+    }
+
+    public Portfolio(int portfolioId, User user, String name, boolean isPublic) {
+        this.portfolioId = portfolioId;
+        this.user = user;
+        this.name = name;
+        this.isPublic = isPublic;
+    }
 
     public Portfolio() {
     }

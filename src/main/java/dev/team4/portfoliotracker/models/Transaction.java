@@ -1,5 +1,6 @@
 package dev.team4.portfoliotracker.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,7 @@ import java.util.Objects;
 @Component
 @Entity
 @Table(name = "transactions")
+@JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class Transaction {
 
     @Id
@@ -57,6 +59,14 @@ public class Transaction {
         this.sharePrice = sharePrice;
     }
 
+    public Transaction(int transactionId, Portfolio portfolio, String stockSymbol, double transactionQuantity, BigDecimal sharePrice, LocalDateTime dateTime) {
+        this.transactionId = transactionId;
+        this.portfolio = portfolio;
+        this.stockSymbol = stockSymbol;
+        this.transactionQuantity = transactionQuantity;
+        this.sharePrice = sharePrice;
+        this.dateTime = dateTime;
+    }
 
     public int getTransactionId() {
         return transactionId;

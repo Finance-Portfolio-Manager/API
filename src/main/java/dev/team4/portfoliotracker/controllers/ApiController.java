@@ -1,13 +1,7 @@
 package dev.team4.portfoliotracker.controllers;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import dev.team4.portfoliotracker.services.ApiService;
-import dev.team4.portfoliotracker.util.YahooUtil;
-import io.swagger.models.Response;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,8 +11,6 @@ import dev.team4.portfoliotracker.models.News;
 import dev.team4.portfoliotracker.services.ApiService;
 import io.swagger.models.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,51 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class ApiController {
 
 	@Autowired
-	Environment environment;
-
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-
-	/*
-	@GetMapping(produces = "application/json")
-	public ResponseEntity<String> getStock(@RequestParam(value = "symbol") String stockSymbol) {
-		HttpResponse<String> response = null;
-		String uri = "https://alpha-vantage.p.rapidapi.com/query?function=GLOBAL_QUOTE&symbol=" + stockSymbol + "&datatype=json";
-		try {
-			response = Unirest.get(uri)
-				.header("x-rapidapi-key", "_api_key_")
-				.header("x-rapidapi-host", "alpha-vantage.p.rapidapi.com")
-				.asString();
-		} catch (UnirestException e) {
-			e.printStackTrace();
-		}
-		return new ResponseEntity<String>(response.getBody(), HttpStatus.OK);
-	}
-	*/
-
-	@Autowired
 	ApiService apiService;
-
-	//doesn't use consumed json, but its too late to change it
-	@GetMapping(value = "/all", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<String> getStock(@RequestParam(value = "symbol") List<String> stockSymbols) {
-//		HttpResponse<String> response = null;
-//		StringBuilder uri = new StringBuilder("https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes?region=US&symbols=");
-//		for (String stockSymbol : stockSymbols) {
-//			uri.append(stockSymbol + "%2C");
-//		}
-//		uri.setLength(uri.length()-3);
-//		try {
-//			response = Unirest.get(uri.toString())
-//				.header("x-rapidapi-key", "_api_key_")
-//				.header("x-rapidapi-host", "apidojo-yahoo-finance-v1.p.rapidapi.com")
-//				.asString();
-//		} catch (UnirestException e) {
-//			e.printStackTrace();
-//		}
-
-		//return new ResponseEntity<String>(response.getBody(), HttpStatus.OK);
-		return new ResponseEntity<String>(YahooUtil.getStock(stockSymbols), HttpStatus.OK);
-	}
 
 	/**
 	 * Author: David Garcia

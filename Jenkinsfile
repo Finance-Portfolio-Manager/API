@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+
         stage('Compile') {
             steps {
                 sh 'mvn clean package -Dmaven.test.skip=true'
@@ -14,10 +15,11 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            steps {
-                build 'ApexStocks-Compose'
-            }
-        }
+        /* stage('Deploy') { */
+        /*     steps { */
+        /*         build 'ApexStocks-Compose' */
+        /*     } */
+        /* } */
+
     }
 }
