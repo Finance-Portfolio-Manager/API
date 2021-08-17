@@ -39,4 +39,4 @@ The following things would have been nice to add, given time:
 * Create an account / sign in with Google or Facebook
 * Password hashing and salting
 
-######contributors: Aaron Parker, Apurv Patel, Carlos Galvan, Cody Anderson, Conor Scalf, Curtis Greene-Morgan, David Garcia, Elvis Lee, Fuming Zhao, Greg Mccoy, Kalvin Miller, Marc Hartley, Melanie Duah, Nick Bilotta, Quinton Liang, Rensy T Aikara, Trent Greenman, Wyatt Goettsch
+#####contributors: Aaron Parker, Apurv Patel, Carlos Galvan, Cody Anderson, Conor Scalf, Curtis Greene-Morgan, David Garcia, Elvis Lee, Fuming Zhao, Greg Mccoy, Kalvin Miller, Marc Hartley, Melanie Duah, Nick Bilotta, Quinton Liang, Rensy T Aikara, Trent Greenman, Wyatt Goettsch
