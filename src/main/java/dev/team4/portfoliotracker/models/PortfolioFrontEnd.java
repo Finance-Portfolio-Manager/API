@@ -1,6 +1,7 @@
 package dev.team4.portfoliotracker.models;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,7 +10,7 @@ public class PortfolioFrontEnd {
 
     private String name;
     private int portfolioId;
-    private int userId;
+    private String username;
     private boolean isPublic;
     private BigDecimal value;
     List<Stock> stocks;
@@ -31,7 +32,7 @@ public class PortfolioFrontEnd {
     }
     public PortfolioFrontEnd(Portfolio portfolio) {
         this.portfolioId = portfolio.getPortfolioId();
-        this.userId = portfolio.getUser().getUserId();
+        this.username = portfolio.getUser().getUsername();
         this.name = portfolio.getName();
         this.isPublic = portfolio.getPublic();
         this.transactions = portfolio.getTransactions();
@@ -41,15 +42,6 @@ public class PortfolioFrontEnd {
         this.value = value;
     }
 
-    public PortfolioFrontEnd(String name, int portfolioId, int userId, boolean isPublic, BigDecimal value, List<Stock> stocks, List<Transaction> transactions) {
-        this.name = name;
-        this.portfolioId = portfolioId;
-        this.userId = userId;
-        this.isPublic = isPublic;
-        this.value = value;
-        this.stocks = stocks;
-        this.transactions = transactions;
-    }
 
     public String getName() {
         return name;
@@ -76,12 +68,12 @@ public class PortfolioFrontEnd {
         this.portfolioId = portfolioId;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public List<Transaction> getTransactions() {
@@ -101,7 +93,8 @@ public class PortfolioFrontEnd {
         this.value = BigDecimal.ZERO; //initialize to 0 before adding totals
 
         for (Stock stock : stocks) {
-            this.value = this.value.add(BigDecimal.valueOf(stock.getQuantity()).multiply(stock.getCurrentPrice()));
+            this.value = this.value.add(BigDecimal.valueOf(stock.getQuantity())
+                    .multiply(stock.getCurrentPrice())).setScale(2, RoundingMode.CEILING);
         }
     }
 

@@ -16,7 +16,7 @@ public class PortfolioService {
     PortfolioRepository portfolioRepository;
 
     public Portfolio getPortfolioByPortfolioId(int portfolioId) {
-        return portfolioRepository.getPortfolioByPortfolioId(portfolioId);
+        return portfolioRepository.findPortfolioByPortfolioId(portfolioId);
     }
 
 
@@ -35,5 +35,10 @@ public class PortfolioService {
 
     public List<Portfolio> getAllPortfolios() {
         return portfolioRepository.findAll();
+    }
+
+    public Portfolio deletePortfolio(Portfolio portfolio) {
+        portfolioRepository.delete(portfolio);
+        return portfolio;
     }
 }

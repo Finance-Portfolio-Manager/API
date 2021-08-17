@@ -40,60 +40,9 @@ public class PortfolioTrackerApplication {
 
 	public static void main(String[] args) {
 
+
 		SpringApplication.run(PortfolioTrackerApplication.class, args);
 
-//		yahoofinance.Stock stock = null;
-//
-//		List<String> stockSymbolList = new ArrayList<>();
-//
-//		stockSymbolList.add("AAPL");
-//		stockSymbolList.add("GOOGL");
-//
-//		String[] symbols = new String[] {"INTC", "BABA", "TSLA", "AIR.PA", "YHOO"};
-//		Map<String, yahoofinance.Stock> stocks = null;
-//		try {
-//			stocks = YahooFinance.get(symbols);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		System.out.println(stocks);
-//		yahoofinance.Stock intel = stocks.get("INTC");
-//		yahoofinance.Stock airbus = stocks.get("AIR.PA");
-//		System.out.println(intel);
-//		System.out.println(intel.getQuote().getPrice());
-
-
-
-//		BigDecimal price = stock.getQuote().getPrice();
-//		BigDecimal change = stock.getQuote().getChangeInPercent();
-//
-//		//stock.print();
-//		System.out.println("price is " + price);
-//		System.out.println("change is " + change);
-
-//
-//		BigDecimal price = stock.getQuote().getPrice();
-//		BigDecimal change = stock.getQuote().getChangeInPercent();
-//		BigDecimal peg = stock.getStats().getPeg();
-//		BigDecimal dividend = stock.getDividend().getAnnualYieldPercent();
-//
-//		stock.print();
-//		System.out.println("price is " + price);
-//		System.out.println("change is " + change);
-//		System.out.println("peg is" + peg);
-//		System.out.println("dividend is " + dividend);
-//
-
-
-		//updateUtil.update();
-//
-//		Timer timer = new Timer();
-//		timer.schedule(new TimerTask() {
-//			@Override
-//			public void run() {
-//				System.out.println("send email at: " + new java.util.Date());
-//			}
-//		}, 0, 1000);
 	}
 
 

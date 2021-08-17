@@ -19,16 +19,16 @@
 //class TransactionServiceImplTest {
 //
 //    @InjectMocks
-//    TransactionService transactionService = new TransactionServiceImpl();
+//    TransactionService transactionService = new TransactionService();
 //
 //    @Mock
 //    TransactionRepository transactionRepository;
 //
 //    @Test
 //    void getAllTransactionsByUserId() {
-//        Transaction txn1 = new Transaction(201, "TSLA", 5.32, 690.32, "test1", true);
-//        Transaction txn2 = new Transaction(201, "MSFT", 150.6752, 32.41, "test2", true);
-//        Transaction txn3 = new Transaction(201, "IBM", 13500, 6490.80, "test3", true);
+//        Transaction txn1 = new Transaction("TSLA", 5.32, 690.32, "test1", true);
+//        Transaction txn2 = new Transaction("MSFT", 150.6752, 32.41, "test2", true);
+//        Transaction txn3 = new Transaction("IBM", 13500, 6490.80, "test3", true);
 //        List<Transaction> txns = Arrays.asList(txn1,txn2,txn3);
 //
 //        doReturn(txns).when(transactionRepository).findAllTransactionsByUserId(201);

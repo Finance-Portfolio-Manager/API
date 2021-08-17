@@ -8,10 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/accounts/{user_id}/favorites")
+@RequestMapping("/favorites")
 public class FavoritesController {
 
     @Autowired
@@ -21,13 +19,16 @@ public class FavoritesController {
 
     @PostMapping(consumes = "application/json")
     public ResponseEntity<Favorites> addNewFavorites(@RequestBody Favorites favorites) {
-        Favorites f = favoritesService.addFavorite(favorites);
+        Favorites f = new Favorites();
+        f.setUserId(favorites.getUserId());
+        f.setPortfolioId(favorites.getPortfolioId());
+        favoritesService.addFavorite(f);
         return new ResponseEntity<>(f, HttpStatus.CREATED);
     }
 
     @DeleteMapping(consumes = "application/json")
     public ResponseEntity<Favorites> deleteFavorites(@RequestBody Favorites favorites) {
         favoritesService.deleteFavorite(favorites);
-        return new ResponseEntity<>(favorites, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }

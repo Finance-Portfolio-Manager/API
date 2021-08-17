@@ -1,17 +1,19 @@
 package dev.team4.portfoliotracker.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 
 @Component
 @Entity
 @Table(name = "user_accounts", uniqueConstraints = @UniqueConstraint(columnNames = {"username"}))
+@JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class User {
 
     @Id
@@ -31,20 +33,47 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Portfolio> portfolios;
 
-    @ManyToMany
-    @JoinTable(
-            name = "favorites",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "portfolio_id"))
-    Set<Portfolio> favorites;
+
+    @Column(name = "code")
+    private String code;
+
+    @Column(name = "last_email_epoch_time")
+    private Long lastEmailEpochTime;
+
+    public Long getLastEmailEpochTime() {
+        return lastEmailEpochTime;
+    }
+
+    public void setLastEmailEpochTime(Long lastEmailEpochTime) {
+        this.lastEmailEpochTime = lastEmailEpochTime;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+
 
     public User() {
     }
 
     public User(String email, String username, String password) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(int userId, String email, String username, String password) {
+        this.userId = userId;
         this.email = email;
         this.username = username;
         this.password = password;
@@ -113,7 +142,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", portfolios=" + portfolios +
+//                ", portfolios=" + portfolios +
                 '}';
     }
 }

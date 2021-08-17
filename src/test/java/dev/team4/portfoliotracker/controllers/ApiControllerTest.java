@@ -13,20 +13,49 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
-//import dev.team4.portfoliotracker.models.Stock;
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class ApiControllerTest {
 	
 	private String url = "http://localhost:8082/api";
-	private TestRestTemplate restTemplate = new TestRestTemplate();
 	
 	@Test
-    public void fetchAllQuotes() {
+    public void getSymbolPricesReturnsPriceForArrayOfSymbols() {
+        TestRestTemplate restTemplate = new TestRestTemplate();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> request = new HttpEntity<>("[]", headers);
-        ResponseEntity<String> response = restTemplate.exchange(url + "/all?symbol=AMD", HttpMethod.GET, request, String.class);
+
+        String[] requestSymbols = new String[]{"AMZN", "TSLA"};
+        HttpEntity<String[]> request = new HttpEntity<>(requestSymbols, headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(
+                url + "/get-symbol-prices",
+                HttpMethod.POST,
+                request,
+                String.class);
+
+        System.out.println(response.getBody());
+
+        assertAll(
+                () -> assertNotNull(response.getBody()),
+                () -> assertEquals(200, response.getStatusCodeValue())
+        );
+    }
+
+    @Test
+    public void getProfitAndLossForArrayOfStockSymbols() {
+        TestRestTemplate restTemplate = new TestRestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        String[] requestSymbols = new String[]{"AMZN", "TSLA"};
+        HttpEntity<String[]> request = new HttpEntity<>(requestSymbols, headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(
+                url + "/get-symbol-pnl",
+                HttpMethod.POST,
+                request,
+                String.class);
+
         System.out.println(response.getBody());
 
         assertAll(
@@ -36,3 +65,4 @@ public class ApiControllerTest {
     }
 
 }
+

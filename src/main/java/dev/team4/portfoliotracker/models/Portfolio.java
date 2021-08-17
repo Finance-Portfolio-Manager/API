@@ -1,15 +1,17 @@
 package dev.team4.portfoliotracker.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Component
 @Entity
 @Table(name = "portfolios")
+@JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class Portfolio {
 
     @Id
@@ -18,6 +20,7 @@ public class Portfolio {
     private int portfolioId;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    //ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -27,15 +30,22 @@ public class Portfolio {
     @Column(name = "is_public", columnDefinition = "boolean default false")
     private boolean isPublic;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "portfolio")
     private List<Transaction> transactions;
 
-    @ManyToMany
-    @JoinTable(
-            name = "favorites",
-            joinColumns = @JoinColumn(name = "portfolio_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    Set<User> favorited;
+    public Portfolio(User user, String name, boolean isPublic) {
+        this.user = user;
+        this.name = name;
+        this.isPublic = isPublic;
+    }
+
+    public Portfolio(int portfolioId, User user, String name, boolean isPublic) {
+        this.portfolioId = portfolioId;
+        this.user = user;
+        this.name = name;
+        this.isPublic = isPublic;
+    }
 
     public Portfolio() {
     }
@@ -76,6 +86,10 @@ public class Portfolio {
         this.transactions = transactions;
     }
 
+    public void setPortfolioId(int portfolioId) {
+        this.portfolioId = portfolioId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -93,9 +107,9 @@ public class Portfolio {
     public String toString() {
         return "Portfolio{" +
                 "portfolioId=" + portfolioId +
-                ", user=" + user +
+//                ", user=" + user +
                 ", isPublic=" + isPublic +
-                ", transactions=" + transactions +
+//                ", transactions=" + transactions +
                 '}';
     }
 }
