@@ -1,4 +1,5 @@
-# Project Manager
+![test](https://i.imgur.com/bJmwANo.png)
+# Apex Stocks
 #### CODY ANDERSON, QUINTON LIANG, AARON PARKER
 #### and Revature batch 2021-06-14 Java Enterprise
 
