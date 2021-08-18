@@ -19,19 +19,20 @@ email address and receive daily updates on their portfolio performance, as well 
 > * **BUY/SELL** - indicate whether transaction was a buy or sell
 > * **WHAT-IF** - mitigate some risk by using a virtual portfolio
 
-## How to use
-### Create an account
-Enter your information on the register page to create an account
+>## How to use
+>### Create an account
+>Enter your information on the register page to create an account
+>### Create a portfolio
+>Create a portfolio to handle a group of holdings
+>### Add transactions
+>Enter the stock, number of shares, price you paid(or would have liked to have paid), and a note if you'd like
+>### View your portfolios
+>Your portfolios can handle groups of holdings. You can see your top holdings for each portfolio and add or delete portfolios.
 
-### Create a portfolio
-Create a portfolio to handle a group of holdings
-
-### Add transactions
-Enter the stock, number of shares, price you paid(or would have liked to have paid), and a note if you'd like
-
-### View your portfolios
-Your portfolios can handle groups of holdings. You can see your top holdings for each portfolio and add or delete portfolios.
-
+>## Deployment
+>* The deployed front-end and backend leverage a compose file which runs the full-stack application. An Nginx reverse proxy 
+>routes requests to the same global address on port 80 to the backend and the frontend. 
+>* Read more: [Docker Compose ReadMe](https://github.com/Finance-Portfolio-Manager/Compose)
 
 ## To-Do
 
@@ -42,6 +43,5 @@ The following things would have been nice to add, given time:
 * Password hashing and salting
 
 ## License
-
 
 ###### Contributors: Aaron Parker, Apurv Patel, Carlos Galvan, Cody Anderson, Conor Scalf, Curtis Greene-Morgan, David Garcia, Elvis Lee, Fuming Zhao, Greg Mccoy, Kalvin Miller, Marc Hartley, Melanie Duah, Nick Bilotta, Quinton Liang, Rensy T Aikara, Trent Greenman, Wyatt Goettsch
