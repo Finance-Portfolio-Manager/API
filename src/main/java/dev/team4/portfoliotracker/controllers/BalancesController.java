@@ -41,7 +41,6 @@ public class BalancesController {
                     indexTracker++;
                 }
             }
-            indexTracker++;
         }
         while(filteredList.size()<14){
             filteredList.add(balance);
