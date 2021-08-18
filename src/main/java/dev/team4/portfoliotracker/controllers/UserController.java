@@ -3,6 +3,7 @@ package dev.team4.portfoliotracker.controllers;
 import dev.team4.portfoliotracker.models.User;
 import dev.team4.portfoliotracker.services.UserDetailsService;
 import dev.team4.portfoliotracker.security.JwtUtility;
+import dev.team4.portfoliotracker.util.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +23,10 @@ public class UserController {
     private JwtUtility jwtUtility;
 
 
-//    @GetMapping(produces = "application/json")
-//    public ResponseEntity<List<User>> getAllAccounts() {
-//        return new ResponseEntity<>(userDetailsService.checkAllUser(), HttpStatus.OK);
-//    }
+    @GetMapping(produces = "application/json")
+    public ResponseEntity<List<User>> getAllAccounts() {
+        return new ResponseEntity<>(userDetailsService.checkAllUser(), HttpStatus.OK);
+    }
 
 
     @GetMapping(value = "/{username}")
@@ -35,10 +36,10 @@ public class UserController {
 
     @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<User> createNewUser(@RequestBody User user){
-//        System.out.println("create");
-//        String subject = "Thank you for creating an account";
-//        String text = "Your username is " + user.getUsername();
-//        EmailUtil.sendEmail(user.getEmail(), subject, text);
+        System.out.println("create");
+        String subject = "Thank you for creating an account";
+        String text = "Your username is " + user.getUsername();
+        EmailUtil.sendEmail(user.getEmail(), subject, text);
 
         return new ResponseEntity<User>(userDetailsService.createUser(user), HttpStatus.CREATED);
     }
