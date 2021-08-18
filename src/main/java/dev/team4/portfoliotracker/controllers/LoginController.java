@@ -42,6 +42,7 @@ public class LoginController {
 
     @GetMapping(produces = "application/json")
     public ResponseEntity<User> getUserByToken(@RequestParam(value = "token") String token) {
+        System.out.println("HELLLLLO");
         return new ResponseEntity<>(userDetailsService.getUserByUsername(jwtUtility.getUsernameFromToken(token)), HttpStatus.OK);
     }
 

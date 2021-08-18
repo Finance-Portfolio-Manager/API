@@ -35,7 +35,7 @@ public class UserDetailsService implements org.springframework.security.core.use
         if(user.getUsername() == null){
             throw new UsernameNotFoundException(user.getUsername());
         } else {
-            userRepository.delete(user);
+            userRepository.deleteById(userRepository.findByUsername(user.getUsername()).getUserId());
         }
     }
 
