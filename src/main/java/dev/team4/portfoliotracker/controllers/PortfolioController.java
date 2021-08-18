@@ -84,7 +84,7 @@ public class PortfolioController {
                 }
             }
 
-
+            portStocks.removeIf(stock -> stock.getQuantity() == 0);
             //Compile remaining details about the portfolio before adding to response list
             portObj.setStocks(portStocks);
             portObj.setValue(portStocks);
@@ -158,7 +158,7 @@ public class PortfolioController {
                 }
             }
 
-
+            portStocks.removeIf(stock -> stock.getQuantity() == 0);
 
             //Compile remaining details about the portfolio before adding to response list
             portObj.setStocks(portStocks);
@@ -188,6 +188,7 @@ public class PortfolioController {
             PortfolioFrontEnd portObj = new PortfolioFrontEnd(portfolio);
             //Will rely on creating List of Stock objects with transaction methods
             portObj.setTransactions(transactionService.getAllTransactionsByPortfolio(portfolio));
+            List<Transaction> transactionList = portObj.getTransactions();
 
             //List of stocks to be assigned to the portfolio
             List<Stock> portStocks = new ArrayList<>();
@@ -195,7 +196,7 @@ public class PortfolioController {
             List<String> symbols = new ArrayList<>();
 
             //Create the list of Stock objects
-            for (Transaction transaction : portObj.getTransactions()) {
+            for (Transaction transaction : transactionList) {
                 //At each transaction, check if a stock symbol has been recorded
 
                 if (symbols.contains(transaction.getStockSymbol())) {
@@ -213,19 +214,19 @@ public class PortfolioController {
 
                 }
 
-                //After making the list of stocks and initializing their first quantity, update all quantities
-                for (Stock stock : portStocks) {
-                    //The method named here has not been created at the time of writing, but its function is planned
-                    //will return list of transactions from a portfolio that matches one stock symbol
-                    List<Transaction> relevantTransactions = transactionService.getTransactionsByPortfolioAndStockSymbol(portfolio, stock.getSymbol());
-                    stock.setQuantity(relevantTransactions);
-                    stock.setAvgBuyPrice(relevantTransactions);
-                    stock.setCurrentPrice();
-                    stock.setChangePercentage();
-                }
+            }
+            //After making the list of stocks and initializing their first quantity, update all quantities
+            for (Stock stock : portStocks) {
+                //The method named here has not been created at the time of writing, but its function is planned
+                //will return list of transactions from a portfolio that matches one stock symbol
+                List<Transaction> relevantTransactions = transactionService.getTransactionsByPortfolioAndStockSymbol(portfolio, stock.getSymbol());
+                stock.setQuantity(relevantTransactions);
+                stock.setAvgBuyPrice(relevantTransactions);
+                stock.setCurrentPrice();
+                stock.setChangePercentage();
             }
 
-
+            portStocks.removeIf(stock -> stock.getQuantity() == 0);
 
             //Compile remaining details about the portfolio before adding to response list
             portObj.setStocks(portStocks);

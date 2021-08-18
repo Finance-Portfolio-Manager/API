@@ -101,6 +101,17 @@ public class UserControllerTest {
     }
 
 
+    @Test
+    public void getUserFromUsername() {
+        TestRestTemplate restTemplate = new TestRestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> request = new HttpEntity<>(headers);
+        ResponseEntity<?> response = restTemplate.getForEntity("http://localhost:8082/users/u1", User.class);
+        System.out.println(request.getBody());
+        System.out.println(response.getBody());
+    }
+
 
     @Test
     public void deleteSuccess() {
