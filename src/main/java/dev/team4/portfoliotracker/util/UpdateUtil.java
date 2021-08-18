@@ -44,10 +44,10 @@ public class UpdateUtil {
 
 
     public int sendUpdateNews(){
-        
+       News news = new News();
        List<News> newsList = newsService.getNewsList();
        if(newsList.size() >0){
-           News news = newsList.get(newsList.size()-1)
+           news = newsList.get(newsList.size()-1);
        }
 
         
