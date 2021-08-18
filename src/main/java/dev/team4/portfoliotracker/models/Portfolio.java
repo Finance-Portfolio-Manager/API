@@ -50,6 +50,8 @@ public class Portfolio {
     public Portfolio() {
     }
 
+
+
     public int getPortfolioId() {
         return portfolioId;
     }
