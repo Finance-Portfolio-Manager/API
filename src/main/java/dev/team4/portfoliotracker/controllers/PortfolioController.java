@@ -84,7 +84,7 @@ public class PortfolioController {
                 }
             }
 
-
+            portStocks.removeIf(stock -> stock.getQuantity() == 0);
             //Compile remaining details about the portfolio before adding to response list
             portObj.setStocks(portStocks);
             portObj.setValue(portStocks);
@@ -158,7 +158,7 @@ public class PortfolioController {
                 }
             }
 
-
+            portStocks.removeIf(stock -> stock.getQuantity() == 0);
 
             //Compile remaining details about the portfolio before adding to response list
             portObj.setStocks(portStocks);
@@ -225,6 +225,8 @@ public class PortfolioController {
                 stock.setCurrentPrice();
                 stock.setChangePercentage();
             }
+
+            portStocks.removeIf(stock -> stock.getQuantity() == 0);
 
             //Compile remaining details about the portfolio before adding to response list
             portObj.setStocks(portStocks);
