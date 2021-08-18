@@ -7,7 +7,7 @@ and see stock-specific gains and losses. The backend is built to leverage AlphaV
 stock details. This ensures that users will see up-to-date valuations on their current positions. Users can also provide a valid
 email address and receive daily updates on their portfolio performance, as well as receive alerts if prices fluctuate intensely.
 
-####Visit the website: [apexstocks.xyz](apexstocks.xyz)
+#### Visit the website: [apexstocks.xyz](apexstocks.xyz)
 
 > ### Profile Interactions
 > * **Sign Up** - Create an account on portfolio manager!
