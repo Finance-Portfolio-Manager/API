@@ -34,6 +34,7 @@ public class PortfolioController {
     TransactionService transactionService;
 
     @GetMapping("/{id}")
+    @Transactional
     public ResponseEntity<List<PortfolioFrontEnd>> getPortfoliosByUserId(@PathVariable("id")int id) {
         //List of portfolios mapped to database returned by the service method
         User user = userDetailsService.getUserByUserId(id);
@@ -98,6 +99,7 @@ public class PortfolioController {
     }
 
     @GetMapping("/{id}/favorites")
+    @Transactional
     public ResponseEntity<List<PortfolioFrontEnd>> getFavoritesByUserId(@PathVariable("id")int id) {
         //Similar process to creating the user's portfolios, but using the favorites table to grab the IDs
 
@@ -174,6 +176,7 @@ public class PortfolioController {
     }
 
     @GetMapping(value = "/public", produces = "application/json")
+    @Transactional
     public ResponseEntity<List<PortfolioFrontEnd>> getAllPublicPortfolios() {
         //Similar process to creating the user's portfolios, but grabbing all public ports
 
